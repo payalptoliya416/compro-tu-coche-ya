@@ -1,28 +1,59 @@
 ---
 import { Icon } from 'astro-icon/components';
-const { href, variant = 'primary', size = 'md', icon = true, class: cls = '', type = 'button' } = Astro.props;
-const styles = {
+
+type Variant = 'primary' | 'navy' | 'white';
+type Size = 'sm' | 'md';
+
+const {
+  href,
+  variant = 'primary',
+  size = 'md',
+  icon = true,
+  class: cls = '',
+  type = 'button',
+} = Astro.props as {
+  href?: string;
+  variant?: Variant;
+  size?: Size;
+  icon?: boolean;
+  class?: string;
+  type?: 'button' | 'submit' | 'reset';
+};
+
+const styles: Record<Variant, string> = {
   primary: 'bg-brand text-white hover:bg-brand-dark',
   navy: 'bg-navy text-white hover:bg-navy-deep',
   white: 'bg-white text-navy hover:bg-white/90',
 };
-const circle = {
+const circle: Record<Variant, string> = {
   primary: 'bg-white text-brand',
   navy: 'bg-white text-navy',
   white: 'bg-navy text-white',
 };
-const sizes = { sm: 'h-10 pl-5 pr-1.5 text-[13px] gap-3', md: 'h-11 pl-6 pr-1.5 text-sm gap-3' };
-const Tag = href ? 'a' : 'button';
+const sizes: Record<Size, string> = {
+  sm: 'h-11 pl-5 pr-1.5 text-base gap-3',
+  md: 'h-11 pl-6 pr-1.5 text-sm gap-3',
+};
+
+const base = 'inline-flex shrink-0 items-center justify-center rounded-full font-semibold transition-colors';
+const classes = [base, styles[variant], sizes[size], cls].filter(Boolean).join(' ');
 ---
-<Tag
-  href={href}
-  type={href ? undefined : type}
-  class:list={['inline-flex shrink-0 items-center justify-center rounded-full font-semibold transition-colors', styles[variant], sizes[size], cls]}
->
-  <span><slot /></span>
-  {icon && (
-    <span class:list={['grid size-8 place-items-center rounded-full', circle[variant]]}>
-      <Icon name="lucide:arrow-up-right" class="size-4" />
-    </span>
-  )}
-</Tag>
+{href ? (
+  <a href={href} class={classes}>
+    <span><slot /></span>
+    {icon && (
+      <span class:list={['grid size-8 place-items-center rounded-full', circle[variant]]}>
+        <Icon name="lucide:arrow-up-right" class="size-4" />
+      </span>
+    )}
+  </a>
+) : (
+  <button type={type} class={classes}>
+    <span><slot /></span>
+    {icon && (
+      <span class:list={['grid size-8 place-items-center rounded-full', circle[variant]]}>
+        <Icon name="lucide:arrow-up-right" class="size-4" />
+      </span>
+    )}
+  </button>
+)}

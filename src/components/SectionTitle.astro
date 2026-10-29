@@ -1,7 +1,7 @@
 ---
 const { title, text, align = 'center', class: cls = '' } = Astro.props;
 ---
-<div class:list={['mb-8 max-w-2xl md:mb-12', align === 'center' && 'mx-auto text-center', cls]}>
+<div class:list={['mb-8 md:mb-12', align === 'center' && 'mx-auto text-center', cls]}>
   <h2 class="h2">{title}</h2>
-  {text && <p class="lead mt-2">{text}</p>}
+  {text && <p class="lead mt-3">{text}</p>}
 </div>

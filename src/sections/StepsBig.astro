@@ -2,17 +2,17 @@
 import Section from '../components/Section.astro';
 import SectionTitle from '../components/SectionTitle.astro';
 const { title, text, steps, gray = false } = Astro.props;
-const offsets = ['md:mt-0', 'md:mt-6', 'md:mt-10', 'md:mt-14'];
+const offsets = ['md:mt-10', 'md:mt-24', 'md:mt-32', 'md:mt-42'];
 ---
 <Section gray={gray}>
   <SectionTitle title={title} text={text} />
-  <ol class="grid gap-y-8 sm:grid-cols-2 md:grid-cols-4">
+  <ol class="grid gap-y-6 sm:grid-cols-2 md:grid-cols-4">
     {steps.map((s, i) => (
-      <li class="border-line px-6 md:border-l md:first:border-l-0 md:min-h-[250px]">
-        <div class:list={['relative min-h-[150px] pt-10', offsets[i]]}>
-          <span class="pointer-events-none absolute -top-2 right-0 select-none text-[96px] font-extrabold leading-none text-slate-200/70 md:text-[110px]" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
-          <h3 class="relative text-[15px] font-semibold text-navy md:max-w-[150px]">{s.title}</h3>
-          <p class="relative mt-2 max-w-[200px] text-[13px] leading-relaxed text-muted">{s.text}</p>
+      <li class="border-line px-5 md:border-l md:first:border-l-0 md:px-6">
+        <div class:list={['relative min-h-[180px] pt-12', offsets[i]]}>
+          <span class="pointer-events-none absolute -right-10 top-[20%] -translate-y-1/2 -rotate-90 select-none text-[110px] font-bold leading-none text-[#F2F4F6] md:text-[130px]" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+          <h3 class="relative text-base font-medium leading-snug text-[#354D6E] md:max-w-[160px]">{s.title}</h3>
+          <p class="relative mt-3 max-w-[200px] text-sm leading-relaxed text-[#677A92]">{s.text}</p>
         </div>
       </li>
     ))}

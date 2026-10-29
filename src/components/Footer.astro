@@ -5,44 +5,95 @@ import CtaBanner from './CtaBanner.astro';
 import { nav, contact } from '../data/site';
 const company = [...nav];
 const aid = [['Frequently Asked Questions', '#faq'], ['Documentation', '#'], ['Privacy Policy', '#']];
-const socials = ['lucide:instagram', 'lucide:facebook', 'lucide:twitter'];
+const socials = [
+  { icon: 'lucide:instagram', label: 'Instagram' },
+  { icon: 'lucide:facebook', label: 'Facebook' },
+  { icon: 'lucide:twitter', label: 'Twitter' },
+];
 ---
-<footer class="frame mt-12 pb-3 md:mt-20 md:pb-5">
-  <div class="wrap relative z-10 !px-0 sm:!px-6"><CtaBanner /></div>
-  <div class="-mt-[5.5rem] rounded-3xl bg-navy-deep pb-8 pt-40 text-white md:pt-44">
-    <div class="wrap">
-      <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.3fr_1fr_1fr_1fr]">
+<footer class="px-[30px] mt-14 sm:mt-20 md:mt-24 pb-4 md:pb-6">
+  <!-- CTA Banner overlapping the footer top -->
+  <div class="relative z-10 mx-auto w-full max-w-[1170px] px-2 sm:px-6">
+    <CtaBanner />
+  </div>
+
+  <!-- Dark navy card with rounded corners -->
+  <div class="-mt-28 sm:-mt-32 md:-mt-36 rounded-[28px] md:rounded-[36px] bg-navy-deep text-white pt-36 sm:pt-42 md:pt-48 pb-8 md:pb-10 shadow-xl">
+    <div class="mx-auto w-full max-w-[1170px] px-5 sm:px-8 md:px-10">
+      <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.3fr_1fr_1fr_1.1fr] pt-2">
+        <!-- Brand & Description -->
         <div>
           <Logo light />
-          <p class="mt-5 max-w-[200px] text-sm text-white/80">The easiest and safest way to sell your car in Spain.</p>
-          <div class="mt-5 flex gap-2">
-            {socials.map((s) => <a href="#" aria-label={s.split(':')[1]} class="grid size-9 place-items-center rounded-full border border-white/25 text-white/80 transition-colors hover:border-brand hover:text-brand"><Icon name={s} class="size-4" /></a>)}
+          <p class="mt-4 max-w-[240px] text-[13px] md:text-sm leading-relaxed text-white/75">
+            The easiest and safest way to sell your car in Spain.
+          </p>
+          <div class="mt-5 flex items-center gap-2.5">
+            {socials.map((s) => (
+              <a
+                href="#"
+                aria-label={s.label}
+                class="grid size-9 place-items-center rounded-full border border-white/20 text-white/80 transition-all duration-200 hover:border-brand hover:text-brand hover:bg-white/5 hover:scale-105 active:scale-95"
+              >
+                <Icon name={s.icon} class="size-4" />
+              </a>
+            ))}
           </div>
         </div>
+
+        <!-- Company Links -->
         <div>
-          <h3 class="mb-4 text-sm font-semibold">Company</h3>
+          <h3 class="mb-4 text-sm font-semibold tracking-wide text-white">Company</h3>
           <ul class="space-y-2.5 text-[13px] text-white/70">
-            {company.map((l) => <li><a href={l.href} class="hover:text-white">{l.label}</a></li>)}
+            {company.map((l) => (
+              <li>
+                <a href={l.href} class="transition-colors hover:text-white hover:underline underline-offset-4">
+                  {l.label}
+                </a>
+              </li>
+            ))}
           </ul>
         </div>
+
+        <!-- Aid Links -->
         <div>
-          <h3 class="mb-4 text-sm font-semibold">Aid</h3>
+          <h3 class="mb-4 text-sm font-semibold tracking-wide text-white">Aid</h3>
           <ul class="space-y-2.5 text-[13px] text-white/70">
-            {aid.map(([t, h]) => <li><a href={h} class="hover:text-white">{t}</a></li>)}
+            {aid.map(([t, h]) => (
+              <li>
+                <a href={h} class="transition-colors hover:text-white hover:underline underline-offset-4">
+                  {t}
+                </a>
+              </li>
+            ))}
           </ul>
         </div>
+
+        <!-- Contact Info -->
         <div>
-          <h3 class="mb-4 text-sm font-semibold">Contact</h3>
+          <h3 class="mb-4 text-sm font-semibold tracking-wide text-white">Contact</h3>
           <ul class="space-y-2.5 text-[13px] text-white/70">
-            <li class="flex items-center gap-2"><Icon name="lucide:phone" class="size-3.5" />{contact.phone}</li>
-            <li class="flex items-center gap-2"><Icon name="lucide:mail" class="size-3.5" />{contact.email}</li>
-            <li class="flex items-center gap-2"><Icon name="lucide:map-pin" class="size-3.5" />{contact.place}</li>
+            <li class="flex items-center gap-2.5">
+              <Icon name="lucide:phone" class="size-3.5 shrink-0 text-white/70" />
+              <span>{contact.phone}</span>
+            </li>
+            <li class="flex items-center gap-2.5">
+              <Icon name="lucide:mail" class="size-3.5 shrink-0 text-white/70" />
+              <span>{contact.email}</span>
+            </li>
+            <li class="flex items-center gap-2.5">
+              <Icon name="lucide:map-pin" class="size-3.5 shrink-0 text-white/70" />
+              <span>{contact.place}</span>
+            </li>
           </ul>
         </div>
       </div>
-      <div class="mt-10 flex flex-col gap-2 border-t border-white/10 pt-6 text-xs text-white/70 sm:flex-row sm:justify-between">
+
+      <!-- Copyright bar -->
+      <div class="mt-12 sm:mt-16 flex flex-col gap-3 border-t border-white/10 pt-6 text-xs text-white/60 sm:flex-row sm:items-center sm:justify-between">
         <p>© 2025 | Buy Your Car Now. All rights reserved.</p>
-        <p>Privacy policy • Terms and conditions</p>
+        <p class="transition-colors hover:text-white/80">
+          <a href="#" class="hover:underline">Privacy policy</a> • <a href="#" class="hover:underline">Terms and conditions</a>
+        </p>
       </div>
     </div>
   </div>

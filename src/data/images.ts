@@ -4,7 +4,16 @@ const EXT = 'svg'; // <- change to 'jpg' / 'webp' after replacing the placeholde
 const p = (name: string) => `/images/${name}.${EXT}`;
 
 export const images = {
-  heroHome: p('hero-home'),
+  // Real PNG images (user-provided)
+  heroHome: '/images/home-hero.png',
+  logo: '/images/logo.png',
+  sellBg: '/images/sell-bg.png',
+  typeGasoline: '/images/slide01.png',
+  typeDiesel: '/images/slide02.png',
+  typeHybrid: '/images/slide03.png',
+  typeElectric: '/images/slide04.png',
+
+  // Placeholder SVGs (replace later)
   heroSell: p('hero-sell'),
   heroAbout: p('hero-about'),
   heroHow: p('hero-how'),
@@ -32,8 +41,4 @@ export const images = {
   carAudi: p('car-audi'),
   carMercedes: p('car-mercedes'),
   carCitroen: p('car-citroen'),
-  typeGasoline: p('type-gasoline'),
-  typeDiesel: p('type-diesel'),
-  typeHybrid: p('type-hybrid'),
-  typeElectric: p('type-electric'),
 };

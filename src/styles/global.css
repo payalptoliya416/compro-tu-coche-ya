@@ -1,18 +1,17 @@
 @import "tailwindcss";
-@import "@fontsource-variable/plus-jakarta-sans";
 
 /* ============================================================
    DESIGN TOKENS — change colors / font HERE only (one place)
    ============================================================ */
 @theme {
-  --font-sans: "Plus Jakarta Sans Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Rubik", sans-serif;
 
-  --color-brand: #ff5a0f;       /* orange: buttons, highlights, active links */
+  --color-brand: #FD570F;       /* orange: buttons, highlights, active links */
   --color-brand-dark: #e64a04;  /* orange hover */
-  --color-navy: #0b2a5b;        /* headings, dark sections */
+  --color-navy: #02214A;        /* headings, dark sections */
   --color-navy-deep: #06224d;   /* footer / darkest navy */
   --color-muted: #5c6c8c;       /* paragraph text */
-  --color-surface: #f3f4f6;     /* light grey sections / FAQ rows */
+  --color-surface: #F2F4F6;     /* light grey sections / FAQ rows */
   --color-line: #e6e9ef;        /* borders */
   --color-eu: #0a3ea8;          /* blue EU strip on plate input */
   --color-star: #fbbf24;        /* review stars */
@@ -24,10 +23,10 @@
 }
 
 @layer components {
-  .frame { @apply mx-auto w-full max-w-[1600px] px-3 md:px-5; }
-  .wrap  { @apply mx-auto w-full max-w-[1120px] px-4 sm:px-6; }
-  .h2    { @apply text-2xl font-bold tracking-tight text-navy md:text-[32px] md:leading-tight; }
-  .lead  { @apply text-sm text-muted md:text-base; }
+  .frame { @apply mx-auto w-full max-w-[1440px] px-4 md:px-8; }
+  .wrap  { @apply mx-auto w-full max-w-[1170px] px-4 sm:px-6; }
+  .h2    { @apply text-2xl font-medium tracking-tight text-navy md:text-[36px] md:leading-tight; }
+  .lead  { @apply text-base md:text-base text-[#677A92]; }
   .no-scrollbar { scrollbar-width: none; }
   .no-scrollbar::-webkit-scrollbar { display: none; }
 }

@@ -12,6 +12,8 @@ import Stats from '../sections/Stats.astro';
 import Testimonials from '../sections/Testimonials.astro';
 import Faq from '../sections/Faq.astro';
 import { images } from '../data/images';
+import 'swiper/css';
+import 'swiper/css/navigation';
 
 const features = [
   ['lucide:star', 'Free valuation', 'No cost or obligation'],
@@ -44,26 +46,41 @@ const brands = [['simple-icons:bmw', 'BMW'], ['simple-icons:mercedes', 'Mercedes
 ---
 <Layout title="Sell your car today">
   <!-- Hero -->
-  <section class="frame">
-    <div class="relative isolate overflow-hidden rounded-3xl bg-navy-deep text-white">
-      <img src={images.heroHome} alt="" class="absolute inset-0 -z-20 size-full object-cover" />
-      <div class="absolute inset-0 -z-10 bg-black/55"></div>
-      <div class="wrap flex min-h-[520px] flex-col items-center justify-center py-16 text-center md:min-h-[620px]">
-        <Badge>Sell your car today in Spain</Badge>
-        <h1 class="max-w-3xl text-3xl font-bold leading-tight tracking-tight sm:text-4xl md:text-[46px]">
-          Sell your car today.<br /><span class="text-brand">Fast, easy,</span> and at the best price.
+  <section class="w-full p-[30px]">
+    <div class="relative isolate overflow-hidden text-white rounded-[26px] h-[860px]">
+      <!-- Background photo -->
+      <img src={images.heroHome} alt="" class="absolute inset-0 -z-20 size-full object-cover object-center" />
+
+      <div class="mx-auto flex w-full max-w-[1170px] min-h-[calc(100vh-76px)] flex-col items-center justify-center px-4 py-16 text-center sm:px-6">
+        <!-- Pill badge -->
+        <Badge>Sell your car today in Spain.</Badge>
+
+        <!-- Main headline -->
+        <h1 class="max-w-4xl text-[30px] font-medium leading-[1.2] tracking-tight sm:text-[40px] md:text-[52px]">
+          Sell your car today.<br />
+          <span class="text-brand">Fast, easy,</span> and at the best price.
         </h1>
-        <p class="mt-4 max-w-md text-sm text-white/90">Find out what your car is worth and start the selling process in just a few minutes.</p>
-        <p class="mb-2 mt-6 text-xs">Enter your license plate number</p>
+
+        <!-- Sub-text -->
+        <p class="mt-4 text-sm font-light leading-relaxed text-white sm:text-base">
+          Find out what your car is worth and start the selling process in just a few minutes.
+        </p>
+
+        <!-- Label above input -->
+        <p class="mb-[15px] mt-8 text-sm sm:text-base font-normal text-white tracking-wide">Enter your license plate number</p>
+
+        <!-- License plate form -->
         <PlatePill />
-        <TrustRow class="mt-3" />
+
+        <!-- Trust badges -->
+        <TrustRow class="mt-4" />
       </div>
     </div>
   </section>
 
   <!-- Feature strip -->
-  <section class="frame mt-3">
-    <ul class="grid grid-cols-2 gap-5 rounded-2xl bg-surface px-5 py-5 lg:grid-cols-4 lg:gap-0">
+  <section class="pt-[30px]">
+    <ul class="grid grid-cols-2 gap-5 rounded-2xl bg-surface px-5 py-8 lg:grid-cols-4 lg:gap-0">
       {features.map(([i, t, s]) => (
         <li class="flex items-center justify-center gap-3 lg:border-l lg:border-slate-300/60 lg:first:border-l-0">
           <Icon name={i} class="size-5 shrink-0 text-muted" />
@@ -77,40 +94,67 @@ const brands = [['simple-icons:bmw', 'BMW'], ['simple-icons:mercedes', 'Mercedes
   <WhyCards gray title="Why sell your car with us?" items={why} />
 
   <!-- Types carousel -->
-  <Section>
-    <div class="mb-8 flex items-end justify-between gap-4">
+  <section class="py-12 md:py-16 overflow-hidden">
+    <div class="wrap mb-8 flex items-end justify-between gap-4">
       <div>
         <h2 class="h2">We buy all types of cars.</h2>
         <p class="lead mt-2">Whatever car you drive, we want to get to know it.</p>
       </div>
-      <div class="flex gap-2">
-        <button type="button" data-dir="-1" aria-label="Previous" class="types-btn grid size-9 place-items-center rounded-full border border-line text-navy hover:border-brand hover:text-brand"><Icon name="lucide:chevron-left" class="size-4" /></button>
-        <button type="button" data-dir="1" aria-label="Next" class="types-btn grid size-9 place-items-center rounded-full border border-line text-navy hover:border-brand hover:text-brand"><Icon name="lucide:chevron-right" class="size-4" /></button>
+      <div class="flex gap-2.5">
+        <button
+          type="button"
+          aria-label="Previous"
+          class="swiper-btn-prev grid size-10 place-items-center rounded-full border border-[#CCD3DB] text-navy transition-all duration-200 hover:border-brand hover:text-brand hover:scale-105 active:scale-95 disabled:opacity-30 disabled:pointer-events-none cursor-pointer"
+        >
+          <Icon name="lucide:chevron-left" class="size-5" />
+        </button>
+        <button
+          type="button"
+          aria-label="Next"
+          class="swiper-btn-next grid size-10 place-items-center rounded-full border border-[#CCD3DB] text-navy transition-all duration-200 hover:border-brand hover:text-brand hover:scale-105 active:scale-95 disabled:opacity-30 disabled:pointer-events-none cursor-pointer"
+        >
+          <Icon name="lucide:chevron-right" class="size-5" />
+        </button>
       </div>
     </div>
-    <div id="types" class="no-scrollbar -mr-4 flex snap-x gap-4 overflow-x-auto scroll-smooth sm:-mr-6 lg:-mr-[calc((100vw-1120px)/2)]">
-      {types.map(([t, img]) => (
-        <div class="relative aspect-[4/3] w-[260px] shrink-0 snap-start overflow-hidden rounded-xl bg-navy">
-          <img src={img} alt={t} class="size-full object-cover" loading="lazy" />
-          <div class="absolute inset-0 bg-linear-to-t from-black/60 to-transparent"></div>
-          <span class="absolute bottom-3 left-4 text-sm font-semibold text-white">{t}</span>
+
+    <!-- Swiper container bleeding outside to the right -->
+    <div class="w-full pl-4 sm:pl-6 xl:pl-[calc((100vw-1170px)/2+1.5rem)]">
+      <div class="swiper types-swiper !overflow-visible">
+        <div class="swiper-wrapper">
+          {types.map(([t, img]) => (
+            <div class="swiper-slide !w-[270px] sm:!w-[310px] md:!w-[340px] lg:!w-[360px] shrink-0">
+              <div class="group relative aspect-[16/11] overflow-hidden rounded-[14px] transition-shadow duration-300 hover:shadow-xl">
+                <img
+                  src={img}
+                  alt={t}
+                  class="size-full object-cover transition-transform duration-500 group-hover:scale-105 select-none pointer-events-none"
+                  loading="lazy"
+                  draggable="false"
+                />
+                <span class="absolute bottom-4 inset-x-0 text-center text-sm md:text-lg font-semibold text-white tracking-wide pointer-events-none">
+                  {t}
+                </span>
+              </div>
+            </div>
+          ))}
         </div>
-      ))}
+      </div>
     </div>
-  </Section>
+  </section>
 
   <Stats />
 
   <!-- Special situations -->
   <Section>
     <SectionTitle title="Is your car in a special situation?" text="We have solutions for every case." />
-    <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    <ul class="grid gap-5 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
       {special.map(([i, t, s]) => (
-        <li class="rounded-xl bg-white p-5 shadow-[0_10px_30px_rgba(11,42,91,0.07)]">
-          <span class="mb-4 grid size-8 place-items-center rounded-full bg-surface text-navy"><Icon name={i} class="size-4" /></span>
-          <h3 class="text-[14px] font-semibold text-navy">{t}</h3>
-          <p class="mt-1 text-[12.5px] text-muted">{s}</p>
-          <a href="/sell-your-car" class="mt-3 inline-flex items-center gap-1 text-[12px] font-semibold text-brand">Learn more <Icon name="lucide:chevron-right" class="size-3" /></a>
+        <li class="rounded-[18px] bg-white p-10 border border-[#E6E9ED]">
+          <span class="mb-4 grid size-[50px] place-items-center rounded-full bg-[#02214A]/5 text-navy"><Icon name={i} class="size-5" /></span>
+          <h3 class="text-base font-semibold text-navy">{t}</h3>
+          <p class="mt-2 text-sm text-[#677A92]">{s}</p>
+          <a href="/sell-your-car" class="mt-5 inline-flex items-center gap-1 text-base text-brand">Learn more <Icon name="lucide:chevron-right" class="size-3" /></a>
         </li>
       ))}
     </ul>
@@ -121,8 +165,8 @@ const brands = [['simple-icons:bmw', 'BMW'], ['simple-icons:mercedes', 'Mercedes
     <SectionTitle title="We buy cars of all makes." text="No matter the make, we want your car." />
     <ul class="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
       {brands.map(([i, n]) => (
-        <li class="flex flex-col items-center justify-center gap-2 rounded-xl bg-surface py-5 text-[12px] font-medium text-navy">
-          <Icon name={i} class="size-6" />{n}
+        <li class="flex flex-col items-center justify-center gap-5 rounded-[18px] bg-[#F2F4F6] py-7 text-base text-[#354D6E]">
+          <Icon name={i} class="size-8" />{n}
         </li>
       ))}
     </ul>
@@ -133,8 +177,26 @@ const brands = [['simple-icons:bmw', 'BMW'], ['simple-icons:mercedes', 'Mercedes
 </Layout>
 
 <script>
-  const track = document.getElementById('types');
-  document.querySelectorAll<HTMLButtonElement>('.types-btn').forEach((b) =>
-    b.addEventListener('click', () => track?.scrollBy({ left: Number(b.dataset.dir) * 280 }))
-  );
+  import Swiper from 'swiper';
+  import { Navigation } from 'swiper/modules';
+
+  new Swiper('.types-swiper', {
+    modules: [Navigation],
+    slidesPerView: 'auto',
+    spaceBetween: 16,
+    grabCursor: true,
+    speed: 400,
+    navigation: {
+      nextEl: '.swiper-btn-next',
+      prevEl: '.swiper-btn-prev',
+    },
+    breakpoints: {
+      640: {
+        spaceBetween: 20,
+      },
+      1024: {
+        spaceBetween: 24,
+      },
+    },
+  });
 </script>

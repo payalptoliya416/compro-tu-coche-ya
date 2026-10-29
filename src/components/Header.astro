@@ -5,35 +5,66 @@ import Button from './Button.astro';
 import { nav } from '../data/site';
 const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 ---
-<header class="sticky top-0 z-50 bg-white/95 backdrop-blur">
-  <div class="frame relative flex h-[68px] items-center justify-between md:h-[76px]">
-    <Logo />
-    <nav class="absolute left-1/2 hidden -translate-x-1/2 items-center gap-8 lg:flex" aria-label="Main">
-      {nav.map((l) => (
-        <a href={l.href} class:list={['text-[13px] font-medium transition-colors hover:text-brand', path === l.href ? 'text-brand' : 'text-navy/70']}>{l.label}</a>
-      ))}
-    </nav>
-    <div class="flex items-center gap-2">
-      <div class="hidden sm:block"><Button href="/lets-talk" size="sm">Let's talk</Button></div>
+<header class="sticky top-0 z-50 border-b border-line bg-white shadow-[0_1px_8px_rgba(2,33,74,0.06)]">
+  <div class="mx-auto flex items-center justify-between px-[30px] py-6">
+    <div class="flex items-center gap-3">
       <button id="menu-btn" type="button" aria-label="Open menu" aria-expanded="false" class="grid size-10 place-items-center rounded-full border border-line text-navy lg:hidden">
         <Icon name="lucide:menu" class="size-5" />
       </button>
+      <Logo />
+    </div>
+    <nav class="absolute left-1/2 hidden -translate-x-1/2 items-center gap-8 lg:flex" aria-label="Main">
+      {nav.map((l) => (
+        <a href={l.href} class:list={['text-lg font-medium transition-colors hover:text-brand', path === l.href ? 'text-brand' : 'text-[#677A92]']}>{l.label}</a>
+      ))}
+    </nav>
+    <div class="flex items-center gap-2">
+      <Button href="/lets-talk" size="sm">Let's talk</Button>
     </div>
   </div>
-  <div id="mobile-menu" class="hidden border-t border-line bg-white lg:hidden">
-    <nav class="frame flex flex-col gap-1 py-3" aria-label="Mobile">
-      {nav.map((l) => (
-        <a href={l.href} class:list={['rounded-lg px-3 py-2.5 text-sm font-medium', path === l.href ? 'bg-brand/10 text-brand' : 'text-navy']}>{l.label}</a>
-      ))}
-      <div class="px-3 pt-2 sm:hidden"><Button href="/lets-talk" size="sm">Let's talk</Button></div>
-    </nav>
-  </div>
 </header>
+
+<!-- Mobile sidebar overlay -->
+<div id="sidebar-overlay" class="fixed inset-0 z-[60] hidden bg-black/40 backdrop-blur-sm lg:hidden"></div>
+
+<!-- Mobile left sidebar -->
+<aside id="mobile-sidebar" class="fixed left-0 top-0 z-[70] flex h-full w-[280px] -translate-x-full flex-col bg-white shadow-2xl transition-transform duration-300 ease-in-out lg:hidden">
+  <div class="flex h-[68px] items-center justify-between border-b border-line px-4">
+    <Logo />
+    <button id="sidebar-close" type="button" aria-label="Close menu" class="grid size-9 place-items-center rounded-full border border-line text-navy">
+      <Icon name="lucide:x" class="size-4" />
+    </button>
+  </div>
+  <nav class="flex flex-1 flex-col gap-1 overflow-y-auto px-3 py-4" aria-label="Mobile">
+    {nav.map((l) => (
+      <a href={l.href} class:list={['rounded-lg px-4 py-3 text-[14px] font-medium transition-colors', path === l.href ? 'bg-brand/10 text-brand' : 'text-navy hover:bg-surface']}>{l.label}</a>
+    ))}
+  </nav>
+  <div class="border-t border-line px-4 py-4">
+    <Button href="/lets-talk" size="sm" class="w-full justify-center">Let's talk</Button>
+  </div>
+</aside>
+
 <script>
   const btn = document.getElementById('menu-btn');
-  const menu = document.getElementById('mobile-menu');
-  btn?.addEventListener('click', () => {
-    const closed = menu?.classList.toggle('hidden');
-    btn.setAttribute('aria-expanded', String(!closed));
-  });
+  const sidebar = document.getElementById('mobile-sidebar');
+  const overlay = document.getElementById('sidebar-overlay');
+  const closeBtn = document.getElementById('sidebar-close');
+
+  function openSidebar() {
+    sidebar?.classList.remove('-translate-x-full');
+    overlay?.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+    btn?.setAttribute('aria-expanded', 'true');
+  }
+  function closeSidebar() {
+    sidebar?.classList.add('-translate-x-full');
+    overlay?.classList.add('hidden');
+    document.body.style.overflow = '';
+    btn?.setAttribute('aria-expanded', 'false');
+  }
+
+  btn?.addEventListener('click', openSidebar);
+  closeBtn?.addEventListener('click', closeSidebar);
+  overlay?.addEventListener('click', closeSidebar);
 </script>
