@@ -1,0 +1,23 @@
+---
+import { Icon } from 'astro-icon/components';
+import Section from '../components/Section.astro';
+import SectionTitle from '../components/SectionTitle.astro';
+import { faqs } from '../data/site';
+---
+<Section id="faq">
+  <SectionTitle title="Everything you need to know" text="Answers to frequently asked questions." />
+  <div class="mx-auto max-w-[760px] space-y-3">
+    {faqs.map((f, i) => (
+      <details name="faq" open={i === 0} class="group rounded-xl bg-surface">
+        <summary class="flex cursor-pointer list-none items-center justify-between gap-4 px-4 py-3.5 text-[13px] font-medium text-navy [&::-webkit-details-marker]:hidden">
+          {f.q}
+          <span class="grid size-6 shrink-0 place-items-center rounded-full bg-white text-navy group-open:text-brand">
+            <Icon name="lucide:arrow-up-right" class="size-3.5 group-open:hidden" />
+            <Icon name="lucide:arrow-down-right" class="hidden size-3.5 group-open:block" />
+          </span>
+        </summary>
+        <p class="mx-4 border-t border-line py-3.5 text-[12.5px] leading-relaxed text-muted">{f.a}</p>
+      </details>
+    ))}
+  </div>
+</Section>

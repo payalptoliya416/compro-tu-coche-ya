@@ -1,0 +1,20 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Button from '../components/Button.astro';
+import PageHero from '../components/PageHero.astro';
+import StepsCircle from '../sections/StepsCircle.astro';
+import WhyCards from '../sections/WhyCards.astro';
+import Stats from '../sections/Stats.astro';
+import Faq from '../sections/Faq.astro';
+import { images } from '../data/images';
+import { whyItems, registrationSteps } from '../data/site';
+---
+<Layout title="How does it work?">
+  <PageHero image={images.heroHow} badge="How it works" title="How {selling your car} works" text="Selling your car with Compro Tu Coche Ya is simple, transparent and hassle-free." text2="From entering your registration to receiving your assessment, we guide you through every step.">
+    <Button href="/sell-your-car">Sell Your Car</Button>
+  </PageHero>
+  <WhyCards title="Why sell your car with us?" items={whyItems} />
+  <StepsCircle title="From your registration to your payment." text="Everything is handled in a simple, guided process." steps={registrationSteps} />
+  <Stats />
+  <Faq />
+</Layout>

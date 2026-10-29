@@ -1,0 +1,18 @@
+---
+import Badge from './Badge.astro';
+const { image, badge, title, text, text2 } = Astro.props;
+const html = title.replace(/\{(.+?)\}/g, '<span class="text-brand">$1</span>');
+---
+<section class="frame">
+  <div class="relative isolate overflow-hidden rounded-3xl bg-navy-deep text-white">
+    <img src={image} alt="" class="absolute inset-0 -z-20 size-full object-cover" />
+    <div class="absolute inset-0 -z-10 bg-black/60"></div>
+    <div class="wrap flex min-h-[380px] flex-col items-center justify-center py-16 text-center md:min-h-[500px]">
+      {badge && <Badge>{badge}</Badge>}
+      <h1 class="max-w-3xl text-3xl font-bold leading-tight tracking-tight sm:text-4xl md:text-[44px]" set:html={html} />
+      {text && <p class="mt-4 max-w-xl text-sm text-white/90 md:text-[15px]">{text}</p>}
+      {text2 && <p class="max-w-2xl text-sm text-white/90 md:text-[15px]">{text2}</p>}
+      <div class="mt-7 flex flex-wrap items-center justify-center gap-3"><slot /></div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,8 @@
+---
+import { Icon } from 'astro-icon/components';
+const { dark = false, class: cls = '' } = Astro.props;
+const items = [['lucide:circle-check', 'Free assessment'], ['lucide:zap', 'No commitment'], ['lucide:clock', 'Fast payment']];
+---
+<ul class:list={['flex flex-wrap justify-center gap-x-5 gap-y-1 text-[11px]', dark ? 'text-muted' : 'text-white/85', cls]}>
+  {items.map(([i, t]) => <li class="inline-flex items-center gap-1.5"><Icon name={i} class="size-3" />{t}</li>)}
+</ul>

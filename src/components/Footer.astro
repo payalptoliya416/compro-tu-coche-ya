@@ -1,0 +1,49 @@
+---
+import { Icon } from 'astro-icon/components';
+import Logo from './Logo.astro';
+import CtaBanner from './CtaBanner.astro';
+import { nav, contact } from '../data/site';
+const company = [...nav];
+const aid = [['Frequently Asked Questions', '#faq'], ['Documentation', '#'], ['Privacy Policy', '#']];
+const socials = ['lucide:instagram', 'lucide:facebook', 'lucide:twitter'];
+---
+<footer class="frame mt-12 pb-3 md:mt-20 md:pb-5">
+  <div class="wrap relative z-10 !px-0 sm:!px-6"><CtaBanner /></div>
+  <div class="-mt-[5.5rem] rounded-3xl bg-navy-deep pb-8 pt-40 text-white md:pt-44">
+    <div class="wrap">
+      <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.3fr_1fr_1fr_1fr]">
+        <div>
+          <Logo light />
+          <p class="mt-5 max-w-[200px] text-sm text-white/80">The easiest and safest way to sell your car in Spain.</p>
+          <div class="mt-5 flex gap-2">
+            {socials.map((s) => <a href="#" aria-label={s.split(':')[1]} class="grid size-9 place-items-center rounded-full border border-white/25 text-white/80 transition-colors hover:border-brand hover:text-brand"><Icon name={s} class="size-4" /></a>)}
+          </div>
+        </div>
+        <div>
+          <h3 class="mb-4 text-sm font-semibold">Company</h3>
+          <ul class="space-y-2.5 text-[13px] text-white/70">
+            {company.map((l) => <li><a href={l.href} class="hover:text-white">{l.label}</a></li>)}
+          </ul>
+        </div>
+        <div>
+          <h3 class="mb-4 text-sm font-semibold">Aid</h3>
+          <ul class="space-y-2.5 text-[13px] text-white/70">
+            {aid.map(([t, h]) => <li><a href={h} class="hover:text-white">{t}</a></li>)}
+          </ul>
+        </div>
+        <div>
+          <h3 class="mb-4 text-sm font-semibold">Contact</h3>
+          <ul class="space-y-2.5 text-[13px] text-white/70">
+            <li class="flex items-center gap-2"><Icon name="lucide:phone" class="size-3.5" />{contact.phone}</li>
+            <li class="flex items-center gap-2"><Icon name="lucide:mail" class="size-3.5" />{contact.email}</li>
+            <li class="flex items-center gap-2"><Icon name="lucide:map-pin" class="size-3.5" />{contact.place}</li>
+          </ul>
+        </div>
+      </div>
+      <div class="mt-10 flex flex-col gap-2 border-t border-white/10 pt-6 text-xs text-white/70 sm:flex-row sm:justify-between">
+        <p>© 2025 | Buy Your Car Now. All rights reserved.</p>
+        <p>Privacy policy • Terms and conditions</p>
+      </div>
+    </div>
+  </div>
+</footer>

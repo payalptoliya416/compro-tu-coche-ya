@@ -1,0 +1,88 @@
+---
+import { Icon } from 'astro-icon/components';
+import Layout from '../layouts/Layout.astro';
+import Button from '../components/Button.astro';
+import PageHero from '../components/PageHero.astro';
+import Section from '../components/Section.astro';
+import SectionTitle from '../components/SectionTitle.astro';
+import StepsBig from '../sections/StepsBig.astro';
+import WhyCards from '../sections/WhyCards.astro';
+import Stats from '../sections/Stats.astro';
+import Testimonials from '../sections/Testimonials.astro';
+import { images } from '../data/images';
+import { whyItems } from '../data/site';
+
+const values = [
+  ['lucide:zap', 'Simple', 'An easy process designed around you.'],
+  ['lucide:eye', 'Transparent', 'Clear information without unnecessary complications.'],
+  ['lucide:shield-check', 'Reliable', 'Professional support from valuation to vehicle collection.'],
+];
+const steps = [
+  { title: 'Tell us about your car', text: 'Start with your registration and basic vehicle information.' },
+  { title: 'Get your assessment', text: 'We review the information and prepare your assessment.' },
+  { title: 'Complete the process', text: 'We guide you through the required documentation and next steps.' },
+  { title: 'We collect your car', text: 'We arrange the handover and complete the process securely.' },
+];
+const points = ['Personal attention at every step of the process.', 'Clear communication throughout — no surprises.', 'A process that works for you, not the other way around.'];
+---
+<Layout title="About Us">
+  <PageHero image={images.heroAbout} badge="Compro Tu Coche Ya" title="Your car deserves {a better way to sell.}" text="At Compro Tu Coche Ya, we make selling your car simple, transparent and stress-free.">
+    <Button href="/sell-your-car">Sell Your Car</Button>
+    <Button href="/how-it-works" variant="navy">How It Works</Button>
+  </PageHero>
+
+  <Section>
+    <div class="grid items-center gap-8 lg:grid-cols-[1.15fr_1fr]">
+      <div class="grid grid-cols-2 gap-3">
+        <img src={images.team1} alt="" class="aspect-[3/4] w-full rounded-xl object-cover" loading="lazy" />
+        <img src={images.team2} alt="" class="aspect-[3/4] w-full rounded-xl object-cover" loading="lazy" />
+      </div>
+      <div>
+        <h2 class="h2">We make selling your car simple.</h2>
+        <div class="mt-4 space-y-4 text-[13px] leading-relaxed text-muted">
+          <p>Compro Tu Coche Ya was created to make selling a car easier, faster and more transparent. We combine automotive experience with a simple digital process, helping you understand your car's value, complete the necessary steps and move forward without unnecessary complications.</p>
+          <p>Our goal is simple: give every customer a straightforward way to sell their car with confidence.</p>
+        </div>
+        <p class="mt-4 inline-flex items-center gap-2 text-[12px] font-medium text-brand"><Icon name="lucide:award" class="size-4" />Trusted by car owners across Spain</p>
+      </div>
+    </div>
+  </Section>
+
+  <Section class="!pt-0">
+    <SectionTitle title="Changing the way people sell their cars." text="We believe selling a car should not be complicated, time-consuming or stressful." />
+    <ul class="grid gap-4 md:grid-cols-3">
+      {values.map(([i, t, s]) => (
+        <li class="rounded-xl border border-line bg-white p-5">
+          <span class="mb-4 grid size-8 place-items-center rounded-full bg-surface text-navy"><Icon name={i} class="size-4" /></span>
+          <h3 class="text-[14px] font-semibold text-navy">{t}</h3>
+          <p class="mt-1 text-[12.5px] text-muted">{s}</p>
+        </li>
+      ))}
+    </ul>
+  </Section>
+
+  <Stats />
+  <WhyCards title="Why choose Compro Tu Coche Ya?" text="A simpler way to sell your car, built around what matters to you." items={whyItems} />
+  <StepsBig gray title="From your car to a simple sale." steps={steps} />
+
+  <Section>
+    <div class="grid items-center gap-8 lg:grid-cols-2">
+      <div>
+        <h2 class="h2">Built around our customers.</h2>
+        <p class="mt-4 max-w-md text-[13px] leading-relaxed text-muted">Every vehicle is different. Every customer is different. That is why we focus on providing a straightforward experience that adapts to each situation.</p>
+        <ul class="mt-6 space-y-3">
+          {points.map((p) => <li class="border-l-2 border-brand pl-3 text-[13px] text-navy">{p}</li>)}
+        </ul>
+      </div>
+      <div class="grid grid-cols-[1.2fr_1fr] gap-3">
+        <img src={images.builtLarge} alt="" class="h-full min-h-[280px] w-full rounded-xl object-cover" loading="lazy" />
+        <div class="grid gap-3">
+          <img src={images.builtSmall1} alt="" class="aspect-[4/3] w-full rounded-xl object-cover" loading="lazy" />
+          <img src={images.builtSmall2} alt="" class="aspect-[4/3] w-full rounded-xl object-cover" loading="lazy" />
+        </div>
+      </div>
+    </div>
+  </Section>
+
+  <Testimonials />
+</Layout>

@@ -1,0 +1,39 @@
+---
+import { Icon } from 'astro-icon/components';
+import Logo from './Logo.astro';
+import Button from './Button.astro';
+import { nav } from '../data/site';
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+---
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur">
+  <div class="frame relative flex h-[68px] items-center justify-between md:h-[76px]">
+    <Logo />
+    <nav class="absolute left-1/2 hidden -translate-x-1/2 items-center gap-8 lg:flex" aria-label="Main">
+      {nav.map((l) => (
+        <a href={l.href} class:list={['text-[13px] font-medium transition-colors hover:text-brand', path === l.href ? 'text-brand' : 'text-navy/70']}>{l.label}</a>
+      ))}
+    </nav>
+    <div class="flex items-center gap-2">
+      <div class="hidden sm:block"><Button href="/lets-talk" size="sm">Let's talk</Button></div>
+      <button id="menu-btn" type="button" aria-label="Open menu" aria-expanded="false" class="grid size-10 place-items-center rounded-full border border-line text-navy lg:hidden">
+        <Icon name="lucide:menu" class="size-5" />
+      </button>
+    </div>
+  </div>
+  <div id="mobile-menu" class="hidden border-t border-line bg-white lg:hidden">
+    <nav class="frame flex flex-col gap-1 py-3" aria-label="Mobile">
+      {nav.map((l) => (
+        <a href={l.href} class:list={['rounded-lg px-3 py-2.5 text-sm font-medium', path === l.href ? 'bg-brand/10 text-brand' : 'text-navy']}>{l.label}</a>
+      ))}
+      <div class="px-3 pt-2 sm:hidden"><Button href="/lets-talk" size="sm">Let's talk</Button></div>
+    </nav>
+  </div>
+</header>
+<script>
+  const btn = document.getElementById('menu-btn');
+  const menu = document.getElementById('mobile-menu');
+  btn?.addEventListener('click', () => {
+    const closed = menu?.classList.toggle('hidden');
+    btn.setAttribute('aria-expanded', String(!closed));
+  });
+</script>

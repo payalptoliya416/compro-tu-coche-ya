@@ -1,0 +1,16 @@
+---
+const { light = false } = Astro.props;
+---
+<a href="/" class:list={['flex items-center gap-2', light ? 'text-white' : 'text-navy']} aria-label="Compro Tu Coche Ya">
+  <svg viewBox="0 0 56 34" class="h-8 w-[52px] shrink-0" fill="none" aria-hidden="true">
+    <path d="M1 12h9M0 17h12M3 22h8" stroke="var(--color-brand)" stroke-width="2" stroke-linecap="round" />
+    <path d="M14 22l3-9q1-3 4-3h14q3 0 5 3l5 7q4 1 4 5v2H14z" fill="currentColor" />
+    <path d="M20 13h8v6H18z" fill="#fff" opacity=".9" />
+    <circle cx="23" cy="27" r="4.5" fill="currentColor" stroke="#fff" stroke-width="2" />
+    <circle cx="40" cy="27" r="4.5" fill="currentColor" stroke="#fff" stroke-width="2" />
+  </svg>
+  <span class="leading-none">
+    <span class="block text-[15px] font-extrabold tracking-tight">COMPRO TU COCHE <span class="text-brand">YA</span></span>
+    <span class:list={['mt-1 block text-[6px] font-medium tracking-[0.3em]', light ? 'text-white/70' : 'text-muted']}>VENDE HOY • COBRA HOY</span>
+  </span>
+</a>

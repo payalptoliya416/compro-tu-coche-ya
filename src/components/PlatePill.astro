@@ -1,0 +1,12 @@
+---
+import { Icon } from 'astro-icon/components';
+---
+<form action="/sell-your-car" method="get" class="mx-auto flex w-full max-w-[440px] items-center rounded-full bg-white p-1 shadow-xl">
+  <span class="flex h-11 w-7 shrink-0 flex-col items-center justify-center rounded-l-full bg-eu text-[10px] font-bold text-white">E</span>
+  <input name="plate" type="text" placeholder="0000 ABC" maxlength="10" aria-label="License plate number"
+    class="min-w-0 flex-1 bg-transparent px-3 text-base font-semibold uppercase tracking-[0.15em] text-navy outline-none placeholder:text-slate-300 sm:text-lg" />
+  <button type="submit" class="inline-flex h-11 shrink-0 items-center gap-2 rounded-full bg-brand pl-4 pr-1.5 text-xs font-semibold text-white transition-colors hover:bg-brand-dark sm:gap-3 sm:pl-5 sm:text-[13px]">
+    Get My Valuation
+    <span class="grid size-8 place-items-center rounded-full bg-white text-brand"><Icon name="lucide:arrow-up-right" class="size-4" /></span>
+  </button>
+</form>

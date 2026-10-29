@@ -1,0 +1,140 @@
+---
+import { Icon } from 'astro-icon/components';
+import Layout from '../layouts/Layout.astro';
+import Badge from '../components/Badge.astro';
+import PlatePill from '../components/PlatePill.astro';
+import TrustRow from '../components/TrustRow.astro';
+import Section from '../components/Section.astro';
+import SectionTitle from '../components/SectionTitle.astro';
+import StepsBig from '../sections/StepsBig.astro';
+import WhyCards from '../sections/WhyCards.astro';
+import Stats from '../sections/Stats.astro';
+import Testimonials from '../sections/Testimonials.astro';
+import Faq from '../sections/Faq.astro';
+import { images } from '../data/images';
+
+const features = [
+  ['lucide:star', 'Free valuation', 'No cost or obligation'],
+  ['lucide:zap', 'Fast process', 'In a few minutes'],
+  ['lucide:shield-check', 'Secure payment', 'Guaranteed and fast'],
+  ['lucide:car-front', 'We buy all types of cars.', 'Any make and condition'],
+];
+const steps = [
+  { title: 'Enter license plate number', text: "You only need your vehicle's license plate number to get started." },
+  { title: 'Tell us about your car.', text: 'Fill out a brief form with the condition and mileage.' },
+  { title: 'Get your valuation', text: 'You will receive a fair and competitive offer in minutes.' },
+  { title: 'Sell and get paid', text: 'Accept the offer and receive payment quickly and securely.' },
+];
+const why = [
+  { icon: 'lucide:trending-up', title: 'The best rating', text: 'We value your car competitively and transparently, based on the current market.' },
+  { icon: 'lucide:file-check', title: 'Hassle-free', text: 'We handle the entire process and the paperwork. You just have to accept the offer.' },
+  { icon: 'lucide:banknote', title: 'Fast payment', text: 'Receive your money quickly and securely directly into your bank account.' },
+  { icon: 'lucide:truck', title: 'Vehicle pickup', text: "We make it easy to pick up your car whenever you are, so you don't have to worry about a thing." },
+];
+const types = [['Gasoline', images.typeGasoline], ['Diesel', images.typeDiesel], ['Hybrids', images.typeHybrid], ['Electric vehicles', images.typeElectric]];
+const special = [
+  ['lucide:wrench', 'Broken-down car', "We'll buy it even if it doesn't start."],
+  ['lucide:triangle-alert', 'Car without a valid MOT', "It's not a problem for us."],
+  ['lucide:landmark', 'Financed car', 'We handle the cancellation of the loan.'],
+  ['lucide:heart', 'Inherited car', 'We help you with all the paperwork.'],
+  ['lucide:shield-x', 'Totaled car', 'We value your car regardless of the damage.'],
+  ['lucide:timer', 'You need to sell quickly.', 'Offer in minutes, same-day payment.'],
+];
+const brands = [['simple-icons:bmw', 'BMW'], ['simple-icons:mercedes', 'Mercedes-Benz'], ['simple-icons:audi', 'Audi'], ['simple-icons:volkswagen', 'Volkswagen'], ['simple-icons:toyota', 'Toyota'], ['simple-icons:seat', 'SEAT'], ['simple-icons:peugeot', 'Peugeot'], ['simple-icons:renault', 'Renault'], ['simple-icons:ford', 'Ford'], ['simple-icons:tesla', 'Tesla']];
+---
+<Layout title="Sell your car today">
+  <!-- Hero -->
+  <section class="frame">
+    <div class="relative isolate overflow-hidden rounded-3xl bg-navy-deep text-white">
+      <img src={images.heroHome} alt="" class="absolute inset-0 -z-20 size-full object-cover" />
+      <div class="absolute inset-0 -z-10 bg-black/55"></div>
+      <div class="wrap flex min-h-[520px] flex-col items-center justify-center py-16 text-center md:min-h-[620px]">
+        <Badge>Sell your car today in Spain</Badge>
+        <h1 class="max-w-3xl text-3xl font-bold leading-tight tracking-tight sm:text-4xl md:text-[46px]">
+          Sell your car today.<br /><span class="text-brand">Fast, easy,</span> and at the best price.
+        </h1>
+        <p class="mt-4 max-w-md text-sm text-white/90">Find out what your car is worth and start the selling process in just a few minutes.</p>
+        <p class="mb-2 mt-6 text-xs">Enter your license plate number</p>
+        <PlatePill />
+        <TrustRow class="mt-3" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Feature strip -->
+  <section class="frame mt-3">
+    <ul class="grid grid-cols-2 gap-5 rounded-2xl bg-surface px-5 py-5 lg:grid-cols-4 lg:gap-0">
+      {features.map(([i, t, s]) => (
+        <li class="flex items-center justify-center gap-3 lg:border-l lg:border-slate-300/60 lg:first:border-l-0">
+          <Icon name={i} class="size-5 shrink-0 text-muted" />
+          <span class="leading-tight"><span class="block text-[13px] font-semibold text-navy">{t}</span><span class="text-[11px] text-muted">{s}</span></span>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <StepsBig title="Selling your car has never been so easy." text="A simple process, from valuation to payment." steps={steps} />
+  <WhyCards gray title="Why sell your car with us?" items={why} />
+
+  <!-- Types carousel -->
+  <Section>
+    <div class="mb-8 flex items-end justify-between gap-4">
+      <div>
+        <h2 class="h2">We buy all types of cars.</h2>
+        <p class="lead mt-2">Whatever car you drive, we want to get to know it.</p>
+      </div>
+      <div class="flex gap-2">
+        <button type="button" data-dir="-1" aria-label="Previous" class="types-btn grid size-9 place-items-center rounded-full border border-line text-navy hover:border-brand hover:text-brand"><Icon name="lucide:chevron-left" class="size-4" /></button>
+        <button type="button" data-dir="1" aria-label="Next" class="types-btn grid size-9 place-items-center rounded-full border border-line text-navy hover:border-brand hover:text-brand"><Icon name="lucide:chevron-right" class="size-4" /></button>
+      </div>
+    </div>
+    <div id="types" class="no-scrollbar -mr-4 flex snap-x gap-4 overflow-x-auto scroll-smooth sm:-mr-6 lg:-mr-[calc((100vw-1120px)/2)]">
+      {types.map(([t, img]) => (
+        <div class="relative aspect-[4/3] w-[260px] shrink-0 snap-start overflow-hidden rounded-xl bg-navy">
+          <img src={img} alt={t} class="size-full object-cover" loading="lazy" />
+          <div class="absolute inset-0 bg-linear-to-t from-black/60 to-transparent"></div>
+          <span class="absolute bottom-3 left-4 text-sm font-semibold text-white">{t}</span>
+        </div>
+      ))}
+    </div>
+  </Section>
+
+  <Stats />
+
+  <!-- Special situations -->
+  <Section>
+    <SectionTitle title="Is your car in a special situation?" text="We have solutions for every case." />
+    <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {special.map(([i, t, s]) => (
+        <li class="rounded-xl bg-white p-5 shadow-[0_10px_30px_rgba(11,42,91,0.07)]">
+          <span class="mb-4 grid size-8 place-items-center rounded-full bg-surface text-navy"><Icon name={i} class="size-4" /></span>
+          <h3 class="text-[14px] font-semibold text-navy">{t}</h3>
+          <p class="mt-1 text-[12.5px] text-muted">{s}</p>
+          <a href="/sell-your-car" class="mt-3 inline-flex items-center gap-1 text-[12px] font-semibold text-brand">Learn more <Icon name="lucide:chevron-right" class="size-3" /></a>
+        </li>
+      ))}
+    </ul>
+  </Section>
+
+  <!-- Brands -->
+  <Section class="!pt-0">
+    <SectionTitle title="We buy cars of all makes." text="No matter the make, we want your car." />
+    <ul class="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
+      {brands.map(([i, n]) => (
+        <li class="flex flex-col items-center justify-center gap-2 rounded-xl bg-surface py-5 text-[12px] font-medium text-navy">
+          <Icon name={i} class="size-6" />{n}
+        </li>
+      ))}
+    </ul>
+  </Section>
+
+  <Testimonials gray />
+  <Faq />
+</Layout>
+
+<script>
+  const track = document.getElementById('types');
+  document.querySelectorAll<HTMLButtonElement>('.types-btn').forEach((b) =>
+    b.addEventListener('click', () => track?.scrollBy({ left: Number(b.dataset.dir) * 280 }))
+  );
+</script>

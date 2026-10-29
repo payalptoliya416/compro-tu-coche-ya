@@ -1,0 +1,18 @@
+---
+import Section from '../components/Section.astro';
+import SectionTitle from '../components/SectionTitle.astro';
+const { title, text, steps, gray = false } = Astro.props;
+---
+<Section gray={gray}>
+  <SectionTitle title={title} text={text} />
+  <ol class="relative grid grid-cols-2 gap-x-4 gap-y-10 lg:grid-cols-4">
+    <div class="absolute left-[12.5%] right-[12.5%] top-8 hidden h-px bg-line lg:block" aria-hidden="true"></div>
+    {steps.map((s, i) => (
+      <li class="relative text-center">
+        <span class="mx-auto mb-4 grid size-16 place-items-center rounded-full border border-line bg-white text-sm text-muted ring-[6px] ring-slate-50">{String(i + 1).padStart(2, '0')}</span>
+        <h3 class="text-[15px] font-semibold text-navy">{s.title}</h3>
+        <p class="mx-auto mt-2 max-w-[220px] text-[13px] leading-relaxed text-muted">{s.text}</p>
+      </li>
+    ))}
+  </ol>
+</Section>

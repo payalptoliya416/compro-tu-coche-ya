@@ -1,0 +1,33 @@
+@import "tailwindcss";
+@import "@fontsource-variable/plus-jakarta-sans";
+
+/* ============================================================
+   DESIGN TOKENS — change colors / font HERE only (one place)
+   ============================================================ */
+@theme {
+  --font-sans: "Plus Jakarta Sans Variable", ui-sans-serif, system-ui, sans-serif;
+
+  --color-brand: #ff5a0f;       /* orange: buttons, highlights, active links */
+  --color-brand-dark: #e64a04;  /* orange hover */
+  --color-navy: #0b2a5b;        /* headings, dark sections */
+  --color-navy-deep: #06224d;   /* footer / darkest navy */
+  --color-muted: #5c6c8c;       /* paragraph text */
+  --color-surface: #f3f4f6;     /* light grey sections / FAQ rows */
+  --color-line: #e6e9ef;        /* borders */
+  --color-eu: #0a3ea8;          /* blue EU strip on plate input */
+  --color-star: #fbbf24;        /* review stars */
+}
+
+@layer base {
+  html { scroll-behavior: smooth; }
+  body { @apply bg-white text-navy; }
+}
+
+@layer components {
+  .frame { @apply mx-auto w-full max-w-[1600px] px-3 md:px-5; }
+  .wrap  { @apply mx-auto w-full max-w-[1120px] px-4 sm:px-6; }
+  .h2    { @apply text-2xl font-bold tracking-tight text-navy md:text-[32px] md:leading-tight; }
+  .lead  { @apply text-sm text-muted md:text-base; }
+  .no-scrollbar { scrollbar-width: none; }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+}

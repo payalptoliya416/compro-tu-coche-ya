@@ -1,0 +1,122 @@
+---
+import { Icon } from 'astro-icon/components';
+import Layout from '../layouts/Layout.astro';
+import Badge from '../components/Badge.astro';
+import Button from '../components/Button.astro';
+import TrustRow from '../components/TrustRow.astro';
+import Section from '../components/Section.astro';
+import SectionTitle from '../components/SectionTitle.astro';
+import StepsCircle from '../sections/StepsCircle.astro';
+import Testimonials from '../sections/Testimonials.astro';
+import Faq from '../sections/Faq.astro';
+import { images } from '../data/images';
+import { registrationSteps } from '../data/site';
+
+const benefits = [
+  ['Fast Sale & Quick Payment', 'Get a fair offer and complete your sale without unnecessary waiting. Once everything is confirmed, receive your payment quickly and securely.', 'Save time and move on without delays.'],
+  ['Free Car Collection Across Spain', 'We collect your vehicle directly from your location, whether you live in a city or a remote area.', 'Convenient pickup with no additional collection cost.'],
+  ['We Handle the Paperwork', "Our team takes care of the required documents and transfer process, so you don't have to deal with complicated procedures.", 'A simple and secure process from start to finish.'],
+];
+const sold = [
+  ['Volkswagen Golf', 'Pablo', '40 min ago', images.carGolf],
+  ['Audi A3', 'Alejandro', '12 hours ago', images.carAudi],
+  ['Mercedes-Benz C-Class', 'Carmen', '5 hours ago', images.carMercedes],
+  ['Citroën C1', 'Javier', '1 day ago', images.carCitroen],
+];
+---
+<Layout title="Sell Your Car">
+  <section class="frame">
+    <div class="relative isolate overflow-hidden rounded-3xl bg-navy-deep text-white">
+      <img src={images.heroSell} alt="" class="absolute inset-0 -z-20 size-full object-cover" />
+      <div class="absolute inset-0 -z-10 bg-linear-to-r from-black/75 via-black/50 to-black/20"></div>
+      <div class="wrap grid items-center gap-8 py-12 lg:grid-cols-2 lg:py-16 lg:min-h-[560px]">
+        <div>
+          <Badge>Sell Your Car With Compro Tu Coche Ya</Badge>
+          <h1 class="text-3xl font-bold leading-tight tracking-tight sm:text-4xl md:text-[44px]">
+            Turn Your Car Into Cash -<br /><span class="text-brand">Without the Hassle</span>
+          </h1>
+          <p class="mt-4 max-w-sm text-sm text-white/90">Get a quick valuation for your car and start the selling process in just a few simple steps.</p>
+        </div>
+        <form action="#" method="get" class="rounded-2xl bg-white p-5 text-navy shadow-2xl sm:p-6 lg:ml-auto lg:w-full lg:max-w-[400px]">
+          <h2 class="text-base font-semibold">Let's start with your car</h2>
+          <p class="mt-1.5 text-xs text-muted">Enter your license plate number and find out how much your car could be worth.</p>
+          <label for="plate" class="mb-1.5 mt-5 block text-xs font-medium">Enter your license plate number</label>
+          <div class="flex h-12 overflow-hidden rounded-lg border border-line">
+            <span class="flex w-7 shrink-0 flex-col items-center justify-center bg-eu text-[10px] font-bold text-white">E</span>
+            <input id="plate" name="plate" placeholder="0000 AAA" maxlength="10" class="min-w-0 flex-1 px-3 text-lg font-semibold uppercase tracking-[0.15em] outline-none placeholder:text-slate-300" />
+          </div>
+          <p class="mt-1.5 text-[10px] text-muted">Example: 1234 ABC · Enter your vehicle's Spanish registration number</p>
+          <button type="submit" class="mt-5 inline-flex h-11 w-full items-center justify-center gap-2 rounded-full bg-brand text-sm font-semibold text-white transition-colors hover:bg-brand-dark">
+            Continue <Icon name="lucide:arrow-right" class="size-4" />
+          </button>
+          <TrustRow dark class="mt-4" />
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <Testimonials />
+  <StepsCircle title="From your registration to your payment." text="Everything is handled in a simple, guided process." steps={registrationSteps} />
+
+  <Section class="!pt-0">
+    <div class="grid items-center gap-8 lg:grid-cols-[1.15fr_1fr]">
+      <div class="grid grid-cols-2 gap-3">
+        <img src={images.team1} alt="" class="aspect-[4/5] w-full rounded-xl object-cover" loading="lazy" />
+        <img src={images.keys} alt="" class="aspect-[4/5] w-full rounded-xl object-cover" loading="lazy" />
+      </div>
+      <div>
+        <h2 class="h2">Get More From Your Car Sale</h2>
+        <div class="mt-4 space-y-4 text-[13px] leading-relaxed text-muted">
+          <p>Skip the stress of negotiations and uncertain buyers. Selling your car with us is simple, fast and straightforward.</p>
+          <p>Our experienced team provides a fair market-based valuation and guides you through the entire selling process. No unnecessary hassle, no hidden surprises and no wasted time. Once everything is confirmed, you can move forward with confidence.</p>
+          <p>Your car's value can change over time. Start today by entering your registration number and discover what your car could be worth.</p>
+        </div>
+      </div>
+    </div>
+  </Section>
+
+  <section class="frame">
+    <div class="rounded-3xl bg-surface py-12 md:py-16">
+      <div class="wrap grid items-center gap-8 lg:grid-cols-2">
+        <div>
+          <p class="text-lg font-semibold text-navy">A Simple Way to Sell Your Car</p>
+          <h2 class="h2 mt-1">More Benefits, Less Hassle.</h2>
+          <div class="mt-6 space-y-5">
+            {benefits.map(([t, a, b]) => (
+              <div>
+                <h3 class="text-[14px] font-semibold text-navy">{t}</h3>
+                <p class="mt-1 text-[12.5px] leading-relaxed text-muted">{a}</p>
+                <p class="mt-1 text-[12.5px] text-navy/80">{b}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+        <img src={images.benefits} alt="" class="aspect-[4/3] w-full rounded-2xl object-cover" loading="lazy" />
+      </div>
+    </div>
+  </section>
+
+  <Section>
+    <SectionTitle title="Cars recently sold through us" text="Join thousands of drivers who have already chosen a simpler way to sell." />
+    <ul class="grid grid-cols-2 gap-4 lg:grid-cols-4">
+      {sold.map(([n, by, t, img]) => (
+        <li class="rounded-xl border border-line p-2">
+          <img src={img} alt={n} class="aspect-[4/3] w-full rounded-lg object-cover" loading="lazy" />
+          <p class="mt-3 px-1 text-[13px] font-semibold text-navy">{n}</p>
+          <div class="flex items-center justify-between px-1 pb-1 pt-1 text-[10px] text-muted">
+            <span class="inline-flex items-center gap-1"><Icon name="lucide:user" class="size-3" />Sold by {by}</span>
+            <span class="inline-flex items-center gap-1"><Icon name="lucide:clock" class="size-3" />{t}</span>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </Section>
+
+  <Faq />
+</Layout>
+
+<script>
+  const plate = new URLSearchParams(location.search).get('plate');
+  const input = document.getElementById('plate') as HTMLInputElement | null;
+  if (plate && input) input.value = plate;
+</script>
