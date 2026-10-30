@@ -29,7 +29,7 @@ const experience = [
 ];
 ---
 <Layout title="Easy Pickup">
-  <section class="w-full px-3 sm:px-[30px] pb-6 sm:pb-[30px]">
+  <section class="w-full px-3 sm:px-[30px]">
     <div class="relative isolate overflow-hidden rounded-[26px] bg-navy-deep text-white h-[440px] sm:h-[520px] md:h-[600px] lg:h-[680px] flex items-center justify-center">
       <img src="/images/easy-bg.png" alt="" class="absolute inset-0 -z-20 size-full object-cover object-center" />
       <div class="wrap flex flex-col items-center justify-center py-12 text-center">
@@ -47,7 +47,7 @@ const experience = [
     </div>
   </section>
 
-  <Section>
+  <Section class="!pb-0">
     <div class="grid items-center gap-[30px] lg:grid-cols-2">
       <div>
         <h2 class="h2">Your Car, Our Pickup.</h2>
@@ -68,8 +68,8 @@ const experience = [
 
   <StepsCircle title="How Pickup Works" text="From booking to handover, we make the entire collection process seamless and stress-free." steps={pickupSteps} />
 
-  <section class="p-[30px]">
-    <div class="rounded-[26px] bg-[#02214A] text-white py-[110px]">
+  <section class="px-4 md:px-[30px]">
+    <div class="rounded-[26px] bg-[#02214A] text-white py-12 md:py-[110px]">
       <div class="wrap">
         <div class="mx-auto mb-10 max-w-2xl text-center">
           <h2 class="h2 !text-white">We Come to You</h2>
@@ -88,7 +88,7 @@ const experience = [
     </div>
   </section>
 
-  <Section>
+  <Section class="!pb-0">
     <div class="grid items-center gap-8 lg:grid-cols-[1.05fr_1fr]">
       <img src="/images/pickup.png" alt="" class="" loading="lazy" />
       <div>

@@ -5,9 +5,9 @@ import { testimonials } from '../data/site';
 import 'swiper/css';
 import 'swiper/css/pagination';
 
-const { gray = false } = Astro.props;
+const { gray = false, class: cls = '' } = Astro.props;
 ---
-<Section gray={gray}>
+<Section gray={gray} class={cls}>
   <SectionTitle title="Our customers say so." text="Hundreds of customers have already sold their car with us." />
 
   <div class="swiper testimonials-swiper">

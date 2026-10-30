@@ -2,11 +2,11 @@
 import { Icon } from 'astro-icon/components';
 import Section from '../components/Section.astro';
 import SectionTitle from '../components/SectionTitle.astro';
-const { title, text, items, gray = false } = Astro.props;
+const { title, text, items, gray = false, class: cls = '' } = Astro.props;
 // Staggered vertical offsets matching the screenshot cascade
 const offsets = ['md:mt-0', 'md:mt-16', 'md:mt-6', 'md:mt-20'];
 ---
-<Section gray={gray}>
+<Section gray={gray} class={cls}>
   <SectionTitle title={title} text={text} />
   <ul class:list={['grid items-start gap-4 sm:grid-cols-2', items.length === 4 && 'lg:grid-cols-4']}>
     {items.map((it, i) => (

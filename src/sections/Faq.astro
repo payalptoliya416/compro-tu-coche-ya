@@ -4,7 +4,7 @@ import Section from '../components/Section.astro';
 import SectionTitle from '../components/SectionTitle.astro';
 import { faqs } from '../data/site';
 ---
-<Section id="faq">
+<Section id="faq" class="!pb-0">
   <SectionTitle title="Everything you need to know" text="Answers to frequently asked questions." />
   <div class="mx-auto max-w-[820px] space-y-6">
     {faqs.map((f, i) => (

@@ -1,9 +1,9 @@
 ---
 import Section from '../components/Section.astro';
 import SectionTitle from '../components/SectionTitle.astro';
-const { title, text, steps, gray = false } = Astro.props;
+const { title, text, steps, gray = false, class: cls = '' } = Astro.props;
 ---
-<Section gray={gray}>
+<Section gray={gray} class={cls}>
   <SectionTitle title={title} text={text} />
   <ol class="relative grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-10 lg:grid-cols-4">
     <div class="absolute left-[12.5%] right-[12.5%] top-8 hidden h-px bg-line lg:block" aria-hidden="true"></div>

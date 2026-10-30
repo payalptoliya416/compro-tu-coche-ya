@@ -26,7 +26,7 @@ const steps = [
 const points = ['Personal attention at every step of the process.', 'Clear communication throughout — no surprises.', 'A process that works for you, not the other way around.'];
 ---
 <Layout title="About Us">
-  <section class="w-full px-3 sm:px-[30px] pb-6 sm:pb-[30px]">
+  <section class="w-full px-3 sm:px-[30px]">
     <div class="relative isolate overflow-hidden rounded-[26px] bg-navy-deep text-white h-[440px] sm:h-[520px] md:h-[600px] lg:h-[680px] flex items-center justify-center">
       <img src="/images/about-bg.png" alt="" class="absolute inset-0 -z-20 size-full object-cover object-center" />
       <div class="wrap flex flex-col items-center justify-center py-12 text-center">
@@ -78,7 +78,7 @@ const points = ['Personal attention at every step of the process.', 'Clear commu
   <WhyCards title="Why choose Compro Tu Coche Ya?" text="A simpler way to sell your car, built around what matters to you." items={whyItems} />
   <StepsBig gray title="From your car to a simple sale." steps={steps} numberClass="text-white" />
 
-  <Section>
+  <Section class="!pb-0">
     <div class="grid items-center gap-8 lg:grid-cols-2">
       <div>
         <h2 class="h2">Built around our customers.</h2>
@@ -97,5 +97,5 @@ const points = ['Personal attention at every step of the process.', 'Clear commu
     </div>
   </Section>
 
-  <Testimonials />
+  <Testimonials class="!pb-0" />
 </Layout>
