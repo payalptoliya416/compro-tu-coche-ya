@@ -72,17 +72,23 @@ const socials = [
         <div>
           <h3 class="mb-5 text-lg font-medium tracking-wide text-white">Contact</h3>
           <ul class="space-y-4 text-base text-[#9AA6B7]">
-            <li class="flex items-center gap-2.5">
-              <Icon name="lucide:phone" class="size-3.5 shrink-0 text-[#9AA6B7]" />
-              <span>{contact.phone}</span>
+            <li>
+              <a href={`tel:${contact.phone.replace(/\s+/g, '')}`} class="group flex items-center gap-2.5 transition-colors hover:text-white">
+                <Icon name="lucide:phone" class="size-3.5 shrink-0 text-[#9AA6B7] transition-colors group-hover:text-white" />
+                <span>{contact.phone}</span>
+              </a>
             </li>
-            <li class="flex items-center gap-2.5">
-              <Icon name="lucide:mail" class="size-3.5 shrink-0 text-[#9AA6B7]" />
-              <span>{contact.email}</span>
+            <li>
+              <a href={`mailto:${contact.email}`} class="group flex items-center gap-2.5 transition-colors hover:text-white">
+                <Icon name="lucide:mail" class="size-3.5 shrink-0 text-[#9AA6B7] transition-colors group-hover:text-white" />
+                <span>{contact.email}</span>
+              </a>
             </li>
-            <li class="flex items-center gap-2.5">
-              <Icon name="lucide:map-pin" class="size-3.5 shrink-0 text-[#9AA6B7]" />
-              <span>{contact.place}</span>
+            <li>
+              <a href="https://maps.google.com/?q=Spain" target="_blank" rel="noopener noreferrer" class="group flex items-center gap-2.5 transition-colors hover:text-white">
+                <Icon name="lucide:map-pin" class="size-3.5 shrink-0 text-[#9AA6B7] transition-colors group-hover:text-white" />
+                <span>{contact.place}</span>
+              </a>
             </li>
           </ul>
         </div>
@@ -90,7 +96,7 @@ const socials = [
 
       <!-- Copyright bar -->
       <div class="mt-12 sm:mt-16 flex flex-col gap-3 border-t border-white/30 pt-7 text-sm sm:text-base text-white md:flex-row sm:items-center sm:justify-between text-center md:text-left">
-        <p>© 2025 | Buy Your Car Now. All rights reserved.</p>
+        <p>© {new Date().getFullYear()} | Buy Your Car Now. All rights reserved.</p>
         <p class="transition-colors hover:text-white/80">
           <a href="#" class="hover:underline">Privacy policy</a> • <a href="#" class="hover:underline">Terms and conditions</a>
         </p>

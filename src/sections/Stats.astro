@@ -2,7 +2,7 @@
 import { images } from '../data/images';
 import { stats } from '../data/site';
 ---
-<section class="px-4 md:px-[30px]">
+<section class="stats-section px-4 md:px-[30px]">
   <div class="relative isolate overflow-hidden rounded-3xl bg-navy px-4 py-14 text-center text-white md:py-[110px]">
     <img src={images.sellBg} alt="" class="absolute inset-0 -z-20 size-full object-cover" />
     <h2 class="h2 !text-white">Selling your car has never been easier</h2>
@@ -10,10 +10,74 @@ import { stats } from '../data/site';
     <dl class="wrap mt-10 grid grid-cols-1 sm:grid-cols-2 md:gap-y-4 gap-y-8 xl:grid-cols-4 md:divide-x md:divide-white/15">
       {stats.map((s) => (
         <div>
-          <dt class="text-2xl font-medium text-brand md:text-4xl">{s.value}</dt>
+          <dt class="text-2xl font-medium text-brand md:text-4xl">
+            <span class="stat-counter" data-value={s.value}>{s.value}</span>
+          </dt>
           <dd class="mt-2 md:mt-4 text-base md:text-xl">{s.label}</dd>
         </div>
       ))}
     </dl>
   </div>
 </section>
+
+<script>
+  function initStatsCounters() {
+    const sections = document.querySelectorAll<HTMLElement>('.stats-section');
+    sections.forEach((section) => {
+      const counters = section.querySelectorAll<HTMLElement>('.stat-counter');
+      if (!counters.length) return;
+
+      let animated = false;
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting && !animated) {
+              animated = true;
+              counters.forEach((counter) => {
+                const raw = counter.getAttribute('data-value') || '';
+                const match = raw.match(/^([^\d.]*)(\d+(?:\.\d+)?)(.*)$/);
+                if (!match) return;
+
+                const prefix = match[1] || '';
+                const target = parseFloat(match[2]);
+                const suffix = match[3] || '';
+                const isDecimal = match[2].includes('.');
+                const duration = 1800;
+                const startTime = performance.now();
+
+                function update(currentTime: number) {
+                  const elapsed = currentTime - startTime;
+                  const progress = Math.min(elapsed / duration, 1);
+                  const ease = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+                  const current = target * ease;
+                  const displayNum = isDecimal ? current.toFixed(1) : Math.floor(current).toString();
+                  counter.textContent = `${prefix}${displayNum}${suffix}`;
+
+                  if (progress < 1) {
+                    requestAnimationFrame(update);
+                  } else {
+                    counter.textContent = raw;
+                  }
+                }
+
+                requestAnimationFrame(update);
+              });
+              observer.disconnect();
+            }
+          });
+        },
+        { threshold: 0.2 }
+      );
+
+      observer.observe(section);
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initStatsCounters);
+  } else {
+    initStatsCounters();
+  }
+  document.addEventListener('astro:page-load', initStatsCounters);
+</script>
