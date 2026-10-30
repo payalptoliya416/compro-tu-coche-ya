@@ -12,6 +12,7 @@ export const images = {
   typeDiesel: '/images/slide02.png',
   typeHybrid: '/images/slide03.png',
   typeElectric: '/images/slide04.png',
+  grpImg: '/images/grp-img.png',
 
   // Car make logos
   make01: '/images/make01.png',
@@ -49,8 +50,12 @@ export const images = {
   avatar1: '/images/client01.png',
   avatar2: '/images/client02.png',
   avatar3: '/images/client03.png',
-  carGolf: p('car-golf'),
-  carAudi: p('car-audi'),
-  carMercedes: p('car-mercedes'),
-  carCitroen: p('car-citroen'),
+  carGolf: '/images/car01.png',
+  carAudi: '/images/car02.png',
+  carMercedes: '/images/car03.png',
+  carCitroen: '/images/car04.png',
+  car01: '/images/car01.png',
+  car02: '/images/car02.png',
+  car03: '/images/car03.png',
+  car04: '/images/car04.png',
 };

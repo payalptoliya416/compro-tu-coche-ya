@@ -1,8 +1,10 @@
 ---
-import { Icon } from 'astro-icon/components';
 import Section from '../components/Section.astro';
 import SectionTitle from '../components/SectionTitle.astro';
 import { testimonials } from '../data/site';
+import 'swiper/css';
+import 'swiper/css/pagination';
+
 const { gray = false } = Astro.props;
 ---
 <Section gray={gray}>
@@ -12,7 +14,7 @@ const { gray = false } = Astro.props;
     <div class="swiper-wrapper">
       {testimonials.map((t) => (
         <div class="swiper-slide h-auto">
-          <figure class="h-full rounded-[18px] bg-white px-5 pt-7 pb-[30px]">
+          <figure class="h-full rounded-[18px] bg-white px-5 pt-7 pb-[30px] border border-[#ECEFF3] shadow-[0_4px_20px_rgba(2,33,74,0.04)]">
             <div class="flex items-start justify-between">
               <img src="/images/invert.png" alt="" class="" />
               <div class="flex gap-0.5">
@@ -32,7 +34,7 @@ const { gray = false } = Astro.props;
       ))}
     </div>
     <div class="flex justify-center items-center pt-5">
-      <div class="swiper-pagination testimonials-pagination "></div>
+      <div class="swiper-pagination testimonials-pagination"></div>
     </div>
   </div>
 </Section>
@@ -66,19 +68,26 @@ const { gray = false } = Astro.props;
   import Swiper from 'swiper';
   import { Pagination } from 'swiper/modules';
 
-  new Swiper('.testimonials-swiper', {
-    modules: [Pagination],
-    slidesPerView: 1,
-    spaceBetween: 16,
-    grabCursor: true,
-    speed: 400,
-    pagination: {
-      el: '.testimonials-swiper .testimonials-pagination',
-      clickable: true,
-    },
-    breakpoints: {
-      640: { slidesPerView: 2, spaceBetween: 20 },
-      1024: { slidesPerView: 3, spaceBetween: 24 },
-    },
+  document.querySelectorAll('.testimonials-swiper').forEach((container) => {
+    const el = container as HTMLElement;
+    const paginationEl = el.querySelector('.testimonials-pagination') as HTMLElement | null;
+
+    new Swiper(el, {
+      modules: [Pagination],
+      slidesPerView: 1,
+      spaceBetween: 16,
+      grabCursor: true,
+      speed: 400,
+      pagination: paginationEl
+        ? {
+            el: paginationEl,
+            clickable: true,
+          }
+        : undefined,
+      breakpoints: {
+        640: { slidesPerView: 2, spaceBetween: 20 },
+        1024: { slidesPerView: 3, spaceBetween: 24 },
+      },
+    });
   });
 </script>
