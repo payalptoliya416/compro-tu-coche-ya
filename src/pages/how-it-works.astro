@@ -1,18 +1,33 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Button from '../components/Button.astro';
-import PageHero from '../components/PageHero.astro';
+import Badge from '../components/Badge.astro';
 import StepsCircle from '../sections/StepsCircle.astro';
 import WhyCards from '../sections/WhyCards.astro';
 import Stats from '../sections/Stats.astro';
 import Faq from '../sections/Faq.astro';
-import { images } from '../data/images';
 import { whyItems, registrationSteps } from '../data/site';
 ---
 <Layout title="How does it work?">
-  <PageHero image={images.heroHow} badge="How it works" title="How {selling your car} works" text="Selling your car with Compro Tu Coche Ya is simple, transparent and hassle-free." text2="From entering your registration to receiving your assessment, we guide you through every step.">
-    <Button href="/sell-your-car">Sell Your Car</Button>
-  </PageHero>
+  <section class="p-3.5 sm:p-5 md:p-[30px]">
+    <div class="relative isolate overflow-hidden rounded-[26px] bg-navy-deep text-white h-[600px] sm:h-[650px] md:h-[680px] flex items-center justify-center">
+      <img src="/images/howwork-bg.png" alt="" class="absolute inset-0 -z-20 size-full object-cover object-center" />
+      <div class="wrap flex flex-col items-center justify-center py-12 text-center">
+        <Badge>How it works</Badge>
+        <h1 class="max-w-4xl text-[30px] font-medium leading-[1.2] tracking-tight sm:text-[40px] md:text-[52px]">
+          How <span class="text-brand">selling your car</span> works
+        </h1>
+        <p class="mt-4 max-w-2xl text-sm font-light leading-relaxed text-white/90 sm:text-base">
+          Selling your car with Compro Tu Coche Ya is simple, transparent and hassle-free.<br class="hidden sm:inline" />
+          From entering your registration to receiving your assessment, we guide you through every step.
+        </p>
+        <div class="mt-[35px] flex items-center justify-center">
+          <Button href="/sell-your-car" variant="primary" size="sm">Sell Your Car</Button>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <WhyCards title="Why sell your car with us?" items={whyItems} />
   <StepsCircle title="From your registration to your payment." text="Everything is handled in a simple, guided process." steps={registrationSteps} />
   <Stats />

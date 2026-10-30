@@ -14,6 +14,7 @@ export const images = {
   typeElectric: '/images/slide04.png',
   grpImg: '/images/grp-img.png',
   aboutBg: '/images/about-bg.png',
+  howWorkBg: '/images/howwork-bg.png',
   aboutAbout: '/images/sell-about.png',
   badgeSale: '/images/badgeSale.svg',
   builtImage: '/images/bult-grp.png',
@@ -33,7 +34,7 @@ export const images = {
   // Placeholder SVGs (replace later)
   heroSell: p('hero-sell'),
   heroAbout: '/images/about-bg.png',
-  heroHow: p('hero-how'),
+  heroHow: '/images/howwork-bg.png',
   heroPickup: p('hero-pickup'),
   heroContact: p('hero-contact'),
   team1: p('team-1'),

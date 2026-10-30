@@ -9,14 +9,14 @@ import { faqs } from '../data/site';
   <div class="mx-auto max-w-[820px] space-y-6">
     {faqs.map((f, i) => (
       <details name="faq" open={i === 0} class="group rounded-full open:rounded-[18px] bg-[#F2F4F6]">
-        <summary class="flex cursor-pointer list-none items-center justify-between gap-4 pl-6 pr-2 py-2 text-base text-[#354D6E] [&::-webkit-details-marker]:hidden">
+        <summary class="flex cursor-pointer list-none items-center justify-between gap-4 pl-6 pr-2 py-2 text-base lg:text-lg text-[#354D6E] [&::-webkit-details-marker]:hidden">
           {f.q}
-          <span class="grid size-9 shrink-0 place-items-center rounded-full bg-white text-navy group-open:text-brand">
+          <span class="grid size-11 shrink-0 place-items-center rounded-full bg-white text-navy group-open:text-brand">
             <Icon name="lucide:arrow-up-right" class="size-5 group-open:hidden" />
             <Icon name="lucide:arrow-down-right" class="hidden size-5 group-open:block" />
           </span>
         </summary>
-        <p class="ml-6 mr-2 border-t border-[#CCD3DB] pt-5 pb-6 text-sm leading-relaxed text-muted">{f.a}</p>
+        <p class="ml-6 mr-2 border-t border-[#CCD3DB] pt-5 pb-6 text-sm lg:text-base leading-relaxed text-muted">{f.a}</p>
       </details>
     ))}
   </div>
