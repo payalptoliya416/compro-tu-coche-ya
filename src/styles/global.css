@@ -5,6 +5,7 @@
    ============================================================ */
 @theme {
   --font-sans: "Rubik", sans-serif;
+  --font-poppins: "Poppins", sans-serif;
 
   --color-brand: #FD570F;       /* orange: buttons, highlights, active links */
   --color-brand-dark: #e64a04;  /* orange hover */
