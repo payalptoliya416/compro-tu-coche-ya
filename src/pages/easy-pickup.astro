@@ -2,9 +2,8 @@
 import { Icon } from 'astro-icon/components';
 import Layout from '../layouts/Layout.astro';
 import Button from '../components/Button.astro';
-import PageHero from '../components/PageHero.astro';
+import Badge from '../components/Badge.astro';
 import Section from '../components/Section.astro';
-import SectionTitle from '../components/SectionTitle.astro';
 import StepsCircle from '../sections/StepsCircle.astro';
 import SpainMap from '../sections/SpainMap.astro';
 import Faq from '../sections/Faq.astro';
@@ -17,9 +16,9 @@ const perks = [
   ['lucide:wallet', 'No Extra Pickup Cost', 'Vehicle collection is 100% free, no hidden charges.'],
 ];
 const places = [
-  [images.pickupCity, 'City Pickup', 'Pickup from urban locations, streets, parking lots or city centres across Spain.'],
-  [images.pickupHome, 'Home Pickup', 'We collect directly from your home - no need to travel anywhere.'],
-  [images.pickupWork, 'Workplace Pickup', "Convenient collection from your workplace so you don't lose a working day."],
+  ['/images/meet01.png', 'City Pickup', 'Pickup from urban locations, streets, parking lots or city centres across Spain.'],
+  ['/images/meet02.png', 'Home Pickup', 'We collect directly from your home - no need to travel anywhere.'],
+  ['/images/meet03.png', 'Workplace Pickup', "Convenient collection from your workplace so you don't lose a working day."],
 ];
 const experience = [
   ['lucide:users', 'Professional Collection Team', 'Trained specialists handle your vehicle with care.'],
@@ -30,20 +29,34 @@ const experience = [
 ];
 ---
 <Layout title="Easy Pickup">
-  <PageHero image={images.heroPickup} badge="Easy Vehicle Pickup" title="We Pick Up Your Car {Anywhere in Spain.}" text="Sell your car without worrying about transport. We collect your vehicle directly from your location at a time that suits you.">
-    <Button href="/lets-talk">Arrange My Pickup</Button>
-  </PageHero>
+  <section class="p-3.5 sm:p-5 md:p-[30px]">
+    <div class="relative isolate overflow-hidden rounded-[26px] bg-navy-deep text-white h-[600px] sm:h-[650px] md:h-[680px] flex items-center justify-center">
+      <img src="/images/easy-bg.png" alt="" class="absolute inset-0 -z-20 size-full object-cover object-center" />
+      <div class="wrap flex flex-col items-center justify-center py-12 text-center">
+        <Badge>Easy Vehicle Pickup</Badge>
+        <h1 class="max-w-4xl text-[30px] font-medium leading-[1.2] tracking-tight sm:text-[40px] md:text-[52px]">
+          We Pick Up Your Car <span class="text-brand">Anywhere in Spain.</span>
+        </h1>
+        <p class="mt-4 max-w-2xl text-sm font-light leading-relaxed text-white/90 sm:text-base">
+          Sell your car without worrying about transport. We collect your vehicle directly from your location at a time that suits you.
+        </p>
+        <div class="mt-[35px] flex items-center justify-center">
+          <Button href="/lets-talk" variant="primary" size="sm">Arrange My Pickup</Button>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <Section>
-    <div class="grid items-center gap-8 lg:grid-cols-2">
+    <div class="grid items-center gap-[30px] lg:grid-cols-2">
       <div>
         <h2 class="h2">Your Car, Our Pickup.</h2>
-        <p class="mt-3 max-w-md text-[13px] leading-relaxed text-muted">Wherever your car is in Spain, we make collection simple and convenient. No logistics stress - just a smooth, professional pickup experience.</p>
-        <ul class="mt-5 space-y-3">
+        <p class="mt-6 space-y-4 text-base leading-relaxed text-[#677A92] w-full max-w-[560px]">Wherever your car is in Spain, we make collection simple and convenient. No logistics stress - just a smooth, professional pickup experience.</p>
+        <ul class="mt-5 space-y-[25px]">
           {perks.map(([i, t, s]) => (
-            <li class="flex items-start gap-3">
-              <span class="grid size-7 shrink-0 place-items-center rounded-full bg-brand/10 text-brand"><Icon name={i} class="size-3.5" /></span>
-              <span class="leading-tight"><span class="block text-[13px] font-semibold text-navy">{t}</span><span class="text-[12px] text-muted">{s}</span></span>
+            <li class="flex items-start gap-[10px]">
+              <span class="grid size-[46px] shrink-0 place-items-center rounded-full bg-brand/5 text-brand"><Icon name={i} class="size-4" /></span>
+              <span class="leading-tight"><span class="block text-base text-navy mb-1">{t}</span><span class="text-base text-[#9AA6B7]">{s}</span></span>
             </li>
           ))}
         </ul>
@@ -55,19 +68,19 @@ const experience = [
 
   <StepsCircle title="How Pickup Works" text="From booking to handover, we make the entire collection process seamless and stress-free." steps={pickupSteps} />
 
-  <section class="frame">
-    <div class="rounded-3xl bg-navy py-12 text-white md:py-16">
+  <section class="p-[30px]">
+    <div class="rounded-[26px] bg-[#02214A] text-white py-[110px]">
       <div class="wrap">
         <div class="mx-auto mb-10 max-w-2xl text-center">
-          <h2 class="text-2xl font-bold md:text-[32px]">We Come to You</h2>
-          <p class="mt-2 text-sm text-white/70">Choose where to meet us. We adapt to your schedule and location.</p>
+          <h2 class="h2 !text-white">We Come to You</h2>
+          <p class="lead mt-3 !text-[#B3BCC9]">Choose where to meet us. We adapt to your schedule and location.</p>
         </div>
-        <ul class="grid gap-4 md:grid-cols-3">
+        <ul class="grid gap-6 md:grid-cols-3">
           {places.map(([img, t, s]) => (
-            <li class="rounded-xl border border-white/10 bg-white/5 p-3">
-              <img src={img} alt={t} class="aspect-[4/3] w-full rounded-lg object-cover" loading="lazy" />
-              <h3 class="mt-4 px-1 text-[15px] font-semibold">{t}</h3>
-              <p class="mt-1 px-1 pb-2 text-[12.5px] text-white/70">{s}</p>
+            <li class="rounded-[18px] border border-white/40 bg-white/10 p-4 sm:p-[30px]">
+              <img src={img} alt={t} class="" loading="lazy" />
+              <h3 class="mt-[25px] text-xl font-medium text-white">{t}</h3>
+              <p class="mt-[15px] text-lg leading-relaxed text-[#B3BCC9]">{s}</p>
             </li>
           ))}
         </ul>
@@ -77,14 +90,14 @@ const experience = [
 
   <Section>
     <div class="grid items-center gap-8 lg:grid-cols-[1.05fr_1fr]">
-      <img src={images.pickupWoman} alt="" class="aspect-[4/4.2] w-full rounded-xl object-cover" loading="lazy" />
+      <img src="/images/pickup.png" alt="" class="" loading="lazy" />
       <div>
         <h2 class="h2">A Pickup Experience <span class="text-brand">Without the Hassle</span></h2>
-        <ul class="mt-5 space-y-3.5">
+        <ul class="mt-[25px] space-y-[25px]">
           {experience.map(([i, t, s]) => (
-            <li class="flex items-start gap-3">
-              <span class="grid size-7 shrink-0 place-items-center rounded-full bg-brand/10 text-brand"><Icon name={i} class="size-3.5" /></span>
-              <span class="leading-tight"><span class="block text-[13px] font-semibold text-navy">{t}</span><span class="text-[12px] text-muted">{s}</span></span>
+            <li class="flex items-start gap-[10px]">
+              <span class="grid size-[46px] shrink-0 place-items-center rounded-full bg-brand/5 text-brand"><Icon name={i} class="size-4" /></span>
+              <span class="leading-tight"><span class="block text-base text-navy mb-1">{t}</span><span class="text-base text-[#9AA6B7]">{s}</span></span>
             </li>
           ))}
         </ul>
