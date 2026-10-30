@@ -13,28 +13,28 @@ const socials = [
 ---
 <footer class="px-[30px] mt-14 sm:mt-20 md:mt-24 pb-4 md:pb-6">
   <!-- CTA Banner overlapping the footer top -->
-  <div class="relative z-10 mx-auto w-full max-w-[1170px] px-2 sm:px-6">
+  <div class="relative z-10 mx-auto w-full max-w-[1440px] px-2 sm:px-6">
     <CtaBanner />
   </div>
 
   <!-- Dark navy card with rounded corners -->
-  <div class="-mt-28 sm:-mt-32 md:-mt-36 rounded-[28px] md:rounded-[36px] bg-navy-deep text-white pt-36 sm:pt-42 md:pt-48 pb-8 md:pb-10 shadow-xl">
-    <div class="mx-auto w-full max-w-[1170px] px-5 sm:px-8 md:px-10">
+  <div class="-mt-28 sm:-mt-32 md:-mt-36 rounded-[26px] bg-navy-deep text-white pt-36 sm:pt-42 md:pt-48 pb-7">
+    <div class="mx-auto w-full max-w-[1440px] px-5 sm:px-8 md:px-10">
       <div class="grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.3fr_1fr_1fr_1.1fr] pt-2">
         <!-- Brand & Description -->
         <div>
           <Logo light />
-          <p class="mt-4 max-w-[240px] text-[13px] md:text-sm leading-relaxed text-white/75">
+          <p class="mt-4 max-w-[260px] text-[13px] md:text-base leading-relaxed text-white">
             The easiest and safest way to sell your car in Spain.
           </p>
-          <div class="mt-5 flex items-center gap-2.5">
+          <div class="mt-6 flex items-center gap-2.5">
             {socials.map((s) => (
               <a
                 href="#"
                 aria-label={s.label}
-                class="grid size-9 place-items-center rounded-full border border-white/20 text-white/80 transition-all duration-200 hover:border-brand hover:text-brand hover:bg-white/5 hover:scale-105 active:scale-95"
+                class="grid size-11 place-items-center rounded-full border border-white/20 text-white transition-all duration-200 hover:border-brand hover:text-brand hover:bg-white/5 hover:scale-105 active:scale-95"
               >
-                <Icon name={s.icon} class="size-4" />
+                <Icon name={s.icon} class="size-3.5" />
               </a>
             ))}
           </div>
@@ -42,8 +42,8 @@ const socials = [
 
         <!-- Company Links -->
         <div>
-          <h3 class="mb-4 text-sm font-semibold tracking-wide text-white">Company</h3>
-          <ul class="space-y-2.5 text-[13px] text-white/70">
+          <h3 class="mb-5 text-lg font-medium tracking-wide text-white">Company</h3>
+          <ul class="space-y-4 text-base text-[#9AA6B7]">
             {company.map((l) => (
               <li>
                 <a href={l.href} class="transition-colors hover:text-white hover:underline underline-offset-4">
@@ -56,8 +56,8 @@ const socials = [
 
         <!-- Aid Links -->
         <div>
-          <h3 class="mb-4 text-sm font-semibold tracking-wide text-white">Aid</h3>
-          <ul class="space-y-2.5 text-[13px] text-white/70">
+          <h3 class="mb-5 text-lg font-medium tracking-wide text-white">Aid</h3>
+          <ul class="space-y-4 text-base text-[#9AA6B7]">
             {aid.map(([t, h]) => (
               <li>
                 <a href={h} class="transition-colors hover:text-white hover:underline underline-offset-4">
@@ -70,18 +70,18 @@ const socials = [
 
         <!-- Contact Info -->
         <div>
-          <h3 class="mb-4 text-sm font-semibold tracking-wide text-white">Contact</h3>
-          <ul class="space-y-2.5 text-[13px] text-white/70">
+          <h3 class="mb-5 text-lg font-medium tracking-wide text-white">Contact</h3>
+          <ul class="space-y-4 text-base text-[#9AA6B7]">
             <li class="flex items-center gap-2.5">
-              <Icon name="lucide:phone" class="size-3.5 shrink-0 text-white/70" />
+              <Icon name="lucide:phone" class="size-3.5 shrink-0 text-[#9AA6B7]" />
               <span>{contact.phone}</span>
             </li>
             <li class="flex items-center gap-2.5">
-              <Icon name="lucide:mail" class="size-3.5 shrink-0 text-white/70" />
+              <Icon name="lucide:mail" class="size-3.5 shrink-0 text-[#9AA6B7]" />
               <span>{contact.email}</span>
             </li>
             <li class="flex items-center gap-2.5">
-              <Icon name="lucide:map-pin" class="size-3.5 shrink-0 text-white/70" />
+              <Icon name="lucide:map-pin" class="size-3.5 shrink-0 text-[#9AA6B7]" />
               <span>{contact.place}</span>
             </li>
           </ul>
@@ -89,7 +89,7 @@ const socials = [
       </div>
 
       <!-- Copyright bar -->
-      <div class="mt-12 sm:mt-16 flex flex-col gap-3 border-t border-white/10 pt-6 text-xs text-white/60 sm:flex-row sm:items-center sm:justify-between">
+      <div class="mt-12 sm:mt-16 flex flex-col gap-3 border-t border-white/30 pt-7 text-base text-white sm:flex-row sm:items-center sm:justify-between">
         <p>© 2025 | Buy Your Car Now. All rights reserved.</p>
         <p class="transition-colors hover:text-white/80">
           <a href="#" class="hover:underline">Privacy policy</a> • <a href="#" class="hover:underline">Terms and conditions</a>

@@ -42,7 +42,7 @@ const special = [
   ['lucide:shield-x', 'Totaled car', 'We value your car regardless of the damage.'],
   ['lucide:timer', 'You need to sell quickly.', 'Offer in minutes, same-day payment.'],
 ];
-const brands = [['simple-icons:bmw', 'BMW'], ['simple-icons:mercedes', 'Mercedes-Benz'], ['simple-icons:audi', 'Audi'], ['simple-icons:volkswagen', 'Volkswagen'], ['simple-icons:toyota', 'Toyota'], ['simple-icons:seat', 'SEAT'], ['simple-icons:peugeot', 'Peugeot'], ['simple-icons:renault', 'Renault'], ['simple-icons:ford', 'Ford'], ['simple-icons:tesla', 'Tesla']];
+const brands = [[images.make01, 'BMW'], [images.make02, 'Mercedes-Benz'], [images.make03, 'Audi'], [images.make04, 'Volkswagen'], [images.make05, 'Toyota'], [images.make06, 'SEAT'], [images.make07, 'Peugeot'], [images.make08, 'Renault'], [images.make09, 'Ford'], [images.make10, 'Tesla']];
 ---
 <Layout title="Sell your car today">
   <!-- Hero -->
@@ -51,7 +51,7 @@ const brands = [['simple-icons:bmw', 'BMW'], ['simple-icons:mercedes', 'Mercedes
       <!-- Background photo -->
       <img src={images.heroHome} alt="" class="absolute inset-0 -z-20 size-full object-cover object-center" />
 
-      <div class="mx-auto flex w-full max-w-[1170px] min-h-[calc(100vh-76px)] flex-col items-center justify-center px-4 py-16 text-center sm:px-6">
+      <div class="mx-auto flex w-full max-w-[1440px] min-h-[calc(100vh-76px)] flex-col items-center justify-center px-4 py-16 text-center sm:px-6">
         <!-- Pill badge -->
         <Badge>Sell your car today in Spain.</Badge>
 
@@ -79,8 +79,8 @@ const brands = [['simple-icons:bmw', 'BMW'], ['simple-icons:mercedes', 'Mercedes
   </section>
 
   <!-- Feature strip -->
-  <section class="pt-[30px]">
-    <ul class="grid grid-cols-2 gap-5 rounded-2xl bg-surface px-5 py-8 lg:grid-cols-4 lg:gap-0">
+  <section class="px-[30px]">
+    <ul class="grid grid-cols-2 gap-5 rounded-[26px] bg-surface px-5 py-8 lg:grid-cols-4 lg:gap-0">
       {features.map(([i, t, s]) => (
         <li class="flex items-center justify-center gap-3 lg:border-l lg:border-slate-300/60 lg:first:border-l-0">
           <Icon name={i} class="size-5 shrink-0 text-muted" />
@@ -119,11 +119,11 @@ const brands = [['simple-icons:bmw', 'BMW'], ['simple-icons:mercedes', 'Mercedes
     </div>
 
     <!-- Swiper container bleeding outside to the right -->
-    <div class="w-full pl-4 sm:pl-6 xl:pl-[calc((100vw-1170px)/2+1.5rem)]">
+    <div class="w-full pl-4 sm:pl-6 xl:pl-[calc((100vw-1440px)/2+1.5rem)]">
       <div class="swiper types-swiper !overflow-visible">
         <div class="swiper-wrapper">
           {types.map(([t, img]) => (
-            <div class="swiper-slide !w-[270px] sm:!w-[310px] md:!w-[340px] lg:!w-[360px] shrink-0">
+            <div class="swiper-slide !w-[270px] sm:!w-[310px] md:!w-[340px] lg:!w-[400px] shrink-0">
               <div class="group relative aspect-[16/11] overflow-hidden rounded-[14px] transition-shadow duration-300 hover:shadow-xl">
                 <img
                   src={img}
@@ -150,7 +150,7 @@ const brands = [['simple-icons:bmw', 'BMW'], ['simple-icons:mercedes', 'Mercedes
     <SectionTitle title="Is your car in a special situation?" text="We have solutions for every case." />
     <ul class="grid gap-5 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
       {special.map(([i, t, s]) => (
-        <li class="rounded-[18px] bg-white p-10 border border-[#E6E9ED]">
+        <li class="rounded-[18px] bg-white p-8 border border-[#E6E9ED]">
           <span class="mb-4 grid size-[50px] place-items-center rounded-full bg-[#02214A]/5 text-navy"><Icon name={i} class="size-5" /></span>
           <h3 class="text-base font-semibold text-navy">{t}</h3>
           <p class="mt-2 text-sm text-[#677A92]">{s}</p>
@@ -161,12 +161,12 @@ const brands = [['simple-icons:bmw', 'BMW'], ['simple-icons:mercedes', 'Mercedes
   </Section>
 
   <!-- Brands -->
-  <Section class="!pt-0">
+  <Section class="">
     <SectionTitle title="We buy cars of all makes." text="No matter the make, we want your car." />
-    <ul class="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
+    <ul class="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-5">
       {brands.map(([i, n]) => (
         <li class="flex flex-col items-center justify-center gap-5 rounded-[18px] bg-[#F2F4F6] py-7 text-base text-[#354D6E]">
-          <Icon name={i} class="size-8" />{n}
+          <img src={i} alt={n} class="size-" />{n}
         </li>
       ))}
     </ul>

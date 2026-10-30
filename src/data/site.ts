@@ -28,6 +28,9 @@ export const testimonials = [
   { text: 'Incredible experience. They offered me a fair price and I had the money in my account in less than 48 hours. Highly recommended.', name: 'Annette Black', city: 'Valencia', avatar: images.avatar1 },
   { text: "I had the car financed and didn't know how to manage it. They took care of everything. No stress, no complications. Perfect.", name: 'Leslie Alexander', city: 'Madrid', avatar: images.avatar2 },
   { text: 'The process is very simple. I entered the license plate number, received a valuation, and sold my car the same day. Very professional.', name: 'Esther Howard', city: 'Sevilla', avatar: images.avatar3 },
+  { text: 'Incredible experience. They offered me a fair price and I had the money in my account in less than 48 hours. Highly recommended.', name: 'Annette Black', city: 'Valencia', avatar: images.avatar1 },
+  { text: "I had the car financed and didn't know how to manage it. They took care of everything. No stress, no complications. Perfect.", name: 'Leslie Alexander', city: 'Madrid', avatar: images.avatar2 },
+  { text: 'The process is very simple. I entered the license plate number, received a valuation, and sold my car the same day. Very professional.', name: 'Esther Howard', city: 'Sevilla', avatar: images.avatar3 },
 ];
 
 export const stats = [

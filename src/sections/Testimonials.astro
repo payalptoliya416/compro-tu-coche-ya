@@ -7,22 +7,78 @@ const { gray = false } = Astro.props;
 ---
 <Section gray={gray}>
   <SectionTitle title="Our customers say so." text="Hundreds of customers have already sold their car with us." />
-  <div class="no-scrollbar -mx-4 flex snap-x gap-4 overflow-x-auto px-4 pb-2 md:mx-0 md:grid md:grid-cols-3 md:overflow-visible md:px-0">
-    {testimonials.map((t) => (
-      <figure class="min-w-[85%] snap-center rounded-xl border border-line bg-white p-5 shadow-sm sm:min-w-[60%] md:min-w-0">
-        <div class="flex items-start justify-between">
-          <Icon name="lucide:quote" class="size-7 text-slate-200" />
-          <div class="flex gap-0.5 text-star">{[0, 1, 2, 3, 4].map(() => <Icon name="lucide:star" class="size-3.5 fill-current" />)}</div>
+
+  <div class="swiper testimonials-swiper">
+    <div class="swiper-wrapper">
+      {testimonials.map((t) => (
+        <div class="swiper-slide h-auto">
+          <figure class="h-full rounded-[18px] bg-white px-5 pt-7 pb-[30px]">
+            <div class="flex items-start justify-between">
+              <img src="/images/invert.png" alt="" class="" />
+              <div class="flex gap-0.5">
+                {[0,1,2,3,4].map(() =>  <img src="/images/star.svg" alt="" class="" />)}
+              </div>
+            </div>
+            <blockquote class="mt-[15px] text-sm leading-relaxed text-[#677A92]">"{t.text}"</blockquote>
+            <figcaption class="mt-9 flex items-center gap-[10px]">
+              <img src={t.avatar} alt={t.name} class="size-[44px] rounded-full object-cover" />
+              <span class="leading-tight">
+                <span class="block text-base text-[#02214A] mb-0.5">{t.name}</span>
+                <span class="text-sm text-[#677A92]">{t.city}</span>
+              </span>
+            </figcaption>
+          </figure>
         </div>
-        <blockquote class="mt-3 text-[13px] leading-relaxed text-muted">“{t.text}”</blockquote>
-        <figcaption class="mt-5 flex items-center gap-3">
-          <img src={t.avatar} alt="" class="size-8 rounded-full object-cover" />
-          <span class="leading-tight"><span class="block text-[13px] font-semibold text-navy">{t.name}</span><span class="text-[11px] text-muted">{t.city}</span></span>
-        </figcaption>
-      </figure>
-    ))}
-  </div>
-  <div class="mt-5 flex justify-center gap-1" aria-hidden="true">
-    <span class="h-1 w-4 rounded-full bg-brand"></span><span class="size-1 rounded-full bg-slate-300"></span><span class="size-1 rounded-full bg-slate-300"></span>
+      ))}
+    </div>
+    <div class="flex justify-center items-center pt-5">
+      <div class="swiper-pagination testimonials-pagination "></div>
+    </div>
   </div>
 </Section>
+
+<style>
+  .testimonials-swiper {
+    padding-bottom: 2.5rem !important;
+  }
+
+  /* Dot base */
+  .testimonials-pagination :global(.swiper-pagination-bullet) {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 9999px;
+    background: #cbd5e1;
+    opacity: 1;
+    margin: 0 4px;
+    cursor: pointer;
+    transition: width 0.3s ease, background-color 0.3s ease;
+  }
+
+  /* Active dot */
+  .testimonials-pagination :global(.swiper-pagination-bullet-active) {
+    width: 22px;
+    background-color: #e8380d;
+  }
+</style>
+
+<script>
+  import Swiper from 'swiper';
+  import { Pagination } from 'swiper/modules';
+
+  new Swiper('.testimonials-swiper', {
+    modules: [Pagination],
+    slidesPerView: 1,
+    spaceBetween: 16,
+    grabCursor: true,
+    speed: 400,
+    pagination: {
+      el: '.testimonials-swiper .testimonials-pagination',
+      clickable: true,
+    },
+    breakpoints: {
+      640: { slidesPerView: 2, spaceBetween: 20 },
+      1024: { slidesPerView: 3, spaceBetween: 24 },
+    },
+  });
+</script>
