@@ -16,10 +16,10 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 
 const features = [
-  ['lucide:star', 'Free valuation', 'No cost or obligation'],
-  ['lucide:zap', 'Fast process', 'In a few minutes'],
-  ['lucide:shield-check', 'Secure payment', 'Guaranteed and fast'],
-  ['lucide:car-front', 'We buy all types of cars.', 'Any make and condition'],
+  ['/images/valuation.svg', 'Free valuation', 'No cost or obligation'],
+  ['/images/process.svg', 'Fast process', 'In a few minutes'],
+  ['/images/payment.svg', 'Secure payment', 'Guaranteed and fast'],
+  ['/images/car.svg', 'We buy all types of cars.', 'Any make and condition'],
 ];
 const steps = [
   { title: 'Enter license plate number', text: "You only need your vehicle's license plate number to get started." },
@@ -81,10 +81,10 @@ const brands = [[images.make01, 'BMW'], [images.make02, 'Mercedes-Benz'], [image
   <!-- Feature strip -->
   <section class="px-[30px]">
     <ul class="grid grid-cols-2 gap-5 rounded-[26px] bg-surface px-5 py-8 lg:grid-cols-4 lg:gap-0">
-      {features.map(([i, t, s]) => (
-        <li class="flex items-center justify-center gap-3 lg:border-l lg:border-slate-300/60 lg:first:border-l-0">
-          <Icon name={i} class="size-5 shrink-0 text-muted" />
-          <span class="leading-tight"><span class="block text-[13px] font-semibold text-navy">{t}</span><span class="text-[11px] text-muted">{s}</span></span>
+      {features.map(([img, t, s]) => (
+        <li class="relative flex items-center justify-center gap-3 lg:after:content-[''] lg:after:absolute lg:after:right-0 lg:after:top-1/2 lg:after:-translate-y-1/2 lg:after:h-8 lg:after:w-px lg:after:bg-[#B3BCC9] lg:last:after:hidden">
+          <img src={img} alt="" class="shrink-0 w-full max-w-[22px]" />
+          <span class="leading-tight"><span class="block text-xl text-navy">{t}</span><span class="text-base text-[#677A92]">{s}</span></span>
         </li>
       ))}
     </ul>

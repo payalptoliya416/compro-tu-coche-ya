@@ -26,8 +26,8 @@ const styles: Record<Variant, string> = {
   white: 'bg-white text-navy hover:bg-white/90',
 };
 const circle: Record<Variant, string> = {
-  primary: 'bg-white text-brand',
-  navy: 'bg-white text-navy',
+  primary: 'bg-white text-[#02214A]',
+  navy: 'bg-white text-[#02214A]',
   white: 'bg-navy text-white',
 };
 const sizes: Record<Size, string> = {
@@ -43,7 +43,9 @@ const classes = [base, styles[variant], sizes[size], cls].filter(Boolean).join('
     <span><slot /></span>
     {icon && (
       <span class:list={['grid size-8 place-items-center rounded-full', circle[variant]]}>
-        <Icon name="lucide:arrow-up-right" class="size-4" />
+        <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3.46155 15L15 3.46155M15 12.1154V3.46155H6.34616" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
       </span>
     )}
   </a>
@@ -52,7 +54,9 @@ const classes = [base, styles[variant], sizes[size], cls].filter(Boolean).join('
     <span><slot /></span>
     {icon && (
       <span class:list={['grid size-8 place-items-center rounded-full', circle[variant]]}>
-        <Icon name="lucide:arrow-up-right" class="size-4" />
+        <svg width="19" height="19" viewBox="0 0 19 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3.46155 15L15 3.46155M15 12.1154V3.46155H6.34616" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
       </span>
     )}
   </button>

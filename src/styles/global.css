@@ -26,7 +26,7 @@
   .frame { @apply mx-auto w-full max-w-[1440px] px-4 md:px-8; }
   .wrap  { @apply mx-auto w-full max-w-[1440px] px-4 sm:px-6; }
   .h2    { @apply text-2xl font-medium tracking-tight text-navy md:text-[36px] md:leading-tight; }
-  .lead  { @apply text-base md:text-base text-[#677A92]; }
+  .lead  { @apply text-base md:text-lg text-[#677A92]; }
   .no-scrollbar { scrollbar-width: none; }
   .no-scrollbar::-webkit-scrollbar { display: none; }
 }

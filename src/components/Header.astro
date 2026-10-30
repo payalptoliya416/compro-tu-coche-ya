@@ -5,7 +5,7 @@ import Button from './Button.astro';
 import { nav } from '../data/site';
 const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 ---
-<header class="sticky top-0 z-50 border-b border-line bg-white shadow-[0_1px_8px_rgba(2,33,74,0.06)]">
+<header class="sticky top-0 z-50 bg-white">
   <div class="mx-auto flex items-center justify-between px-[30px] py-6">
     <div class="flex items-center gap-3">
       <button id="menu-btn" type="button" aria-label="Open menu" aria-expanded="false" class="grid size-10 place-items-center rounded-full border border-line text-navy lg:hidden">
@@ -15,7 +15,7 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
     </div>
     <nav class="absolute left-1/2 hidden -translate-x-1/2 items-center gap-8 lg:flex" aria-label="Main">
       {nav.map((l) => (
-        <a href={l.href} class:list={['text-lg font-medium transition-colors hover:text-brand', path === l.href ? 'text-brand' : 'text-[#677A92]']}>{l.label}</a>
+        <a href={l.href} class:list={['text-lg transition-colors hover:text-brand', path === l.href ? 'text-brand' : 'text-[#677A92]']}>{l.label}</a>
       ))}
     </nav>
     <div class="flex items-center gap-2">
