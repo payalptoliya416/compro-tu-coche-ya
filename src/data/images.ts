@@ -20,6 +20,7 @@ export const images = {
   aboutAbout: '/images/sell-about.png',
   badgeSale: '/images/badgeSale.svg',
   builtImage: '/images/bult-grp.png',
+  position0img: '/images/position0img.png',
 
   // Car make logos
   make01: '/images/make01.png',

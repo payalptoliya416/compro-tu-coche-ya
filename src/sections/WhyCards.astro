@@ -10,8 +10,8 @@ const offsets = ['md:mt-0', 'md:mt-16', 'md:mt-6', 'md:mt-20'];
   <SectionTitle title={title} text={text} />
   <ul class:list={['grid items-start gap-4 sm:grid-cols-2', items.length === 4 && 'lg:grid-cols-4']}>
     {items.map((it, i) => (
-      <li class:list={['rounded-2xl bg-white px-7 py-[90px] shadow-[0_4px_24px_rgba(11,42,91,0.08)]', offsets[i % 4]]}>
-        <span class:list={['mb-7 grid size-[60px] place-items-center rounded-full', i % 2 === 0 ? 'bg-brand/10 text-brand' : 'bg-surface text-navy']}>
+      <li class:list={['rounded-2xl bg-white px-5 xl:px-7 py-8 md:py-16 lg:py-[90px] text-center sm:text-left shadow-[0_4px_24px_rgba(11,42,91,0.08)]', offsets[i % 4]]}>
+        <span class:list={['mb-7 grid size-[60px] place-items-center rounded-full mx-auto sm:mx-0', i % 2 === 0 ? 'bg-brand/10 text-brand' : 'bg-surface text-navy']}>
           <Icon name={it.icon} class="size-5" />
         </span>
         <h3 class="text-lg font-medium text-navy">{it.title}</h3>

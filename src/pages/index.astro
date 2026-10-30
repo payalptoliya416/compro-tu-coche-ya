@@ -35,23 +35,23 @@ const why = [
 ];
 const types = [['Gasoline', images.typeGasoline], ['Diesel', images.typeDiesel], ['Hybrids', images.typeHybrid], ['Electric vehicles', images.typeElectric]];
 const special = [
-  ['lucide:wrench', 'Broken-down car', "We'll buy it even if it doesn't start."],
-  ['lucide:triangle-alert', 'Car without a valid MOT', "It's not a problem for us."],
-  ['lucide:landmark', 'Financed car', 'We handle the cancellation of the loan.'],
-  ['lucide:heart', 'Inherited car', 'We help you with all the paperwork.'],
-  ['lucide:shield-x', 'Totaled car', 'We value your car regardless of the damage.'],
-  ['lucide:timer', 'You need to sell quickly.', 'Offer in minutes, same-day payment.'],
+  ['/images/brock.svg', 'Broken-down car', "We'll buy it even if it doesn't start."],
+  ['/images/error.svg', 'Car without a valid MOT', "It's not a problem for us."],
+  ['/images/finance.svg', 'Financed car', 'We handle the cancellation of the loan.'],
+  ['/images/heart.svg', 'Inherited car', 'We help you with all the paperwork.'],
+  ['/images/totalet.svg', 'Totaled car', 'We value your car regardless of the damage.'],
+  ['/images/clock.svg', 'You need to sell quickly.', 'Offer in minutes, same-day payment.'],
 ];
 const brands = [[images.make01, 'BMW'], [images.make02, 'Mercedes-Benz'], [images.make03, 'Audi'], [images.make04, 'Volkswagen'], [images.make05, 'Toyota'], [images.make06, 'SEAT'], [images.make07, 'Peugeot'], [images.make08, 'Renault'], [images.make09, 'Ford'], [images.make10, 'Tesla']];
 ---
 <Layout title="Sell your car today">
   <!-- Hero -->
-  <section class="w-full p-[30px]">
-    <div class="relative isolate overflow-hidden text-white rounded-[26px] h-[860px]">
+  <section class="w-full px-3 sm:px-[30px] pb-6 sm:pb-[30px]">
+    <div class="relative isolate overflow-hidden text-white rounded-[26px] h-auto min-h-[560px] sm:min-h-[660px] md:min-h-[740px] lg:h-[860px] flex items-center justify-center">
       <!-- Background photo -->
       <img src={images.heroHome} alt="" class="absolute inset-0 -z-20 size-full object-cover object-center" />
 
-      <div class="mx-auto flex w-full max-w-[1440px] min-h-[calc(100vh-76px)] flex-col items-center justify-center px-4 py-16 text-center sm:px-6">
+      <div class="mx-auto flex w-full max-w-[1440px] flex-col items-center justify-center px-2 sm:px-6 py-12 sm:py-16 lg:py-20 text-center">
         <!-- Pill badge -->
         <Badge>Sell your car today in Spain.</Badge>
 
@@ -79,12 +79,12 @@ const brands = [[images.make01, 'BMW'], [images.make02, 'Mercedes-Benz'], [image
   </section>
 
   <!-- Feature strip -->
-  <section class="px-[30px]">
-    <ul class="grid grid-cols-2 gap-5 rounded-[26px] bg-surface px-5 py-8 lg:grid-cols-4 lg:gap-0">
+  <section class="px-4 sm:px-6 md:px-[30px]">
+    <ul class="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-5 xl:grid-cols-4 xl:gap-0 rounded-[20px] sm:rounded-[26px] bg-surface px-4 py-6 sm:px-5 sm:py-8">
       {features.map(([img, t, s]) => (
-        <li class="relative flex items-center justify-center gap-3 lg:after:content-[''] lg:after:absolute lg:after:right-0 lg:after:top-1/2 lg:after:-translate-y-1/2 lg:after:h-8 lg:after:w-px lg:after:bg-[#B3BCC9] lg:last:after:hidden">
-          <img src={img} alt="" class="shrink-0 w-full max-w-[22px]" />
-          <span class="leading-tight"><span class="block text-xl text-navy">{t}</span><span class="text-base text-[#677A92]">{s}</span></span>
+        <li class="relative mx-auto flex w-full max-w-[280px] items-center justify-start gap-3 sm:max-w-none sm:justify-center lg:after:content-[''] lg:after:absolute lg:after:right-0 lg:after:top-1/2 lg:after:-translate-y-1/2 lg:after:h-8 lg:after:w-px lg:after:bg-[#B3BCC9] lg:last:after:hidden">
+          <img src={img} alt="" class="shrink-0 size-5 sm:size-[22px] object-contain" />
+          <span class="leading-tight"><span class="block text-base sm:text-lg lg:text-xl font-medium text-navy">{t}</span><span class="text-xs sm:text-sm lg:text-base text-[#677A92]">{s}</span></span>
         </li>
       ))}
     </ul>
@@ -94,13 +94,13 @@ const brands = [[images.make01, 'BMW'], [images.make02, 'Mercedes-Benz'], [image
   <WhyCards gray title="Why sell your car with us?" items={why} />
 
   <!-- Types carousel -->
-  <section class="py-12 md:py-16 overflow-hidden">
-    <div class="wrap mb-8 flex items-end justify-between gap-4">
+  <section class="py-12 md:py-[110px] overflow-hidden">
+    <div class="wrap mb-8 flex items-end justify-between gap-4 flex-wrap">
       <div>
         <h2 class="h2">We buy all types of cars.</h2>
-        <p class="lead mt-2">Whatever car you drive, we want to get to know it.</p>
+        <p class="lead mt-3">Whatever car you drive, we want to get to know it.</p>
       </div>
-      <div class="flex gap-2.5">
+      <div class="flex gap-2.5 ml-auto">
         <button
           type="button"
           aria-label="Previous"
@@ -147,17 +147,27 @@ const brands = [[images.make01, 'BMW'], [images.make02, 'Mercedes-Benz'], [image
 
   <!-- Special situations -->
   <Section>
-    <SectionTitle title="Is your car in a special situation?" text="We have solutions for every case." />
-    <ul class="grid gap-5 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      {special.map(([i, t, s]) => (
-        <li class="rounded-[18px] bg-white p-8 border border-[#E6E9ED]">
-          <span class="mb-4 grid size-[50px] place-items-center rounded-full bg-[#02214A]/5 text-navy"><Icon name={i} class="size-5" /></span>
-          <h3 class="text-base font-semibold text-navy">{t}</h3>
-          <p class="mt-2 text-sm text-[#677A92]">{s}</p>
-          <a href="/sell-your-car" class="mt-5 inline-flex items-center gap-1 text-base text-brand">Learn more <Icon name="lucide:chevron-right" class="size-3" /></a>
-        </li>
-      ))}
-    </ul>
+    <div class="relative">
+      <img
+        src={images.position0img}
+        alt=""
+        class="pointer-events-none absolute -top-4 sm:-top-8 -left-24 -z-10 select-none"
+        loading="lazy"
+      />
+      <SectionTitle title="Is your car in a special situation?" text="We have solutions for every case." />
+      <ul class="grid gap-5 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {special.map(([img, t, s]) => (
+          <li class="rounded-[18px] bg-white p-8 border border-[#E6E9ED]">
+            <span class="mb-4 grid size-[60px] place-items-center rounded-full bg-[#02214A]/5 text-navy">
+              <img src={img} alt="" class="size-6 object-contain" />
+            </span>
+            <h3 class="text-lg md:text-xl font-medium text-navy">{t}</h3>
+            <p class="mt-2 text-sm md:text-base text-[#677A92]">{s}</p>
+            <a href="/sell-your-car" class="mt-5 inline-flex items-center gap-1 text-base md:text-lg text-brand">Learn more <Icon name="lucide:chevron-right" class="size-3" /></a>
+          </li>
+        ))}
+      </ul>
+    </div>
   </Section>
 
   <!-- Brands -->

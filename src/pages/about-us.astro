@@ -27,7 +27,7 @@ const points = ['Personal attention at every step of the process.', 'Clear commu
 ---
 <Layout title="About Us">
   <section class="p-3.5 sm:p-5 md:p-[30px]">
-    <div class="relative isolate overflow-hidden rounded-[26px] bg-navy-deep text-white h-[600px] sm:h-[650px] md:h-[680px] flex items-center justify-center">
+    <div class="relative isolate overflow-hidden rounded-[26px] bg-navy-deep text-white h-[440px] sm:h-[520px] md:h-[600px] lg:h-[680px] flex items-center justify-center">
       <img src="/images/about-bg.png" alt="" class="absolute inset-0 -z-20 size-full object-cover object-center" />
       <div class="wrap flex flex-col items-center justify-center py-12 text-center">
         <Badge>Compro Tu Coche Ya</Badge>
@@ -65,7 +65,7 @@ const points = ['Personal attention at every step of the process.', 'Clear commu
     <SectionTitle title="Changing the way people sell their cars." text="We believe selling a car should not be complicated, time-consuming or stressful." />
     <ul class="grid gap-[30px] md:grid-cols-3">
       {values.map(([i, t, s]) => (
-        <li class="rounded-[18px] border border-[#E6E9ED] bg-white py-10 px-[30px]">
+        <li class="rounded-[18px] border border-[#E6E9ED] bg-white py-10 px-4 md:px-[30px]">
           <span class="mb-5 grid size-[60px] place-items-center rounded-full bg-[#02214A]/5 text-navy"><Icon name={i} class="size-5" /></span>
           <h3 class="text-lg font-medium text-navy">{t}</h3>
           <p class="mt-3 text-base text-[#677A92]">{s}</p>

@@ -2,17 +2,17 @@
 import Section from '../components/Section.astro';
 import SectionTitle from '../components/SectionTitle.astro';
 const { title, text, steps, gray = false, numberClass = '' } = Astro.props;
-const offsets = ['md:mt-10', 'md:mt-24', 'md:mt-32', 'md:mt-42'];
+const offsets = ['md:mt-14', 'md:mt-24', 'md:mt-32', 'md:mt-42'];
 ---
 <Section gray={gray}>
   <SectionTitle title={title} text={text} />
   <ol class="grid gap-y-6 sm:grid-cols-2 md:grid-cols-4">
     {steps.map((s, i) => (
-      <li class="border-line px-5 md:border-l md:first:border-l-0 md:px-6">
-        <div class:list={['relative min-h-[180px] pt-12', offsets[i]]}>
-          <span class:list={["pointer-events-none absolute -right-10 top-[20%] -translate-y-1/2 -rotate-90 select-none text-[110px] font-bold leading-none md:text-[130px]", numberClass || "text-[#F2F4F6]"]} aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
-          <h3 class="relative text-lg font-medium leading-snug text-[#354D6E] md:max-w-[160px]">{s.title}</h3>
-          <p class="relative mt-3 max-w-[240px] text-base leading-relaxed text-[#677A92]">{s.text}</p>
+      <li class="relative px-5 md:px-6 md:after:content-[''] md:after:absolute md:after:left-0 md:after:top-0 md:after:h-full md:after:w-[1px] md:after:bg-[linear-gradient(180deg,rgba(179,188,201,0)_0%,#B3BCC9_15%,#B3BCC9_85%,rgba(179,188,201,0)_100%)] md:first:after:hidden">
+        <div class:list={['relative min-h-[180px] pt-16', offsets[i]]}>
+          <span class:list={["pointer-events-none absolute -right-10 top-[30%] -translate-y-1/2 -rotate-90 select-none text-[110px] font-bold leading-none md:text-[130px]", numberClass || "text-[#F2F4F6]"]} aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+          <h3 class="relative text-base md:text-lg font-medium leading-snug text-[#354D6E] md:max-w-[160px]">{s.title}</h3>
+          <p class="relative mt-3 max-w-[240px] text-sm md:text-base leading-relaxed text-[#677A92]">{s.text}</p>
         </div>
       </li>
     ))}
