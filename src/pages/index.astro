@@ -171,12 +171,12 @@ const brands = [[images.make01, 'BMW'], [images.make02, 'Mercedes-Benz'], [image
   </Section>
 
   <!-- Brands -->
-  <Section class="">
+  <Section>
     <SectionTitle title="We buy cars of all makes." text="No matter the make, we want your car." />
-    <ul class="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-5">
+    <ul class="grid grid-cols-2 gap-3 md:gap-6 sm:grid-cols-3 lg:grid-cols-5">
       {brands.map(([i, n]) => (
-        <li class="flex flex-col items-center justify-center gap-5 rounded-[18px] bg-[#F2F4F6] py-7 text-base text-[#354D6E]">
-          <img src={i} alt={n} class="size-" />{n}
+        <li class="flex flex-col items-center justify-center gap-5 rounded-[18px] bg-[#F2F4F6] py-7 text-base md:text-lg lg:text-xl text-[#354D6E]">
+          <img src={i} alt={n} />{n}
         </li>
       ))}
     </ul>

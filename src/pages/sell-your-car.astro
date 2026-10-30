@@ -25,27 +25,27 @@ const sold = [
 ];
 ---
 <Layout title="Sell Your Car">
-  <section class="p-3.5 sm:p-5 md:p-[30px]">
+  <section class="w-full px-3 sm:px-[30px] pb-6 sm:pb-[30px]">
     <div class="relative isolate overflow-hidden rounded-3xl bg-navy-deep text-white h-auto min-h-[540px] lg:h-[680px] flex items-center">
       <img src="/images/sell-car-bg.png" alt="" class="absolute inset-0 -z-20 size-full object-cover object-center" />
-      <div class="wrap grid items-center gap-8 lg:gap-[149px] py-10 lg:grid-cols-2 lg:py-0 w-full">
-        <div>
+      <div class="wrap grid items-center gap-8 xl:gap-[149px] py-10 lg:grid-cols-2 lg:py-0 w-full min-w-0">
+        <div class="min-w-0 w-full max-w-full">
           <Badge>Sell Your Car With Compro Tu Coche Ya</Badge>
-          <h1 class="max-w-4xl text-[30px] font-medium leading-[1.2] tracking-tight sm:text-[40px] md:text-[52px]">
-            Turn Your Car Into Cash -<br /><span class="text-brand">Without the Hassle</span>
+          <h1 class="max-w-4xl text-[24px] sm:text-[40px] md:text-[52px] font-medium leading-[1.2] tracking-tight">
+            Turn Your Car Into Cash -<br class="hidden sm:inline" /> <span class="text-brand">Without the Hassle</span>
           </h1>
           <p class="mt-4 text-sm font-light leading-relaxed text-white sm:text-base">Get a quick valuation for your car and start the selling process in just a few simple steps.</p>
         </div>
-        <form action="#" method="get" class="rounded-[18px] bg-white p-5 text-navy shadow-2xl sm:p-10 lg:ml-auto lg:w-full">
+        <form action="#" method="get" class="w-full max-w-full min-w-0 rounded-[18px] bg-white p-5 text-navy shadow-2xl sm:p-10 lg:ml-auto">
           <h2 class="text-lg font-medium text-[#02214A]">Let's start with your car</h2>
           <p class="mt-3 text-base text-[#677A92]">Enter your license plate number and find out how much your car could be worth.</p>
           <label for="plate" class="mb-3 mt-10 block text-base text-[#354D6E]">Enter your license plate number</label>
-          <div class="flex h-12 overflow-hidden rounded-lg border border-line">
+          <div class="flex h-12 w-full max-w-full min-w-0 overflow-hidden rounded-lg border border-line">
             <span class="flex w-7 shrink-0 flex-col items-center justify-center bg-eu text-[10px] font-bold text-white">E</span>
-            <input id="plate" name="plate" placeholder="0000 AAA" maxlength="10" class="min-w-0 flex-1 px-3 text-lg font-semibold uppercase tracking-[0.15em] outline-none placeholder:text-slate-300" />
+            <input id="plate" name="plate" placeholder="0000 AAA" maxlength="10" class="min-w-0 w-0 flex-1 px-3 text-base sm:text-lg font-semibold uppercase tracking-[0.15em] outline-none placeholder:text-slate-300" />
           </div>
           <p class="mt-2 text-sm text-[#9AA6B7]">Example: 1234 ABC · Enter your vehicle's Spanish registration number</p>
-          <button type="submit" class="mt-8 inline-flex h-14 w-full items-center justify-center gap-2 rounded-full bg-brand text-base font-semibold text-white transition-colors hover:bg-brand-dark">
+          <button type="submit" class="mt-8 inline-flex h-11 md:h-14 w-full items-center justify-center gap-2 rounded-full bg-brand text-base font-semibold text-white transition-colors hover:bg-brand-dark">
             Continue <Icon name="lucide:arrow-right" class="size-4" />
           </button>
           <TrustRow dark class="mt-5" />
@@ -96,7 +96,7 @@ const sold = [
 
   <Section>
     <SectionTitle title="Cars recently sold through us" text="Join thousands of drivers who have already chosen a simpler way to sell." />
-    <ul class="grid grid-cols-2 gap-[30px] lg:grid-cols-4">
+    <ul class="grid grid-cols-1 sm:grid-cols-2 gap-[30px] lg:grid-cols-4">
       {sold.map(([n, by, t, img]) => (
         <li class="rounded-[18px] border border-[#E6E9ED] p-5">
           <img src={img} alt={n} class="aspect-[4/3] w-full rounded-[18px] object-cover" loading="lazy" />

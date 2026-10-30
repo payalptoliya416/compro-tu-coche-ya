@@ -7,11 +7,11 @@ import { stats } from '../data/site';
     <img src={images.sellBg} alt="" class="absolute inset-0 -z-20 size-full object-cover" />
     <h2 class="h2 !text-white">Selling your car has never been easier</h2>
     <p class="mt-3 lead !font-normal !text-[#B3BCC9]">A simple process, from valuation to payment.</p>
-    <dl class="wrap mt-10 grid grid-cols-1 sm:grid-cols-2 gap-y-8 md:grid-cols-4 md:divide-x md:divide-white/15">
+    <dl class="wrap mt-10 grid grid-cols-1 sm:grid-cols-2 md:gap-y-4 gap-y-8 xl:grid-cols-4 md:divide-x md:divide-white/15">
       {stats.map((s) => (
         <div>
           <dt class="text-2xl font-medium text-brand md:text-4xl">{s.value}</dt>
-          <dd class="mt-4 text-base md:text-xl">{s.label}</dd>
+          <dd class="mt-2 md:mt-4 text-base md:text-xl">{s.label}</dd>
         </div>
       ))}
     </dl>

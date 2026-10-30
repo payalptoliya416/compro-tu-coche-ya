@@ -1,3 +1,10 @@
-<span class="mb-[10px] inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-medium text-white backdrop-blur">
-  <span class="size-1 rounded-full bg-brand"></span><slot />
+---
+interface Props {
+  class?: string;
+}
+const { class: className } = Astro.props;
+---
+<span class:list={["mb-[10px] inline-flex max-w-full items-center gap-2 rounded-2xl sm:rounded-full border border-white/20 bg-white/10 px-3.5 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium text-white backdrop-blur", className]}>
+  <span class="size-1 shrink-0 rounded-full bg-brand"></span>
+  <span class="text-left break-words"><slot /></span>
 </span>
