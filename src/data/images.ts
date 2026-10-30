@@ -13,6 +13,10 @@ export const images = {
   typeHybrid: '/images/slide03.png',
   typeElectric: '/images/slide04.png',
   grpImg: '/images/grp-img.png',
+  aboutBg: '/images/about-bg.png',
+  aboutAbout: '/images/sell-about.png',
+  badgeSale: '/images/badgeSale.svg',
+  builtImage: '/images/bult-grp.png',
 
   // Car make logos
   make01: '/images/make01.png',
@@ -28,7 +32,7 @@ export const images = {
 
   // Placeholder SVGs (replace later)
   heroSell: p('hero-sell'),
-  heroAbout: p('hero-about'),
+  heroAbout: '/images/about-bg.png',
   heroHow: p('hero-how'),
   heroPickup: p('hero-pickup'),
   heroContact: p('hero-contact'),

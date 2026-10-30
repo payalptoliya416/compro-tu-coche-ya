@@ -2,7 +2,7 @@
 import { Icon } from 'astro-icon/components';
 import Layout from '../layouts/Layout.astro';
 import Button from '../components/Button.astro';
-import PageHero from '../components/PageHero.astro';
+import Badge from '../components/Badge.astro';
 import Section from '../components/Section.astro';
 import SectionTitle from '../components/SectionTitle.astro';
 import StepsBig from '../sections/StepsBig.astro';
@@ -26,36 +26,49 @@ const steps = [
 const points = ['Personal attention at every step of the process.', 'Clear communication throughout — no surprises.', 'A process that works for you, not the other way around.'];
 ---
 <Layout title="About Us">
-  <PageHero image={images.heroAbout} badge="Compro Tu Coche Ya" title="Your car deserves {a better way to sell.}" text="At Compro Tu Coche Ya, we make selling your car simple, transparent and stress-free.">
-    <Button href="/sell-your-car">Sell Your Car</Button>
-    <Button href="/how-it-works" variant="navy">How It Works</Button>
-  </PageHero>
+  <section class="p-3.5 sm:p-5 md:p-[30px]">
+    <div class="relative isolate overflow-hidden rounded-[26px] bg-navy-deep text-white h-[600px] sm:h-[650px] md:h-[680px] flex items-center justify-center">
+      <img src="/images/about-bg.png" alt="" class="absolute inset-0 -z-20 size-full object-cover object-center" />
+      <div class="wrap flex flex-col items-center justify-center py-12 text-center">
+        <Badge>Compro Tu Coche Ya</Badge>
+        <h1 class="max-w-4xl text-[30px] font-medium leading-[1.2] tracking-tight sm:text-[40px] md:text-[52px]">
+          Your car deserves <span class="text-brand">a better way to sell.</span>
+        </h1>
+        <p class="mt-4 max-w-2xl text-sm font-light leading-relaxed text-white/90 sm:text-base">
+          At Compro Tu Coche Ya, we make selling your car simple, transparent and stress-free.
+        </p>
+        <div class="mt-[35px] flex flex-wrap items-center justify-center gap-4">
+          <Button href="/sell-your-car" variant="primary" size="sm">Sell Your Car</Button>
+          <Button href="/how-it-works" variant="white" size="sm" >How It Works</Button>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <Section>
-    <div class="grid items-center gap-8 lg:grid-cols-[1.15fr_1fr]">
-      <div class="grid grid-cols-2 gap-3">
-        <img src={images.team1} alt="" class="aspect-[3/4] w-full rounded-xl object-cover" loading="lazy" />
-        <img src={images.team2} alt="" class="aspect-[3/4] w-full rounded-xl object-cover" loading="lazy" />
+    <div class="grid items-center gap-[30px] lg:grid-cols-[1.15fr_1fr]">
+      <div>
+           <img src={images.aboutAbout} alt="Get More From Your Car Sale" class="w-full rounded-2xl object-cover" loading="lazy" />
       </div>
       <div>
         <h2 class="h2">We make selling your car simple.</h2>
-        <div class="mt-4 space-y-4 text-[13px] leading-relaxed text-muted">
+        <div class="mt-6 space-y-4 text-base leading-relaxed text-[#677A92]">
           <p>Compro Tu Coche Ya was created to make selling a car easier, faster and more transparent. We combine automotive experience with a simple digital process, helping you understand your car's value, complete the necessary steps and move forward without unnecessary complications.</p>
           <p>Our goal is simple: give every customer a straightforward way to sell their car with confidence.</p>
         </div>
-        <p class="mt-4 inline-flex items-center gap-2 text-[12px] font-medium text-brand"><Icon name="lucide:award" class="size-4" />Trusted by car owners across Spain</p>
+        <p class="mt-6 inline-flex items-center gap-[10px] text-base text-[#FD570F]"> <img src={images.badgeSale} alt="badgeSale" class="" loading="lazy" />Trusted by car owners across Spain</p>
       </div>
     </div>
   </Section>
 
   <Section class="!pt-0">
     <SectionTitle title="Changing the way people sell their cars." text="We believe selling a car should not be complicated, time-consuming or stressful." />
-    <ul class="grid gap-4 md:grid-cols-3">
+    <ul class="grid gap-[30px] md:grid-cols-3">
       {values.map(([i, t, s]) => (
-        <li class="rounded-xl border border-line bg-white p-5">
-          <span class="mb-4 grid size-8 place-items-center rounded-full bg-surface text-navy"><Icon name={i} class="size-4" /></span>
-          <h3 class="text-[14px] font-semibold text-navy">{t}</h3>
-          <p class="mt-1 text-[12.5px] text-muted">{s}</p>
+        <li class="rounded-[18px] border border-[#E6E9ED] bg-white py-10 px-[30px]">
+          <span class="mb-5 grid size-[60px] place-items-center rounded-full bg-[#02214A]/5 text-navy"><Icon name={i} class="size-5" /></span>
+          <h3 class="text-lg font-medium text-navy">{t}</h3>
+          <p class="mt-3 text-base text-[#677A92]">{s}</p>
         </li>
       ))}
     </ul>
@@ -63,23 +76,23 @@ const points = ['Personal attention at every step of the process.', 'Clear commu
 
   <Stats />
   <WhyCards title="Why choose Compro Tu Coche Ya?" text="A simpler way to sell your car, built around what matters to you." items={whyItems} />
-  <StepsBig gray title="From your car to a simple sale." steps={steps} />
+  <StepsBig gray title="From your car to a simple sale." steps={steps} numberClass="text-white" />
 
   <Section>
     <div class="grid items-center gap-8 lg:grid-cols-2">
       <div>
         <h2 class="h2">Built around our customers.</h2>
-        <p class="mt-4 max-w-md text-[13px] leading-relaxed text-muted">Every vehicle is different. Every customer is different. That is why we focus on providing a straightforward experience that adapts to each situation.</p>
-        <ul class="mt-6 space-y-3">
-          {points.map((p) => <li class="border-l-2 border-brand pl-3 text-[13px] text-navy">{p}</li>)}
+        <p class="mt-6 space-y-4 text-base leading-relaxed text-[#677A92]">Every vehicle is different. Every customer is different. That is why we focus on providing a straightforward experience that adapts to each situation.</p>
+        <ul class="mt-8 space-y-4 md:space-y-5">
+          {points.map((p) => (
+            <li class="relative pl-3 text-base md:text-lg text-[#354D6E] after:content-[''] after:absolute after:left-0 after:top-1/2 after:-translate-y-1/2 after:w-[3px] after:h-6 after:rounded-full after:bg-brand">
+              {p}
+            </li>
+          ))}
         </ul>
       </div>
-      <div class="grid grid-cols-[1.2fr_1fr] gap-3">
-        <img src={images.builtLarge} alt="" class="h-full min-h-[280px] w-full rounded-xl object-cover" loading="lazy" />
-        <div class="grid gap-3">
-          <img src={images.builtSmall1} alt="" class="aspect-[4/3] w-full rounded-xl object-cover" loading="lazy" />
-          <img src={images.builtSmall2} alt="" class="aspect-[4/3] w-full rounded-xl object-cover" loading="lazy" />
-        </div>
+       <div>
+           <img src={images.builtImage} alt="Get More From Your Car Sale" class="w-full object-cover" loading="lazy" />
       </div>
     </div>
   </Section>

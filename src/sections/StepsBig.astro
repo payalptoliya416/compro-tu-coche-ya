@@ -1,7 +1,7 @@
 ---
 import Section from '../components/Section.astro';
 import SectionTitle from '../components/SectionTitle.astro';
-const { title, text, steps, gray = false } = Astro.props;
+const { title, text, steps, gray = false, numberClass = '' } = Astro.props;
 const offsets = ['md:mt-10', 'md:mt-24', 'md:mt-32', 'md:mt-42'];
 ---
 <Section gray={gray}>
@@ -10,9 +10,9 @@ const offsets = ['md:mt-10', 'md:mt-24', 'md:mt-32', 'md:mt-42'];
     {steps.map((s, i) => (
       <li class="border-line px-5 md:border-l md:first:border-l-0 md:px-6">
         <div class:list={['relative min-h-[180px] pt-12', offsets[i]]}>
-          <span class="pointer-events-none absolute -right-10 top-[20%] -translate-y-1/2 -rotate-90 select-none text-[110px] font-bold leading-none text-[#F2F4F6] md:text-[130px]" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
-          <h3 class="relative text-base font-medium leading-snug text-[#354D6E] md:max-w-[160px]">{s.title}</h3>
-          <p class="relative mt-3 max-w-[240px] text-sm leading-relaxed text-[#677A92]">{s.text}</p>
+          <span class:list={["pointer-events-none absolute -right-10 top-[20%] -translate-y-1/2 -rotate-90 select-none text-[110px] font-bold leading-none md:text-[130px]", numberClass || "text-[#F2F4F6]"]} aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+          <h3 class="relative text-lg font-medium leading-snug text-[#354D6E] md:max-w-[160px]">{s.title}</h3>
+          <p class="relative mt-3 max-w-[240px] text-base leading-relaxed text-[#677A92]">{s.text}</p>
         </div>
       </li>
     ))}

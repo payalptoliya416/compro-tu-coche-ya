@@ -21,12 +21,12 @@ const { gray = false } = Astro.props;
                 {[0,1,2,3,4].map(() =>  <img src="/images/star.svg" alt="" class="" />)}
               </div>
             </div>
-            <blockquote class="mt-[15px] text-sm leading-relaxed text-[#677A92]">"{t.text}"</blockquote>
+            <blockquote class="mt-[15px] text-base leading-relaxed text-[#677A92]">"{t.text}"</blockquote>
             <figcaption class="mt-9 flex items-center gap-[10px]">
               <img src={t.avatar} alt={t.name} class="size-[44px] rounded-full object-cover" />
               <span class="leading-tight">
-                <span class="block text-base text-[#02214A] mb-0.5">{t.name}</span>
-                <span class="text-sm text-[#677A92]">{t.city}</span>
+                <span class="block text-base xl:text-lg text-[#02214A] mb-0.5">{t.name}</span>
+                <span class="text-sm xl:text-base text-[#677A92]">{t.city}</span>
               </span>
             </figcaption>
           </figure>
