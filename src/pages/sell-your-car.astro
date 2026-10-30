@@ -40,12 +40,29 @@ const sold = [
           <h2 class="text-lg font-medium text-[#02214A]">Let's start with your car</h2>
           <p class="mt-3 text-base text-[#677A92]">Enter your license plate number and find out how much your car could be worth.</p>
           <label for="plate" class="mb-3 mt-10 block text-base text-[#354D6E]">Enter your license plate number</label>
-          <div class="flex h-12 w-full max-w-full min-w-0 overflow-hidden rounded-lg border border-line">
-            <span class="flex w-7 shrink-0 flex-col items-center justify-center bg-eu text-[10px] font-bold text-white">E</span>
+          <div class="flex h-12 w-full max-w-full min-w-0 overflow-hidden rounded-[8px] border border-line">
+              <div class="flex h-full w-8 sm:w-[34px] shrink-0 flex-col items-center justify-center gap-0.5  rounded-l-[8px] bg-[#003399] py-1 select-none">
+                <!-- 12 Golden EU Stars -->
+                <svg viewBox="0 0 24 24" class="size-3 sm:size-4 text-[#ffcc00]" fill="currentColor" aria-hidden="true">
+                  <circle cx="12" cy="3" r="1.1"/>
+                  <circle cx="16.5" cy="4.2" r="1.1"/>
+                  <circle cx="19.8" cy="7.5" r="1.1"/>
+                  <circle cx="21" cy="12" r="1.1"/>
+                  <circle cx="19.8" cy="16.5" r="1.1"/>
+                  <circle cx="16.5" cy="19.8" r="1.1"/>
+                  <circle cx="12" cy="21" r="1.1"/>
+                  <circle cx="7.5" cy="19.8" r="1.1"/>
+                  <circle cx="4.2" cy="16.5" r="1.1"/>
+                  <circle cx="3" cy="12" r="1.1"/>
+                  <circle cx="4.2" cy="7.5" r="1.1"/>
+                  <circle cx="7.5" cy="4.2" r="1.1"/>
+                </svg>
+                <span class="text-[10px] sm:text-[12px] font-black leading-none tracking-wider text-white">E</span>
+              </div>
             <input id="plate" name="plate" placeholder="0000 AAA" maxlength="10" class="min-w-0 w-0 flex-1 px-3 text-base sm:text-lg font-semibold uppercase tracking-[0.15em] outline-none placeholder:text-slate-300" />
           </div>
           <p class="mt-2 text-sm text-[#9AA6B7]">Example: 1234 ABC · Enter your vehicle's Spanish registration number</p>
-          <button type="submit" class="mt-8 inline-flex h-11 md:h-14 w-full items-center justify-center gap-2 rounded-full bg-brand text-base font-semibold text-white transition-colors hover:bg-brand-dark">
+          <button type="submit" class="mt-8 inline-flex h-11 md:h-14 w-full items-center justify-center gap-2 rounded-full bg-brand text-base font-semibold text-white transition-colors hover:bg-brand-dark cursor-pointer">
             Continue <Icon name="lucide:arrow-right" class="size-4" />
           </button>
           <TrustRow dark class="mt-5" />
