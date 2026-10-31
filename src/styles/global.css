@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "intl-tel-input/styles" layer(iti);
 
 /* ============================================================
    DESIGN TOKENS — change colors / font HERE only (one place)

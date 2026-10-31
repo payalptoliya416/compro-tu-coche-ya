@@ -62,22 +62,8 @@ const field = 'h-12 w-full rounded-full border border-[#CCD3DB] bg-white px-4 te
           <!-- Phone -->
           <div>
             <label for="phone" class="block text-base text-[#354D6E]">Phone</label>
-            <div class="phone-pill mt-1.5 flex h-12 w-full items-center rounded-full border border-[#CCD3DB] bg-white transition-colors overflow-hidden">
-              <select id="phone-code" name="phone_code" aria-label="Country code" class="h-full shrink-0 cursor-pointer appearance-none border-0 bg-transparent pl-4 pr-1 text-base text-navy outline-none">
-                <option value="+34">🇪🇸 +34</option>
-                <option value="+44">🇬🇧 +44</option>
-                <option value="+33">🇫🇷 +33</option>
-                <option value="+49">🇩🇪 +49</option>
-                <option value="+39">🇮🇹 +39</option>
-                <option value="+351">🇵🇹 +351</option>
-                <option value="+1">🇺🇸 +1</option>
-                <option value="+52">🇲🇽 +52</option>
-                <option value="+54">🇦🇷 +54</option>
-                <option value="+57">🇨🇴 +57</option>
-                <option value="+56">🇨🇱 +56</option>
-              </select>
-              <span class="h-5 w-px bg-[#CCD3DB] shrink-0"></span>
-              <input id="phone" name="phone" type="tel" placeholder="000 000 000" class="h-full flex-1 bg-transparent px-3 text-base text-navy outline-none placeholder:text-[#9AA6B7]" />
+            <div class="phone-pill mt-1.5">
+              <input id="phone" name="phone" type="tel" />
             </div>
             <p class="error-msg mt-1.5 text-xs text-red-500 hidden"></p>
           </div>
@@ -162,12 +148,131 @@ const field = 'h-12 w-full rounded-full border border-[#CCD3DB] bg-white px-4 te
   <Faq />
 </Layout>
 
+<style is:global>
+  /* ── Phone pill: CSS variables ── */
+  .phone-pill {
+    --iti-hover-color: #FFF4F0;
+    --iti-border-color: #CCD3DB;
+    --iti-country-selector-bg: #fff;
+    --iti-icon-color: #9AA6B7;
+    --iti-flag-width: 18px;
+    --iti-spacer-horizontal: 8px;
+  }
+
+  /* Make the iti wrapper fill its container */
+  .phone-pill .iti {
+    width: 100%;
+    display: block;
+  }
+
+  /* ── Input: pill shape ── */
+  .phone-pill .iti__tel-input {
+    height: 3rem !important;
+    border-radius: 9999px !important;
+    border: 1px solid #CCD3DB !important;
+    background: #fff !important;
+    font-size: 1rem !important;
+    color: #02214A !important;
+    outline: none !important;
+    transition: border-color 0.15s !important;
+    width: 100% !important;
+  }
+  .phone-pill .iti__tel-input::placeholder {
+    color: #9AA6B7 !important;
+  }
+  .phone-pill .iti__tel-input:focus {
+    border-color: #9AA6B7 !important;
+  }
+
+  /* ── Country container: left side of pill ── */
+  .phone-pill .iti__country-container {
+    padding: 0 !important;
+  }
+
+  /* ── Selected country button ── */
+  .phone-pill .iti__selected-country {
+    border-radius: 9999px 0 0 9999px !important;
+  }
+  .phone-pill .iti__selected-country-primary {
+    padding: 0 6px 0 12px !important;
+    border-radius: 9999px 0 0 9999px !important;
+  }
+
+  /* Dial code font */
+  .phone-pill .iti__selected-dial-code {
+    font-size: 0.875rem !important;
+    color: #02214A !important;
+    margin-left: 4px !important;
+  }
+
+  /* ── Dropdown panel ── */
+  .iti--inline-country-selector .iti__country-selector {
+    border-radius: 14px !important;
+    border: 1px solid #E6E9ED !important;
+    box-shadow: 0 8px 32px rgba(2, 33, 74, 0.12) !important;
+    overflow: hidden !important;
+    min-width: 260px !important;
+  }
+
+  /* Search input inside dropdown */
+  .phone-pill .iti__search-input {
+    font-size: 0.875rem !important;
+    color: #02214A !important;
+    background: #fff !important;
+    outline: none !important;
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+  }
+  .phone-pill .iti__search-input::placeholder {
+    color: #9AA6B7 !important;
+  }
+
+  /* Country list items */
+  .phone-pill .iti__country {
+    font-size: 0.875rem !important;
+    color: #02214A !important;
+  }
+  .phone-pill .iti__country-name {
+    color: #02214A !important;
+  }
+  .phone-pill .iti__dial-code,
+  .phone-pill .iti__country .iti__dial-code {
+    color: #9AA6B7 !important;
+    font-size: 0.8125rem !important;
+  }
+
+  /* ── Error state ── */
+  .phone-pill.phone-error .iti__tel-input {
+    border-color: #ef4444 !important;
+  }
+</style>
+
 <script>
+  import intlTelInput from 'intl-tel-input';
+
+  let itiInstance: ReturnType<typeof intlTelInput> | null = null;
+
   function setupContactValidation() {
     const form = document.getElementById('contact-form') as HTMLFormElement | null;
     if (!form) return;
 
-    const phoneInput = form.querySelector<HTMLInputElement>('#phone');
+    const phoneInputEl = form.querySelector<HTMLInputElement>('#phone');
+    if (!phoneInputEl) return;
+
+    // Destroy previous instance if re-initialising (Astro page transitions)
+    if (itiInstance) {
+      itiInstance.destroy();
+      itiInstance = null;
+    }
+
+    // Init intl-tel-input
+    itiInstance = intlTelInput(phoneInputEl, {
+      initialCountry: 'es',
+      loadUtils: () => import('intl-tel-input/utils'),
+      separateDialCode: true,
+      strictMode: false,
+      countrySearch: true,
+    });
 
     const fields = {
       first: {
@@ -179,15 +284,14 @@ const field = 'h-12 w-full rounded-full border border-[#CCD3DB] bg-white px-4 te
         validate: (val: string) => (val.trim().length > 0 ? '' : 'Please enter your last name.'),
       },
       phone: {
-        input: phoneInput,
-        validate: (val: string) => {
-          if (!val.trim()) return 'Please enter your phone number.';
-          const digits = val.replace(/\D/g, '');
-          if (digits.length < 6) return 'Please enter a valid phone number.';
+        input: phoneInputEl,
+        validate: (_val: string) => {
+          if (!itiInstance) return '';
+          if (!phoneInputEl.value.trim()) return 'Please enter your phone number.';
+          if (!itiInstance.isValidNumber()) return 'Please enter a valid phone number.';
           return '';
         },
       },
-
       email: {
         input: form.querySelector<HTMLInputElement>('#email'),
         validate: (val: string) => {
@@ -207,16 +311,22 @@ const field = 'h-12 w-full rounded-full border border-[#CCD3DB] bg-white px-4 te
       },
     };
 
+    function getPhonePill(el: HTMLElement | null) {
+      return el?.closest('.phone-pill') as HTMLElement | null;
+    }
+
     function showError(el: HTMLElement | null, msg: string) {
       if (!el) return;
-      const pill = el.closest('.phone-pill');
+      const pill = getPhonePill(el);
+      const target = pill ?? el;
       if (pill) {
-        pill.classList.add('!border-red-500');
+        pill.classList.add('phone-error');
       } else {
-        el.classList.add('!border-red-500');
+        target.classList.add('!border-red-500');
       }
-      const container = el.closest('div');
-      const errEl = container ? container.querySelector<HTMLElement>('.error-msg') : null;
+      // For pill, error-msg is in the parent label container
+      const container = pill ? pill.parentElement : el.closest('div');
+      const errEl = container?.querySelector<HTMLElement>('.error-msg') ?? null;
       if (errEl) {
         errEl.textContent = msg;
         errEl.classList.remove('hidden');
@@ -225,26 +335,27 @@ const field = 'h-12 w-full rounded-full border border-[#CCD3DB] bg-white px-4 te
 
     function clearError(el: HTMLElement | null) {
       if (!el) return;
-      const pill = el.closest('.phone-pill');
+      const pill = getPhonePill(el);
+      const target = pill ?? el;
       if (pill) {
-        pill.classList.remove('!border-red-500');
+        pill.classList.remove('phone-error');
       } else {
-        el.classList.remove('!border-red-500');
+        target.classList.remove('!border-red-500');
       }
-      const container = el.closest('div');
-      const errEl = container ? container.querySelector<HTMLElement>('.error-msg') : null;
+      const container = pill ? pill.parentElement : el.closest('div');
+      const errEl = container?.querySelector<HTMLElement>('.error-msg') ?? null;
       if (errEl) {
         errEl.textContent = '';
         errEl.classList.add('hidden');
       }
     }
 
-    // Clear error dynamically when typing or selecting
     Object.values(fields).forEach(({ input }) => {
       if (!input) return;
       input.addEventListener('input', () => clearError(input));
       input.addEventListener('change', () => clearError(input));
     });
+    phoneInputEl.addEventListener('countrychange', () => clearError(phoneInputEl));
 
     form.addEventListener('submit', (e) => {
       e.preventDefault();
@@ -268,14 +379,12 @@ const field = 'h-12 w-full rounded-full border border-[#CCD3DB] bg-white px-4 te
         return;
       }
 
-      // Show success notification
       const successEl = document.getElementById('form-success');
       if (successEl) {
         successEl.classList.remove('hidden');
         form.reset();
-        setTimeout(() => {
-          successEl.classList.add('hidden');
-        }, 5000);
+        itiInstance?.setCountry('es');
+        setTimeout(() => successEl.classList.add('hidden'), 5000);
       }
     });
   }
