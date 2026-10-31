@@ -20,11 +20,11 @@ const places = [
   ['/images/meet03.png', 'Workplace Pickup', "Convenient collection from your workplace so you don't lose a working day."],
 ];
 const experience = [
-  ['lucide:users', 'Professional Collection Team', 'Trained specialists handle your vehicle with care.'],
-  ['lucide:calendar', 'Flexible Scheduling', 'Mornings, afternoons, evenings or weekends.'],
-  ['lucide:shield-check', 'Safe Vehicle Handover', 'Fully documented transfer with legal protection.'],
-  ['lucide:message-circle', 'Clear Communication', 'Constant updates before and during pickup.'],
-  ['lucide:tag', 'No Hidden Pickup Fees', 'Collection is always 100% free, no exceptions.'],
+  ['/images/pic-user.svg', 'Professional Collection Team', 'Trained specialists handle your vehicle with care.'],
+  ['/images/pic-calender.svg', 'Flexible Scheduling', 'Mornings, afternoons, evenings or weekends.'],
+  ['/images/pic-safe.svg', 'Safe Vehicle Handover', 'Fully documented transfer with legal protection.'],
+  ['/images/pic-communication.svg', 'Clear Communication', 'Constant updates before and during pickup.'],
+  ['/images/pic-fees.svg', 'No Hidden Pickup Fees', 'Collection is always 100% free, no exceptions.'],
 ];
 ---
 <Layout title="Easy Pickup">
@@ -97,7 +97,9 @@ const experience = [
         <ul class="mt-[25px] space-y-[25px]">
           {experience.map(([i, t, s]) => (
             <li class="flex items-start gap-[10px]">
-              <span class="grid size-[46px] shrink-0 place-items-center rounded-full bg-brand/5 text-brand"><Icon name={i} class="size-4" /></span>
+              <span class="grid size-[46px] shrink-0 place-items-center rounded-full bg-brand/5">
+                <img src={i} alt="" class="" />
+              </span>
               <span class="leading-tight"><span class="block text-base text-navy mb-1">{t}</span><span class="text-base text-[#9AA6B7]">{s}</span></span>
             </li>
           ))}
