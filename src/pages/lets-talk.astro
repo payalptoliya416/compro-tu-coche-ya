@@ -212,6 +212,9 @@ const field = 'h-12 w-full rounded-full border border-[#CCD3DB] bg-white px-4 te
     box-shadow: 0 8px 32px rgba(2, 33, 74, 0.12) !important;
     overflow: hidden !important;
     min-width: 260px !important;
+    /* clamp to viewport so it never overflows on small screens */
+    max-width: min(320px, calc(100vw - 2rem)) !important;
+    width: min(320px, calc(100vw - 2rem)) !important;
   }
 
   /* Search input inside dropdown */
