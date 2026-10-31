@@ -7,13 +7,12 @@ import Section from '../components/Section.astro';
 import StepsCircle from '../sections/StepsCircle.astro';
 import SpainMap from '../sections/SpainMap.astro';
 import Faq from '../sections/Faq.astro';
-import { images } from '../data/images';
 import { pickupSteps } from '../data/site';
 
 const perks = [
-  ['lucide:map-pin', 'Anywhere in Spain', 'We cover all provinces and territories across Spain.'],
-  ['lucide:clock', 'Convenient Pickup Times', 'Morning, afternoon or weekend - you choose the slot.'],
-  ['lucide:wallet', 'No Extra Pickup Cost', 'Vehicle collection is 100% free, no hidden charges.'],
+  ['/images/easy-locaiton.svg', 'Anywhere in Spain', 'We cover all provinces and territories across Spain.'],
+  ['/images/easy-clock.svg', 'Convenient Pickup Times', 'Morning, afternoon or weekend - you choose the slot.'],
+  ['/images/easy-wallet.svg', 'No Extra Pickup Cost', 'Vehicle collection is 100% free, no hidden charges.'],
 ];
 const places = [
   ['/images/meet01.png', 'City Pickup', 'Pickup from urban locations, streets, parking lots or city centres across Spain.'],
@@ -55,7 +54,9 @@ const experience = [
         <ul class="mt-5 space-y-[25px]">
           {perks.map(([i, t, s]) => (
             <li class="flex items-start gap-[10px]">
-              <span class="grid size-[46px] shrink-0 place-items-center rounded-full bg-brand/5 text-brand"><Icon name={i} class="size-4" /></span>
+              <span class="grid size-[46px] shrink-0 place-items-center rounded-full bg-brand/5">
+                <img src={i} alt="" class="" />
+              </span>
               <span class="leading-tight"><span class="block text-base text-navy mb-1">{t}</span><span class="text-base text-[#9AA6B7]">{s}</span></span>
             </li>
           ))}

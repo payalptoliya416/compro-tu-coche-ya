@@ -11,9 +11,9 @@ import { images } from '../data/images';
 
 const side = [['lucide:zap', 'Quick Response'], ['lucide:smile', 'Friendly Support'], ['lucide:circle-help', 'Clear Answers']];
 const across = [
-  ['lucide:map-pin', 'Nationwide Support', 'We cover all regions and cities across Spain.'],
-  ['lucide:phone', 'Easy Communication', 'Call, email or message us - we are always available.'],
-  ['lucide:car', 'Vehicle Pickup Available', 'We come to you, wherever you are in Spain.'],
+  ['/images/easy-locaiton.svg', 'Nationwide Support', 'We cover all regions and cities across Spain.'],
+  ['/images/easy-call.svg', 'Easy Communication', 'Call, email or message us - we are always available.'],
+  ['/images/easy-vehical.svg', 'Vehicle Pickup Available', 'We come to you, wherever you are in Spain.'],
 ];
 const field = 'h-12 w-full rounded-full border border-[#CCD3DB] bg-white px-4 text-base text-navy outline-none transition-colors placeholder:text-[#9AA6B7]';
 ---
@@ -134,7 +134,9 @@ const field = 'h-12 w-full rounded-full border border-[#CCD3DB] bg-white px-4 te
         <ul class="mt-5 space-y-[25px]">
           {across.map(([i, t, s]) => (
             <li class="flex items-start gap-[10px]">
-              <span class="grid size-[46px] shrink-0 place-items-center rounded-full bg-brand/5 text-brand"><Icon name={i} class="size-4" /></span>
+              <span class="grid size-[46px] shrink-0 place-items-center rounded-full bg-brand/5">
+                <img src={i} alt="" class="" />
+              </span>
               <span class="leading-tight"><span class="block text-base text-navy mb-1">{t}</span><span class="text-base text-[#9AA6B7]">{s}</span></span>
             </li>
           ))}
