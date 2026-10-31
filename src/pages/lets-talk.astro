@@ -62,8 +62,22 @@ const field = 'h-12 w-full rounded-full border border-[#CCD3DB] bg-white px-4 te
           <!-- Phone -->
           <div>
             <label for="phone" class="block text-base text-[#354D6E]">Phone</label>
-            <div class="mt-1.5">
-              <input id="phone" name="phone" type="tel" class={field} />
+            <div class="phone-pill mt-1.5 flex h-12 w-full items-center rounded-full border border-[#CCD3DB] bg-white transition-colors overflow-hidden">
+              <select id="phone-code" name="phone_code" aria-label="Country code" class="h-full shrink-0 cursor-pointer appearance-none border-0 bg-transparent pl-4 pr-1 text-base text-navy outline-none">
+                <option value="+34">🇪🇸 +34</option>
+                <option value="+44">🇬🇧 +44</option>
+                <option value="+33">🇫🇷 +33</option>
+                <option value="+49">🇩🇪 +49</option>
+                <option value="+39">🇮🇹 +39</option>
+                <option value="+351">🇵🇹 +351</option>
+                <option value="+1">🇺🇸 +1</option>
+                <option value="+52">🇲🇽 +52</option>
+                <option value="+54">🇦🇷 +54</option>
+                <option value="+57">🇨🇴 +57</option>
+                <option value="+56">🇨🇱 +56</option>
+              </select>
+              <span class="h-5 w-px bg-[#CCD3DB] shrink-0"></span>
+              <input id="phone" name="phone" type="tel" placeholder="000 000 000" class="h-full flex-1 bg-transparent px-3 text-base text-navy outline-none placeholder:text-[#9AA6B7]" />
             </div>
             <p class="error-msg mt-1.5 text-xs text-red-500 hidden"></p>
           </div>
@@ -173,6 +187,7 @@ const field = 'h-12 w-full rounded-full border border-[#CCD3DB] bg-white px-4 te
           return '';
         },
       },
+
       email: {
         input: form.querySelector<HTMLInputElement>('#email'),
         validate: (val: string) => {
