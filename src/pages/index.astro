@@ -60,7 +60,7 @@ const brands = [[images.make01, 'BMW'], [images.make02, 'Mercedes-Benz'], [image
           <Badge>Sell your car today in Spain.</Badge>
 
           <!-- Main headline -->
-          <h1 class="mt-4 text-[30px] font-medium leading-[1.2] tracking-tight sm:text-[40px] md:text-[50px] xl:text-[52px]">
+          <h1 class="mt-4 text-[28px] font-medium leading-[1.2] tracking-tight sm:text-[40px] md:text-[50px] xl:text-[52px]">
             Sell your car today.<br />
             <span class="text-brand">Fast, easy,</span> and at the best price.
           </h1>
@@ -87,7 +87,7 @@ const brands = [[images.make01, 'BMW'], [images.make02, 'Mercedes-Benz'], [image
         <div class="text-center lg:text-left max-w-xl mx-auto lg:mx-0 text-white">
           <Badge>Your Free Car Valuation</Badge>
 
-          <h1 class="mt-4 text-[30px] font-medium leading-[1.2] tracking-tight sm:text-[40px] md:text-[50px] xl:text-[52px]">
+          <h1 class="mt-4 text-2xl font-medium leading-[1.2] tracking-tight sm:text-[40px] md:text-[50px] xl:text-[52px]">
             Get a Fair Valuation for<br />
             <span class="text-brand">Your Car Today</span>
           </h1>
@@ -836,8 +836,8 @@ const brands = [[images.make01, 'BMW'], [images.make02, 'Mercedes-Benz'], [image
         let hasError = false;
         let firstInvalid: HTMLElement | null = null;
 
-        Object.entries(formFields).forEach(([key, field]) => {
-          if (!field?.el) return;
+        for (const [key, field] of Object.entries(formFields)) {
+          if (!field?.el) continue;
           const val = 'value' in field.el ? field.el.value : '';
           const err = field.validate(val);
           if (err) {
@@ -847,7 +847,7 @@ const brands = [[images.make01, 'BMW'], [images.make02, 'Mercedes-Benz'], [image
           } else {
             clearError(key);
           }
-        });
+        }
 
         if (hasError) {
           if (firstInvalid) {
@@ -860,7 +860,7 @@ const brands = [[images.make01, 'BMW'], [images.make02, 'Mercedes-Benz'], [image
         if (successMsg) {
           successMsg.classList.remove('hidden');
           detailsForm.reset();
-          itiValuationInstance?.setCountry('es');
+          itiValuationInstance?.setSelectedCountry('es');
           if (previewImg) previewImg.src = '';
           previewView?.classList.add('hidden');
           previewView?.classList.remove('block');

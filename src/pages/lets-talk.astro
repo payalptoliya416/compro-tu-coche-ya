@@ -366,8 +366,8 @@ const field = 'h-12 w-full rounded-full border border-[#CCD3DB] bg-white px-4 te
       let hasError = false;
       let firstInvalid: HTMLElement | null = null;
 
-      Object.values(fields).forEach(({ input, validate }) => {
-        if (!input) return;
+      for (const { input, validate } of Object.values(fields)) {
+        if (!input) continue;
         const error = validate(input.value);
         if (error) {
           showError(input, error);
@@ -376,7 +376,7 @@ const field = 'h-12 w-full rounded-full border border-[#CCD3DB] bg-white px-4 te
         } else {
           clearError(input);
         }
-      });
+      }
 
       if (hasError) {
         if (firstInvalid) firstInvalid.focus();
@@ -387,7 +387,7 @@ const field = 'h-12 w-full rounded-full border border-[#CCD3DB] bg-white px-4 te
       if (successEl) {
         successEl.classList.remove('hidden');
         form.reset();
-        itiInstance?.setCountry('es');
+        itiInstance?.setSelectedCountry('es');
         setTimeout(() => successEl.classList.add('hidden'), 5000);
       }
     });
