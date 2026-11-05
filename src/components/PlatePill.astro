@@ -1,10 +1,12 @@
 ---
 import { Icon } from 'astro-icon/components';
+const { class: cls = '', id = 'hero-plate-form' } = Astro.props;
 ---
 <form
+  id={id}
   action="/sell-your-car"
   method="get"
-  class="group mx-auto flex w-full max-w-[490px] h-12 sm:h-[60px] items-center overflow-hidden rounded-full bg-white transition-all duration-300"
+  class:list={['group flex w-full max-w-[490px] h-12 sm:h-[60px] items-center overflow-hidden rounded-full bg-white transition-all duration-300', cls]}
 >
   <!-- EU Plate Strip -->
   <div class="flex h-full w-8 sm:w-[34px] shrink-0 flex-col items-center justify-center gap-0.5 rounded-l-full bg-[#003399] py-1 select-none">

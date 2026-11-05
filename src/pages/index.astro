@@ -46,34 +46,248 @@ const brands = [[images.make01, 'BMW'], [images.make02, 'Mercedes-Benz'], [image
 ---
 <Layout title="Sell your car today">
   <!-- Hero -->
-  <section class="w-full px-3 sm:px-[30px] pb-6 sm:pb-[30px]">
-    <div class="relative isolate overflow-hidden text-white rounded-[26px] h-auto min-h-[560px] sm:min-h-[660px] md:min-h-[740px] lg:h-[860px] flex items-center justify-center">
+  <section class="w-full px-3 sm:px-[30px] pb-6 sm:pb-[30px] lg:min-h-[calc(100vh-var(--header-height,94px))] lg:min-h-[calc(100dvh-var(--header-height,94px))] flex flex-col">
+    <div class="relative isolate overflow-hidden text-white rounded-[26px] w-full flex-1 flex items-center justify-center min-h-[560px] sm:min-h-[640px] py-8 sm:py-10 lg:py-6 px-4 sm:px-8 xl:px-14">
       <!-- Background photo -->
       <img src={images.heroHome} alt="" class="absolute inset-0 -z-20 size-full object-cover object-center" />
+      <!-- Dark overlay gradient for crisp text readability -->
+      <div class="absolute inset-0 -z-10 bg-gradient-to-r from-black/80 via-black/50 to-black/25 lg:from-black/75 lg:via-black/35 lg:to-transparent pointer-events-none"></div>
 
-      <div class="mx-auto flex w-full max-w-[1440px] flex-col items-center justify-center px-2 sm:px-6 py-12 sm:py-16 lg:py-20 text-center">
-        <!-- Pill badge -->
-        <Badge>Sell your car today in Spain.</Badge>
+      <!-- STATE 1: Initial Left-Aligned Hero (Before plate entered) -->
+      <div id="hero-state-initial" class="w-full max-w-[1440px] mx-auto flex flex-col items-center lg:items-start text-center lg:text-left transition-all duration-300">
+        <div class="max-w-[620px] w-full">
+          <!-- Pill badge -->
+          <Badge>Sell your car today in Spain.</Badge>
 
-        <!-- Main headline -->
-        <h1 class="max-w-4xl text-[30px] font-medium leading-[1.2] tracking-tight sm:text-[40px] md:text-[52px]">
-          Sell your car today.<br />
-          <span class="text-brand">Fast, easy,</span> and at the best price.
-        </h1>
+          <!-- Main headline -->
+          <h1 class="mt-4 text-[30px] font-medium leading-[1.2] tracking-tight sm:text-[40px] md:text-[50px] xl:text-[52px]">
+            Sell your car today.<br />
+            <span class="text-brand">Fast, easy,</span> and at the best price.
+          </h1>
 
-        <!-- Sub-text -->
-        <p class="mt-4 text-sm font-light leading-relaxed text-white sm:text-base">
-          Find out what your car is worth and start the selling process in just a few minutes.
-        </p>
+          <!-- Sub-text -->
+          <p class="mt-3 sm:mt-4 text-sm font-light leading-relaxed text-white/90 sm:text-base">
+            Find out what your car is worth and start the selling process in just a few minutes.
+          </p>
 
-        <!-- Label above input -->
-        <p class="mb-[15px] mt-8 text-sm sm:text-base font-normal text-white tracking-wide">Enter your license plate number</p>
+          <!-- Label above input -->
+          <p class="mb-2 sm:mb-3 mt-6 sm:mt-8 text-sm sm:text-base font-normal text-white tracking-wide">Enter your license plate number</p>
 
-        <!-- License plate form -->
-        <PlatePill />
+          <!-- License plate form -->
+          <PlatePill id="hero-plate-form" class="mx-auto lg:mx-0" />
 
-        <!-- Trust badges -->
-        <TrustRow class="mt-4" />
+          <!-- Trust badges -->
+          <TrustRow class="mt-5 justify-center lg:justify-start text-sm md:text-base" />
+        </div>
+      </div>
+
+      <!-- STATE 2: Valuation Form (Shown when license plate is entered) -->
+      <div id="hero-state-form" class="hidden w-full max-w-[1440px] mx-auto grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center transition-all duration-300">
+        <!-- Left Column: Valuation Header & Vehicle Summary Card -->
+        <div class="text-center lg:text-left max-w-xl mx-auto lg:mx-0 text-white">
+          <Badge>Your Free Car Valuation</Badge>
+
+          <h1 class="mt-4 text-[30px] font-medium leading-[1.2] tracking-tight sm:text-[40px] md:text-[50px] xl:text-[52px]">
+            Get a Fair Valuation for<br />
+            <span class="text-brand">Your Car Today</span>
+          </h1>
+
+          <p class="mt-5 text-sm sm:text-lg font-light leading-relaxed text-white/85">
+            Share your vehicle details, location and a few photos. Our team will review your information and help you take the next step towards selling your car.
+          </p>
+
+          <!-- Car details card matching design -->
+          <div class="relative isolate overflow-hidden mt-6 sm:mt-8 rounded-[10px] py-3 md:py-[25px] px-3 md:px-[30px] text-left max-w-[425px] w-full mx-auto lg:mx-0 bg-cover bg-center" style="background-image: url('/images/bg-blur.png');">
+            <img src="/images/bg-blur.png" alt="" class="absolute inset-0 -z-10 size-full object-cover" />
+            <div class="flex items-start justify-between gap-2">
+              <h3 id="preview-car-name" class="text-base sm:text-lg font-medium text-white leading-snug">
+                Peugeot 308 Allure SW HDi Blue S/S
+              </h3>
+              <!-- <button
+                type="button"
+                id="btn-change-plate"
+                class="text-xs text-brand hover:underline shrink-0 font-medium cursor-pointer"
+                title="Change plate number"
+              >
+                Change
+              </button> -->
+            </div>
+            <p id="preview-car-specs" class="mt-1 text-xs sm:text-sm text-[#B3BCC9]">
+              2016 &nbsp;|&nbsp; Grey &nbsp;|&nbsp; Estate &nbsp;|&nbsp; Diesel
+            </p>
+            <div class="mt-[10px] inline-flex items-center rounded-[4px] bg-[#CCD3DB] px-2.5 py-0.5 text-xs tracking-wider text-[#02214A] uppercase">
+              <span id="preview-plate-text">EU66 PSY</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Vehicle Details Form Card -->
+        <div class="w-full max-w-[690px] mx-auto lg:ml-auto">
+          <form id="valuation-details-form" novalidate class="rounded-[18px] bg-white py-3 md:py-10 px-3 md:px-[30px] text-navy">
+            <h2 class="text-xl sm:text-2xl font-semibold text-navy">Vehicle details</h2>
+
+            <input type="hidden" id="form-plate-input" name="plate" value="" />
+
+            <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-5">
+              <!-- Full name -->
+              <div>
+                <label for="val-fullname" class="block text-sm text-[#082B54] mb-2">Full name <span class="text-[#FD570F]">*</span></label>
+                <input
+                  id="val-fullname"
+                  name="fullname"
+                  type="text"
+                  placeholder="Enter your full name"
+                  class="h-10 sm:h-11 w-full rounded-full border border-[#E6E9ED] px-3.5 text-xs sm:text-sm text-navy outline-none focus:border-brand placeholder:text-[#9AA6B7] transition-colors"
+                />
+                <p class="error-msg mt-1 text-xs text-red-500 hidden"></p>
+              </div>
+
+              <!-- Where is the car located -->
+              <div>
+                <label for="val-location" class="block text-sm text-[#082B54] mb-2">Where is the car currently located? <span class="text-[#FD570F]">*</span></label>
+                <input
+                  id="val-location"
+                  name="location"
+                  type="text"
+                  placeholder="We pick it up anywhere in Spain"
+                  class="h-10 sm:h-11 w-full rounded-full border border-[#E6E9ED] px-3.5 text-xs sm:text-sm text-navy outline-none focus:border-brand placeholder:text-[#9AA6B7] transition-colors"
+                />
+                <p class="error-msg mt-1 text-xs text-red-500 hidden"></p>
+              </div>
+
+              <!-- Phone number with dropdown pill -->
+              <div>
+                <label for="val-phone" class="block text-sm text-[#082B54] mb-2">Phone Number <span class="text-[#FD570F]">*</span></label>
+                <div class="phone-pill-home">
+                  <input
+                    id="val-phone"
+                    name="phone"
+                    type="tel"
+                    placeholder="Your phone number"
+                  />
+                </div>
+                <p class="error-msg mt-1 text-xs text-red-500 hidden"></p>
+              </div>
+
+              <!-- Email Address -->
+              <div>
+                <label for="val-email" class="block text-sm text-[#082B54] mb-2">Email Address <span class="text-[#FD570F]">*</span></label>
+                <input
+                  id="val-email"
+                  name="email"
+                  type="email"
+                  placeholder="Your email address"
+                  class="h-10 sm:h-11 w-full rounded-full border border-[#E6E9ED] px-3.5 text-xs sm:text-sm text-navy outline-none focus:border-brand placeholder:text-[#9AA6B7] transition-colors"
+                />
+                <p class="error-msg mt-1 text-xs text-red-500 hidden"></p>
+              </div>
+
+              <!-- Mileage (km) -->
+              <div>
+                <label for="val-mileage" class="block text-sm text-[#082B54] mb-2">Mileage (km) <span class="text-[#FD570F]">*</span></label>
+                <div class="mileage-pill flex h-10 sm:h-11 w-full items-center rounded-full border border-[#E6E9ED] bg-white px-3.5 transition-colors focus-within:border-brand">
+                  <input
+                    id="val-mileage"
+                    name="mileage"
+                    type="text"
+                    placeholder="e.g., 150.000"
+                    class="min-w-0 flex-1 bg-transparent text-xs sm:text-sm text-navy outline-none placeholder:text-[#9AA6B7]"
+                  />
+                  <span class="text-xs text-[#9AA6B7] shrink-0 ml-4">km</span>
+                </div>
+                <p class="error-msg mt-1 text-xs text-red-500 hidden"></p>
+              </div>
+
+              <!-- Expected Selling Price -->
+              <div>
+                <label for="val-price" class="flex items-center gap-1.5 text-sm text-[#082B54] mb-2">
+                  <span>Expected Selling Price</span>
+                  <span class="inline-flex items-center cursor-help" title="Optional: what price are you hoping to get?">
+                    <img src="/images/info.svg" alt="Info" class="size-3 shrink-0" width="12" height="12" />
+                  </span>
+                </label>
+                <input
+                  id="val-price"
+                  name="expected_price"
+                  type="text"
+                  placeholder="Your expected selling price"
+                  class="h-10 sm:h-11 w-full rounded-full border border-[#E6E9ED] px-3.5 text-xs sm:text-sm text-navy outline-none focus:border-brand placeholder:text-[#9AA6B7]"
+                />
+              </div>
+
+              <!-- Vehicle Condition & Document Status -->
+              <div>
+                <label for="val-condition" class="block text-sm text-[#082B54] mb-2">Vehicle Condition & Document Status <span class="text-[#FD570F]">*</span></label>
+                <textarea
+                  id="val-condition"
+                  name="condition"
+                  rows="3"
+                  placeholder="Provide an explanation for the damage..."
+                  class="h-[140px] w-full rounded-[14px] border border-[#E6E9ED] p-4 text-xs sm:text-sm text-navy outline-none focus:border-brand placeholder:text-[#9AA6B7] resize-none transition-colors"
+                ></textarea>
+                <p class="error-msg mt-1 text-xs text-red-500 hidden"></p>
+              </div>
+
+              <!-- Upload Car Photos -->
+              <div>
+                <label class="block text-sm text-[#082B54] mb-2">Upload Car Photos <span class="text-[#FD570F]">*</span></label>
+                <div id="upload-box-wrapper" class="h-[140px] w-full rounded-[14px] border border-[#CCD3DB]/70 p-[10px] bg-white flex transition-colors">
+                  <input id="val-photos" name="photos" type="file" multiple accept="image/jpeg,image/png,image/webp" class="sr-only" />
+                  
+                  <!-- Default View (when no image selected) -->
+                  <label for="val-photos" id="upload-default-view" class="relative flex flex-col items-center justify-center size-full rounded-[10px] border border-dashed border-[#E6E9ED] bg-[#F2F4F6] hover:bg-[#EEF2F6] transition-colors cursor-pointer p-[10px] text-center group">
+                    <svg width="26" height="20" viewBox="0 0 26 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="text-[#677A92] shrink-0 group-hover:text-brand transition-colors">
+                      <path d="M6.5 15.5C4.01472 15.5 2 13.4853 2 11C2 8.65771 3.79332 6.73391 6.08434 6.52299C6.61965 3.43407 9.2961 1 12.5 1C16.0843 1 19.0236 3.79629 19.2299 7.33327C21.3304 7.81845 22.85 9.70146 22.85 11.95C22.85 14.601 20.701 16.75 18.05 16.75H15.5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path d="M12.5 10.5V17M12.5 10.5L10 13M12.5 10.5L15 13" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span id="upload-status-text" class="mt-3 text-xs font-medium text-[#02214A] leading-tight">Choose a Photos of Your Car</span>
+                    <span class="text-[10px] text-[#9AA6B7] leading-tight mt-[6px]">JPEG, and PNG formats, up to 50MB</span>
+                    <span class="mt-2 inline-flex items-center justify-center rounded-full border border-brand px-[15px] py-1.5 text-[11px] font-medium text-brand group-hover:bg-brand group-hover:text-white transition-all">
+                      Browse File
+                    </span>
+                  </label>
+
+                  <!-- Preview View (when image is uploaded) -->
+                  <label for="val-photos" id="upload-preview-view" class="hidden relative size-full rounded-[10px] overflow-hidden group cursor-pointer">
+                    <img id="uploaded-photo-preview" src="" alt="Car photo preview" class="size-full object-cover object-center" />
+                    <span id="upload-count-badge" class="hidden absolute top-2 right-2 rounded-full bg-black/70 px-2 py-0.5 text-[10px] font-medium text-white shadow"></span>
+                    <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex flex-col items-center justify-center p-2 text-white text-center">
+                      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mb-1 text-white">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                        <polyline points="17 8 12 3 7 8"/>
+                        <line x1="12" y1="3" x2="12" y2="15"/>
+                      </svg>
+                      <span class="text-xs font-medium text-white leading-tight">Choose another image</span>
+                      <span class="mt-1.5 inline-flex items-center justify-center rounded-full bg-brand px-3 py-1 text-[11px] font-medium text-white shadow">
+                        Change Photo
+                      </span>
+                    </div>
+                  </label>
+                </div>
+                <p class="error-msg mt-1 text-xs text-red-500 hidden"></p>
+              </div>
+            </div>
+
+            <!-- Submit CTA -->
+             <div class="mx-auto w-full max-w-[540px]">
+               <button
+                 type="submit"
+                 class="mt-7 inline-flex h-11 sm:h-12 w-full items-center justify-center gap-3 rounded-full bg-brand text-sm sm:text-lg font-medium text-white transition-all hover:bg-brand-dark active:scale-[0.99] cursor-pointer"
+               >
+                 <span>Request My Valuation</span>
+                <img src="/images/right-errow.svg" alt="" class="" />
+               </button>
+             </div>
+
+            <!-- Success notification -->
+            <div id="valuation-success-msg" class="hidden mt-5 rounded-lg bg-green-50 p-2 text-center text-xs text-green-700">
+              ✓ Valuation request sent successfully! Our team will contact you shortly.
+            </div>
+
+            <!-- Trust badges below form -->
+            <TrustRow dark={true} class="mt-5 text-sm md:text-base text-[#354D6E]" />
+          </form>
+        </div>
       </div>
     </div>
   </section>
@@ -104,14 +318,14 @@ const brands = [[images.make01, 'BMW'], [images.make02, 'Mercedes-Benz'], [image
         <button
           type="button"
           aria-label="Previous"
-          class="swiper-btn-prev grid size-10 place-items-center rounded-full border border-[#CCD3DB] text-navy transition-all duration-200 hover:border-brand hover:text-brand hover:scale-105 active:scale-95 disabled:opacity-30 disabled:pointer-events-none cursor-pointer"
+          class="swiper-btn-prev grid size-10 place-items-center rounded-full border border-[#E6E9ED] text-navy transition-all duration-200 hover:border-brand hover:text-brand hover:scale-105 active:scale-95 disabled:opacity-30 disabled:pointer-events-none cursor-pointer"
         >
           <Icon name="lucide:chevron-left" class="size-5" />
         </button>
         <button
           type="button"
           aria-label="Next"
-          class="swiper-btn-next grid size-10 place-items-center rounded-full border border-[#CCD3DB] text-navy transition-all duration-200 hover:border-brand hover:text-brand hover:scale-105 active:scale-95 disabled:opacity-30 disabled:pointer-events-none cursor-pointer"
+          class="swiper-btn-next grid size-10 place-items-center rounded-full border border-[#E6E9ED] text-navy transition-all duration-200 hover:border-brand hover:text-brand hover:scale-105 active:scale-95 disabled:opacity-30 disabled:pointer-events-none cursor-pointer"
         >
           <Icon name="lucide:chevron-right" class="size-5" />
         </button>
@@ -175,7 +389,7 @@ const brands = [[images.make01, 'BMW'], [images.make02, 'Mercedes-Benz'], [image
     <SectionTitle title="We buy cars of all makes." text="No matter the make, we want your car." />
     <ul class="grid grid-cols-2 gap-3 md:gap-6 sm:grid-cols-3 lg:grid-cols-5">
       {brands.map(([i, n]) => (
-        <li class="flex flex-col items-center justify-center gap-5 rounded-[18px] bg-[#F2F4F6] py-7 text-base md:text-lg lg:text-xl text-[#354D6E]">
+        <li class="flex flex-col items-center justify-center gap-5 rounded-[18px] bg-[#F2F4F6] py-7 text-base md:text-lg lg:text-xl text-[#082B54]">
           <img src={i} alt={n} />{n}
         </li>
       ))}
@@ -184,11 +398,150 @@ const brands = [[images.make01, 'BMW'], [images.make02, 'Mercedes-Benz'], [image
 
   <Testimonials gray />
   <Faq />
+<style is:global>
+  /* ── Home Hero Phone pill: intl-tel-input ── */
+  .phone-pill-home {
+    --iti-hover-color: #FFF4F0;
+    --iti-border-color: #E6E9ED;
+    --iti-country-selector-bg: #fff;
+    --iti-icon-color: #02214A;
+    --iti-flag-width: 18px;
+    --iti-spacer-horizontal: 8px;
+    width: 100%;
+    display: block;
+  }
+
+  .phone-pill-home .iti {
+    width: 100%;
+    display: block;
+  }
+
+  /* Input: exact rounded pill shape with border */
+  .phone-pill-home .iti__tel-input {
+    height: 2.5rem !important; /* 40px (h-10) */
+    border-radius: 9999px !important;
+    border: 1px solid #E6E9ED !important;
+    background: #ffffff !important;
+    font-size: 0.75rem !important; /* text-xs */
+    color: #02214A !important;
+    outline: none !important;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
+    width: 100% !important;
+  }
+
+  @media (min-width: 640px) {
+    .phone-pill-home .iti__tel-input {
+      height: 2.75rem !important; /* 44px (sm:h-11) */
+      font-size: 0.875rem !important; /* sm:text-sm */
+    }
+  }
+
+  .phone-pill-home .iti__tel-input::placeholder {
+    color: #9AA6B7 !important;
+  }
+
+  .phone-pill-home .iti__tel-input:focus,
+  .phone-pill-home .iti--focus .iti__tel-input {
+    border-color: #FD570F !important; /* brand focus */
+  }
+
+  /* Country container inside the pill */
+  .phone-pill-home .iti__country-container {
+    padding: 0 !important;
+  }
+
+  .phone-pill-home .iti__selected-country {
+    border-radius: 9999px 0 0 9999px !important;
+  }
+
+  .phone-pill-home .iti__selected-country-primary {
+    padding: 0 8px 0 14px !important;
+    border-radius: 9999px 0 0 9999px !important;
+  }
+
+  /* 1px vertical divider between country code and input */
+  .phone-pill-home .iti__selected-country-primary::after {
+    content: "";
+    display: block;
+    height: 16px;
+    width: 1px;
+    background-color: #E6E9ED;
+    margin-left: 10px;
+    flex-shrink: 0;
+  }
+
+  /* Dial code font */
+  .phone-pill-home .iti__selected-dial-code {
+    font-size: 0.75rem !important;
+    color: #02214A !important;
+    margin-left: 4px !important;
+  }
+
+  @media (min-width: 640px) {
+    .phone-pill-home .iti__selected-dial-code {
+      font-size: 0.875rem !important;
+    }
+  }
+
+  /* Dropdown panel */
+  .phone-pill-home .iti--inline-country-selector .iti__country-selector {
+    border-radius: 14px !important;
+    border: 1px solid #E6E9ED !important;
+    box-shadow: 0 8px 32px rgba(2, 33, 74, 0.12) !important;
+    overflow: hidden !important;
+    min-width: 260px !important;
+    max-width: min(320px, calc(100vw - 2rem)) !important;
+    width: min(320px, calc(100vw - 2rem)) !important;
+    z-index: 50 !important;
+  }
+
+  /* Search input inside dropdown */
+  .phone-pill-home .iti__search-input {
+    font-size: 0.875rem !important;
+    color: #02214A !important;
+    background: #fff !important;
+    outline: none !important;
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+  }
+
+  .phone-pill-home .iti__search-input::placeholder {
+    color: #9AA6B7 !important;
+  }
+
+  /* Country list items */
+  .phone-pill-home .iti__country {
+    font-size: 0.875rem !important;
+    color: #02214A !important;
+  }
+
+  .phone-pill-home .iti__country-name {
+    color: #02214A !important;
+  }
+
+  .phone-pill-home .iti__dial-code,
+  .phone-pill-home .iti__country .iti__dial-code {
+    color: #9AA6B7 !important;
+    font-size: 0.8125rem !important;
+  }
+
+  /* Error states */
+  .phone-pill-home.phone-error .iti__tel-input {
+    border-color: #ef4444 !important;
+  }
+  .input-error {
+    border-color: #ef4444 !important;
+  }
+  .upload-error {
+    border-color: #ef4444 !important;
+  }
+</style>
 </Layout>
 
 <script>
   import Swiper from 'swiper';
   import { Navigation } from 'swiper/modules';
+  import intlTelInput from 'intl-tel-input/intlTelInputWithUtils';
 
   new Swiper('.types-swiper', {
     modules: [Navigation],
@@ -209,4 +562,322 @@ const brands = [[images.make01, 'BMW'], [images.make02, 'Mercedes-Benz'], [image
       },
     },
   });
+
+  // Hero section plate input & valuation form state switching
+  function setupHeroValuationFlow() {
+    const plateForm = document.getElementById('hero-plate-form') as HTMLFormElement | null;
+    const initialHero = document.getElementById('hero-state-initial');
+    const formHero = document.getElementById('hero-state-form');
+    const plateInput = plateForm?.querySelector<HTMLInputElement>('input[name="plate"]');
+    const hiddenPlateInput = document.getElementById('form-plate-input') as HTMLInputElement | null;
+    const previewPlateText = document.getElementById('preview-plate-text');
+    const btnChangePlate = document.getElementById('btn-change-plate');
+    const detailsForm = document.getElementById('valuation-details-form') as HTMLFormElement | null;
+    const successMsg = document.getElementById('valuation-success-msg');
+    const photosInput = document.getElementById('val-photos') as HTMLInputElement | null;
+    const defaultView = document.getElementById('upload-default-view');
+    const previewView = document.getElementById('upload-preview-view');
+    const previewImg = document.getElementById('uploaded-photo-preview') as HTMLImageElement | null;
+    const countBadge = document.getElementById('upload-count-badge');
+
+    let itiValuationInstance: ReturnType<typeof intlTelInput> | null = null;
+
+    function initPhoneInput() {
+      const valPhoneInput = detailsForm?.querySelector<HTMLInputElement>('#val-phone');
+      if (!valPhoneInput) return;
+      if (itiValuationInstance) {
+        itiValuationInstance.destroy();
+        itiValuationInstance = null;
+      }
+      itiValuationInstance = intlTelInput(valPhoneInput, {
+        initialCountry: 'es',
+        separateDialCode: true,
+        strictMode: false,
+        countrySearch: true,
+      });
+    }
+
+    function showFormState(plateVal: string) {
+      if (!initialHero || !formHero) return;
+      const cleanPlate = (plateVal || '0000 ABC').trim().toUpperCase();
+      if (previewPlateText) previewPlateText.textContent = cleanPlate;
+      if (hiddenPlateInput) hiddenPlateInput.value = cleanPlate;
+
+      initialHero.classList.add('hidden');
+      formHero.classList.remove('hidden');
+      formHero.classList.add('grid');
+
+      initPhoneInput();
+    }
+
+    function showInitialState() {
+      if (!initialHero || !formHero) return;
+      formHero.classList.remove('grid');
+      formHero.classList.add('hidden');
+      initialHero.classList.remove('hidden');
+      if (plateInput) {
+        plateInput.focus();
+      }
+    }
+
+    // Check URL param ?plate=
+    const urlParams = new URLSearchParams(window.location.search);
+    const paramPlate = urlParams.get('plate');
+    if (paramPlate) {
+      showFormState(paramPlate);
+    } else {
+      if (formHero && !formHero.classList.contains('hidden')) {
+        initPhoneInput();
+      }
+    }
+
+    // Plate form submit
+    if (plateForm) {
+      plateForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const val = plateInput?.value.trim() || '';
+        if (!val) {
+          plateInput?.focus();
+          plateForm.classList.add('ring-2', 'ring-brand');
+          setTimeout(() => plateForm.classList.remove('ring-2', 'ring-brand'), 1500);
+          return;
+        }
+        showFormState(val);
+      });
+    }
+
+    btnChangePlate?.addEventListener('click', () => {
+      showInitialState();
+    });
+
+    // Validation definitions
+    const formFields = {
+      fullname: {
+        el: detailsForm?.querySelector<HTMLInputElement>('#val-fullname'),
+        validate: (v: string) => (v.trim().length > 0 ? '' : 'Please enter your full name.'),
+      },
+      location: {
+        el: detailsForm?.querySelector<HTMLInputElement>('#val-location'),
+        validate: (v: string) => (v.trim().length > 0 ? '' : 'Please enter where the car is located.'),
+      },
+      phone: {
+        el: detailsForm?.querySelector<HTMLInputElement>('#val-phone'),
+        validate: (_v: string) => {
+          const pInput = detailsForm?.querySelector<HTMLInputElement>('#val-phone');
+          if (!pInput || !pInput.value.trim()) return 'Please enter your phone number.';
+          if (itiValuationInstance && !itiValuationInstance.isValidNumber()) {
+            return 'Please enter a valid phone number.';
+          }
+          return '';
+        },
+      },
+      email: {
+        el: detailsForm?.querySelector<HTMLInputElement>('#val-email'),
+        validate: (v: string) => {
+          if (!v.trim()) return 'Please enter your email address.';
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if (!emailRegex.test(v.trim())) return 'Please enter a valid email address.';
+          return '';
+        },
+      },
+      mileage: {
+        el: detailsForm?.querySelector<HTMLInputElement>('#val-mileage'),
+        validate: (v: string) => (v.trim().length > 0 ? '' : 'Please enter the vehicle mileage.'),
+      },
+      condition: {
+        el: detailsForm?.querySelector<HTMLTextAreaElement>('#val-condition'),
+        validate: (v: string) => (v.trim().length > 0 ? '' : 'Please provide details on vehicle condition.'),
+      },
+      photos: {
+        el: photosInput,
+        validate: () => {
+          if (!photosInput?.files || photosInput.files.length === 0) {
+            return 'Please upload at least one photo of your car.';
+          }
+          return '';
+        },
+      },
+    };
+
+    function showError(key: string, msg: string) {
+      if (!detailsForm) return;
+      if (key === 'phone') {
+        const phonePill = detailsForm.querySelector('.phone-pill-home');
+        phonePill?.classList.add('phone-error');
+        const container = phonePill?.parentElement;
+        const errEl = container?.querySelector<HTMLElement>('.error-msg');
+        if (errEl) {
+          errEl.textContent = msg;
+          errEl.classList.remove('hidden');
+        }
+      } else if (key === 'mileage') {
+        const pill = detailsForm.querySelector('.mileage-pill');
+        pill?.classList.add('input-error');
+        const container = pill?.parentElement;
+        const errEl = container?.querySelector<HTMLElement>('.error-msg');
+        if (errEl) {
+          errEl.textContent = msg;
+          errEl.classList.remove('hidden');
+        }
+      } else if (key === 'photos') {
+        const wrapper = document.getElementById('upload-box-wrapper');
+        wrapper?.classList.add('upload-error');
+        const container = wrapper?.parentElement;
+        const errEl = container?.querySelector<HTMLElement>('.error-msg');
+        if (errEl) {
+          errEl.textContent = msg;
+          errEl.classList.remove('hidden');
+        }
+      } else {
+        const f = formFields[key as keyof typeof formFields];
+        if (f?.el) {
+          f.el.classList.add('input-error');
+          const container = f.el.parentElement;
+          const errEl = container?.querySelector<HTMLElement>('.error-msg');
+          if (errEl) {
+            errEl.textContent = msg;
+            errEl.classList.remove('hidden');
+          }
+        }
+      }
+    }
+
+    function clearError(key: string) {
+      if (!detailsForm) return;
+      if (key === 'phone') {
+        const phonePill = detailsForm.querySelector('.phone-pill-home');
+        phonePill?.classList.remove('phone-error');
+        const container = phonePill?.parentElement;
+        const errEl = container?.querySelector<HTMLElement>('.error-msg');
+        if (errEl) {
+          errEl.textContent = '';
+          errEl.classList.add('hidden');
+        }
+      } else if (key === 'mileage') {
+        const pill = detailsForm.querySelector('.mileage-pill');
+        pill?.classList.remove('input-error');
+        const container = pill?.parentElement;
+        const errEl = container?.querySelector<HTMLElement>('.error-msg');
+        if (errEl) {
+          errEl.textContent = '';
+          errEl.classList.add('hidden');
+        }
+      } else if (key === 'photos') {
+        const wrapper = document.getElementById('upload-box-wrapper');
+        wrapper?.classList.remove('upload-error');
+        const container = wrapper?.parentElement;
+        const errEl = container?.querySelector<HTMLElement>('.error-msg');
+        if (errEl) {
+          errEl.textContent = '';
+          errEl.classList.add('hidden');
+        }
+      } else {
+        const f = formFields[key as keyof typeof formFields];
+        if (f?.el) {
+          f.el.classList.remove('input-error');
+          const container = f.el.parentElement;
+          const errEl = container?.querySelector<HTMLElement>('.error-msg');
+          if (errEl) {
+            errEl.textContent = '';
+            errEl.classList.add('hidden');
+          }
+        }
+      }
+    }
+
+    // Attach real-time input listeners to clear errors
+    ['fullname', 'location', 'email', 'condition'].forEach((key) => {
+      const f = formFields[key as keyof typeof formFields];
+      f?.el?.addEventListener('input', () => clearError(key));
+    });
+    formFields.mileage?.el?.addEventListener('input', () => clearError('mileage'));
+    const phoneEl = detailsForm?.querySelector<HTMLInputElement>('#val-phone');
+    phoneEl?.addEventListener('input', () => clearError('phone'));
+    phoneEl?.addEventListener('countrychange', () => clearError('phone'));
+
+    // Image upload handler with preview and hover change
+    photosInput?.addEventListener('change', () => {
+      clearError('photos');
+      if (photosInput.files && photosInput.files.length > 0) {
+        const file = photosInput.files[0];
+        if (file && file.type.startsWith('image/')) {
+          const reader = new FileReader();
+          reader.onload = (ev) => {
+            if (previewImg && ev.target?.result) {
+              previewImg.src = ev.target.result as string;
+              defaultView?.classList.add('hidden');
+              previewView?.classList.remove('hidden');
+              previewView?.classList.add('block');
+
+              if (countBadge) {
+                if (photosInput.files && photosInput.files.length > 1) {
+                  countBadge.textContent = `+${photosInput.files.length - 1} more`;
+                  countBadge.classList.remove('hidden');
+                } else {
+                  countBadge.classList.add('hidden');
+                }
+              }
+            }
+          };
+          reader.readAsDataURL(file);
+        }
+      } else {
+        if (previewImg) previewImg.src = '';
+        previewView?.classList.add('hidden');
+        previewView?.classList.remove('block');
+        defaultView?.classList.remove('hidden');
+      }
+    });
+
+    // Valuation details form submit
+    if (detailsForm) {
+      detailsForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        let hasError = false;
+        let firstInvalid: HTMLElement | null = null;
+
+        Object.entries(formFields).forEach(([key, field]) => {
+          if (!field?.el) return;
+          const val = 'value' in field.el ? field.el.value : '';
+          const err = field.validate(val);
+          if (err) {
+            showError(key, err);
+            hasError = true;
+            if (!firstInvalid) firstInvalid = field.el;
+          } else {
+            clearError(key);
+          }
+        });
+
+        if (hasError) {
+          if (firstInvalid) {
+            firstInvalid.focus();
+            firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }
+          return;
+        }
+
+        if (successMsg) {
+          successMsg.classList.remove('hidden');
+          detailsForm.reset();
+          itiValuationInstance?.setCountry('es');
+          if (previewImg) previewImg.src = '';
+          previewView?.classList.add('hidden');
+          previewView?.classList.remove('block');
+          defaultView?.classList.remove('hidden');
+          setTimeout(() => {
+            successMsg.classList.add('hidden');
+          }, 6000);
+        }
+      });
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupHeroValuationFlow);
+  } else {
+    setupHeroValuationFlow();
+  }
+  document.addEventListener('astro:page-load', setupHeroValuationFlow);
+
 </script>

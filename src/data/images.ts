@@ -5,7 +5,8 @@ const p = (name: string) => `/images/${name}.${EXT}`;
 
 export const images = {
   // Real PNG images (user-provided)
-  heroHome: '/images/home-hero.png',
+  heroHome: '/images/home-banner.png',
+  bgBlur: '/images/bg-blur.png',
   logo: '/images/logo.png',
   sellBg: '/images/sell-bg.png',
   typeGasoline: '/images/slide01.png',

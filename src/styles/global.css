@@ -1,6 +1,15 @@
 @import "tailwindcss";
 @import "intl-tel-input/styles" layer(iti);
 
+:root {
+  --header-height: 94px;
+}
+@media (max-width: 768px) {
+  :root {
+    --header-height: 72px;
+  }
+}
+
 /* ============================================================
    DESIGN TOKENS — change colors / font HERE only (one place)
    ============================================================ */

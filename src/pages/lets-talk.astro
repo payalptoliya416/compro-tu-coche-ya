@@ -253,7 +253,7 @@ const field = 'h-12 w-full rounded-full border border-[#CCD3DB] bg-white px-4 te
 </style>
 
 <script>
-  import intlTelInput from 'intl-tel-input';
+  import intlTelInput from 'intl-tel-input/intlTelInputWithUtils';
 
   let itiInstance: ReturnType<typeof intlTelInput> | null = null;
 
@@ -273,7 +273,6 @@ const field = 'h-12 w-full rounded-full border border-[#CCD3DB] bg-white px-4 te
     // Init intl-tel-input
     itiInstance = intlTelInput(phoneInputEl, {
       initialCountry: 'es',
-      loadUtils: () => import('intl-tel-input/utils'),
       separateDialCode: true,
       strictMode: false,
       countrySearch: true,

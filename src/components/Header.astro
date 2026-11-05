@@ -69,4 +69,14 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
   btn?.addEventListener('click', openSidebar);
   closeBtn?.addEventListener('click', closeSidebar);
   overlay?.addEventListener('click', closeSidebar);
+
+  function updateHeaderHeight() {
+    const header = document.querySelector('header');
+    if (header) {
+      document.documentElement.style.setProperty('--header-height', `${header.offsetHeight}px`);
+    }
+  }
+  updateHeaderHeight();
+  window.addEventListener('resize', updateHeaderHeight);
+  document.addEventListener('astro:page-load', updateHeaderHeight);
 </script>
