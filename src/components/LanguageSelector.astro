@@ -31,10 +31,10 @@ const {
     aria-expanded="false"
     aria-haspopup="listbox"
     aria-label="Select Language"
-    class="flex items-center gap-1.5 sm:gap-2 h-9 sm:h-11 px-2.5 sm:px-3 rounded-full border border-line bg-white hover:border-brand/40 hover:bg-surface/50 text-navy text-xs sm:text-sm font-medium transition-all focus:outline-none cursor-pointer"
+    class="flex items-center justify-center gap-1 sm:gap-2 h-9 sm:h-11 px-2.5 sm:px-3 rounded-full border border-line bg-white hover:border-brand/40 hover:bg-surface/50 text-navy text-xs sm:text-sm font-semibold sm:font-medium transition-all focus:outline-none cursor-pointer"
   >
-    <!-- Flag Container -->
-    <span id="active-flag" class="shrink-0 flex items-center justify-center">
+    <!-- Flag Container (Hidden on mobile responsive, shown on sm+) -->
+    <span id="active-flag" class="hidden sm:flex shrink-0 items-center justify-center">
       <svg class="size-4.5 rounded-full object-cover shrink-0 border border-black/10" viewBox="0 0 640 480" width="18" height="18" aria-hidden="true">
         <path fill="#c60b1e" d="M0 0h640v480H0z"/>
         <path fill="#ffc400" d="M0 120h640v240H0z"/>
@@ -44,7 +44,8 @@ const {
     <span id="active-lang-text" class="hidden sm:inline font-medium text-[#02214A]">Español</span>
     <span id="active-lang-short" class="sm:hidden font-semibold text-[#02214A]">ES</span>
 
-    <Icon name="lucide:chevron-down" id="lang-chevron" class="size-3.5 sm:size-4 text-[#677A92] transition-transform duration-200" />
+    <!-- Chevron Down Arrow (Visible on mobile & desktop so dropdown is immediately obvious) -->
+    <Icon name="lucide:chevron-down" id="lang-chevron" class="size-3 sm:size-4 text-[#677A92] transition-transform duration-200 shrink-0" />
   </button>
 
   <!-- Dropdown Menu -->
