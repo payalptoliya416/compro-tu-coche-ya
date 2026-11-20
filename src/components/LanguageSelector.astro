@@ -52,7 +52,7 @@ const {
     id="lang-dropdown-menu"
     role="listbox"
     aria-orientation="vertical"
-    class="absolute right-0 top-full mt-2 w-44 rounded-2xl bg-white p-1.5 shadow-xl border border-line z-[100] transition-all duration-200 ease-out transform origin-top-right opacity-0 scale-95 pointer-events-none"
+    class="absolute right-0 top-full mt-2 w-44 rounded-2xl bg-white p-1.5 shadow-xl border border-line z-[100] hidden transition-all duration-150 transform origin-top-right"
   >
     {languages.map((lang) => (
       <button
@@ -133,55 +133,45 @@ const {
         });
       }
 
-      function setCookies(lang) {
+      function clearAllGoogleCookies() {
         var domain = window.location.hostname;
-        if (lang === 'es') {
-          document.cookie = 'googtrans=/en/es; path=/;';
-          if (domain && domain !== 'localhost') {
-            document.cookie = 'googtrans=/en/es; path=/; domain=' + domain + ';';
-            var root = domain.replace(/^www\./, '');
-            if (root !== domain) {
-              document.cookie = 'googtrans=/en/es; path=/; domain=.' + root + ';';
-            }
-          }
-        } else {
-          document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-          if (domain && domain !== 'localhost') {
-            document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=' + domain + ';';
+        var domains = ['', domain, '.' + domain];
+        var root = domain.replace(/^www\./, '');
+        if (root !== domain) {
+          domains.push('.' + root);
+        }
+        var parts = domain.split('.');
+        if (parts.length > 2) {
+          domains.push('.' + parts.slice(-2).join('.'));
+        }
+        var paths = ['/', ''];
+        for (var i = 0; i < domains.length; i++) {
+          for (var j = 0; j < paths.length; j++) {
+            var d = domains[i] ? '; domain=' + domains[i] : '';
+            var p = paths[j] ? '; path=' + paths[j] : '; path=/';
+            document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC' + p + d + ';';
+            document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC' + p + ';';
           }
         }
       }
 
       function applyTranslate(lang) {
-        setCookies(lang);
         localStorage.setItem('site_lang', lang);
         document.documentElement.lang = lang;
         updateActiveUI(lang);
 
-        function trigger() {
-          var combo = document.querySelector('.goog-te-combo');
-          if (combo) {
-            if (lang === 'en') {
-              var hasEn = combo.querySelector('option[value="en"]');
-              combo.value = hasEn ? 'en' : '';
-            } else {
-              combo.value = lang;
-            }
-            combo.dispatchEvent(new Event('change'));
-            return true;
+        if (lang === 'es') {
+          document.cookie = 'googtrans=/en/es; path=/;';
+          var domain = window.location.hostname;
+          if (domain && domain !== 'localhost') {
+            document.cookie = 'googtrans=/en/es; path=/; domain=' + domain + ';';
           }
-          return false;
+        } else {
+          clearAllGoogleCookies();
         }
 
-        if (!trigger()) {
-          var attempts = 0;
-          var interval = setInterval(function() {
-            attempts++;
-            if (trigger() || attempts >= 20) {
-              clearInterval(interval);
-            }
-          }, 100);
-        }
+        // Quick reload ensures 100% reliable instantaneous switch across all browsers & devices
+        window.location.reload();
       }
 
       function switchLanguage(lang) {
@@ -196,21 +186,19 @@ const {
       }
 
       function openMenu() {
-        menu.classList.remove('opacity-0', 'scale-95', 'pointer-events-none');
-        menu.classList.add('opacity-100', 'scale-100', 'pointer-events-auto');
+        menu.classList.remove('hidden');
         btn.setAttribute('aria-expanded', 'true');
         if (chevron) chevron.classList.add('rotate-180');
       }
 
       function closeMenu() {
-        menu.classList.remove('opacity-100', 'scale-100', 'pointer-events-auto');
-        menu.classList.add('opacity-0', 'scale-95', 'pointer-events-none');
+        menu.classList.add('hidden');
         btn.setAttribute('aria-expanded', 'false');
         if (chevron) chevron.classList.remove('rotate-180');
       }
 
       function toggleMenu() {
-        if (menu.classList.contains('opacity-0')) {
+        if (menu.classList.contains('hidden')) {
           openMenu();
         } else {
           closeMenu();
@@ -255,4 +243,3 @@ const {
     document.addEventListener('astro:page-load', initLanguageSelector);
   })();
 </script>
-
