@@ -2,6 +2,7 @@
 import { Icon } from 'astro-icon/components';
 import Logo from './Logo.astro';
 import Button from './Button.astro';
+import LanguageSelector from './LanguageSelector.astro';
 import { nav } from '../data/site';
 const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 ---
@@ -15,7 +16,8 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
         <a href={l.href} class:list={['text-sm xl:text-lg transition-colors hover:text-brand', path === l.href ? 'text-brand' : 'text-[#677A92]']}>{l.label}</a>
       ))}
     </nav>
-    <div class="flex items-center gap-2">
+    <div class="flex items-center gap-2 sm:gap-3">
+      <LanguageSelector />
       <Button href="/lets-talk" size="sm" class="!hidden lg:!inline-flex">Let's talk</Button>
       <button id="menu-btn" type="button" aria-label="Open menu" aria-expanded="false" class="grid size-10 place-items-center rounded-full border border-line text-navy lg:hidden">
         <Icon name="lucide:menu" class="size-5" />

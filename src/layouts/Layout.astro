@@ -6,7 +6,7 @@ import Footer from '../components/Footer.astro';
 const { title, description = 'Sell your car fast, easy and at the best price in Spain.' } = Astro.props;
 ---
 <!doctype html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -17,10 +17,147 @@ const { title, description = 'Sell your car fast, easy and at the best price in 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet" />
     <link rel="icon" type="image/png" href="/favicon.png" />
     <title>{title} | Compro Tu Coche Ya</title>
+    <style is:global>
+      /* Smooth language rendering: hide un-translated content briefly until translation applies */
+      html.translating body {
+        opacity: 0 !important;
+        visibility: hidden !important;
+      }
+      body {
+        opacity: 1;
+        transition: opacity 0.15s ease-out;
+      }
+
+      /* Completely hide Google Translate top banner / iframe */
+      body > .skiptranslate,
+      body > iframe.skiptranslate,
+      .goog-te-banner-frame,
+      iframe.goog-te-banner-frame,
+      #goog-gt-tt,
+      .goog-te-balloon-frame {
+        display: none !important;
+        visibility: hidden !important;
+        height: 0 !important;
+        width: 0 !important;
+        opacity: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        pointer-events: none !important;
+      }
+      html, body {
+        top: 0px !important;
+        margin-top: 0px !important;
+        padding-top: 0px !important;
+        position: static !important;
+        transform: none !important;
+      }
+      font {
+        background-color: transparent !important;
+        box-shadow: none !important;
+      }
+    </style>
+    <script is:inline>
+      (function () {
+        var lang = localStorage.getItem('site_lang');
+        if (!lang) {
+          lang = 'es';
+          localStorage.setItem('site_lang', 'es');
+        }
+        document.documentElement.lang = lang;
+        var domain = window.location.hostname;
+
+        if (lang === 'es') {
+          document.documentElement.classList.add('translating');
+          document.cookie = 'googtrans=/en/es; path=/;';
+          if (domain && domain !== 'localhost') {
+            document.cookie = 'googtrans=/en/es; path=/; domain=' + domain + ';';
+            var root = domain.replace(/^www\./, '');
+            if (root !== domain) {
+              document.cookie = 'googtrans=/en/es; path=/; domain=.' + root + ';';
+            }
+          }
+        } else {
+          document.documentElement.classList.remove('translating');
+          document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+          if (domain && domain !== 'localhost') {
+            document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=' + domain + ';';
+          }
+        }
+
+        function revealPage() {
+          document.documentElement.classList.remove('translating');
+        }
+
+        // Reveal page smoothly once translation has taken effect
+        var observer = new MutationObserver(function () {
+          if (document.documentElement.classList.contains('translated-ltr') || document.querySelector('font')) {
+            revealPage();
+            observer.disconnect();
+          }
+        });
+        observer.observe(document.documentElement, {
+          childList: true,
+          subtree: true,
+          attributes: true,
+          attributeFilter: ['class']
+        });
+
+        // Safety fallback: ensure page is visible within 350ms even if translate is slow
+        setTimeout(revealPage, 350);
+
+        // Pre-hide on internal link navigation to avoid seeing raw text on the next page
+        document.addEventListener('click', function(e) {
+          var a = e.target && e.target.closest ? e.target.closest('a') : null;
+          if (a && a.href && a.href.indexOf(window.location.origin) === 0 && !a.hash && a.target !== '_blank') {
+            if (localStorage.getItem('site_lang') === 'es') {
+              document.documentElement.classList.add('translating');
+            }
+          }
+        });
+
+        // Permanently suppress Google banner and force body top: 0
+        function hideGoogleTopBanner() {
+          var items = document.querySelectorAll('body > .skiptranslate, iframe.goog-te-banner-frame, .goog-te-banner-frame');
+          for (var i = 0; i < items.length; i++) {
+            items[i].style.setProperty('display', 'none', 'important');
+            items[i].style.setProperty('visibility', 'hidden', 'important');
+            items[i].style.setProperty('height', '0px', 'important');
+          }
+          if (document.body && document.body.style.top !== '0px') {
+            document.body.style.setProperty('top', '0px', 'important');
+          }
+        }
+
+        var bannerObserver = new MutationObserver(hideGoogleTopBanner);
+        if (document.documentElement) {
+          bannerObserver.observe(document.documentElement, {
+            childList: true,
+            subtree: true,
+            attributes: true,
+            attributeFilter: ['style', 'class']
+          });
+        }
+        window.addEventListener('DOMContentLoaded', hideGoogleTopBanner);
+        window.addEventListener('load', hideGoogleTopBanner);
+      })();
+    </script>
   </head>
   <body class="font-sans antialiased">
     <Header />
     <main><slot /></main>
     <Footer />
+
+    <!-- Dynamic Translation Engine -->
+    <div id="google_translate_element" style="display:none;" class="notranslate" translate="no"></div>
+    <script is:inline type="text/javascript">
+      function googleTranslateElementInit() {
+        new window.google.translate.TranslateElement({
+          pageLanguage: 'en',
+          includedLanguages: 'es,en',
+          autoDisplay: false
+        }, 'google_translate_element');
+      }
+    </script>
+    <script is:inline type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
   </body>
 </html>

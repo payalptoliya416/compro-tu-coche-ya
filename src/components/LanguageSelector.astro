@@ -1,0 +1,258 @@
+---
+import { Icon } from 'astro-icon/components';
+
+export interface Language {
+  code: string;
+  name: string;
+  short: string;
+  flag: string;
+}
+
+export interface Props {
+  languages?: Language[];
+  defaultLang?: string;
+  class?: string;
+}
+
+const {
+  languages = [
+    { code: 'es', name: 'Español', short: 'ES', flag: 'es' },
+    { code: 'en', name: 'English', short: 'EN', flag: 'en' },
+  ],
+  defaultLang = 'es',
+  class: className = '',
+} = Astro.props;
+---
+
+<div class:list={['relative notranslate select-none inline-block', className]} id="lang-selector-wrapper" translate="no">
+  <button
+    id="lang-selector-btn"
+    type="button"
+    aria-expanded="false"
+    aria-haspopup="listbox"
+    aria-label="Select Language"
+    class="flex items-center gap-1.5 sm:gap-2 h-9 sm:h-11 px-2.5 sm:px-3 rounded-full border border-line bg-white hover:border-brand/40 hover:bg-surface/50 text-navy text-xs sm:text-sm font-medium transition-all focus:outline-none cursor-pointer"
+  >
+    <!-- Flag Container -->
+    <span id="active-flag" class="shrink-0 flex items-center justify-center">
+      <svg class="size-4.5 rounded-full object-cover shrink-0 border border-black/10" viewBox="0 0 640 480" width="18" height="18" aria-hidden="true">
+        <path fill="#c60b1e" d="M0 0h640v480H0z"/>
+        <path fill="#ffc400" d="M0 120h640v240H0z"/>
+      </svg>
+    </span>
+    
+    <span id="active-lang-text" class="hidden sm:inline font-medium text-[#02214A]">Español</span>
+    <span id="active-lang-short" class="sm:hidden font-semibold text-[#02214A]">ES</span>
+
+    <Icon name="lucide:chevron-down" id="lang-chevron" class="size-3.5 sm:size-4 text-[#677A92] transition-transform duration-200" />
+  </button>
+
+  <!-- Dropdown Menu -->
+  <div
+    id="lang-dropdown-menu"
+    role="listbox"
+    aria-orientation="vertical"
+    class="absolute right-0 top-full mt-2 w-44 rounded-2xl bg-white p-1.5 shadow-xl border border-line z-[100] transition-all duration-200 ease-out transform origin-top-right opacity-0 scale-95 pointer-events-none"
+  >
+    {languages.map((lang) => (
+      <button
+        type="button"
+        role="option"
+        data-lang-code={lang.code}
+        data-lang-name={lang.name}
+        data-lang-short={lang.short}
+        class="lang-option-btn w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-xs sm:text-sm text-navy hover:bg-surface hover:text-brand transition-colors text-left font-medium cursor-pointer"
+      >
+        <span class="flex items-center gap-2.5">
+          {lang.code === 'es' ? (
+            <svg class="size-4.5 rounded-full object-cover shrink-0 border border-black/10" viewBox="0 0 640 480" width="18" height="18" aria-hidden="true">
+              <path fill="#c60b1e" d="M0 0h640v480H0z"/>
+              <path fill="#ffc400" d="M0 120h640v240H0z"/>
+            </svg>
+          ) : (
+            <svg class="size-4.5 rounded-full object-cover shrink-0 border border-black/10" viewBox="0 0 640 480" width="18" height="18" aria-hidden="true">
+              <path fill="#012169" d="M0 0h640v480H0z"/>
+              <path fill="#fff" d="m75 0 245 180L565 0h75v60L435 240l205 180v60h-75L320 300 75 480H0v-60l205-180L0 60V0z"/>
+              <path fill="#c8102e" d="m425 285 215 160v35h-35L380 320zM215 195 0 35V0h35l225 160zM640 0h-35L390 160h45l205-145zM0 480h35l215-160h-45L0 445z"/>
+              <path fill="#fff" d="M260 0h120v480H260zM0 180h640v120H0z"/>
+              <path fill="#c8102e" d="M280 0h80v480h-80zM0 200h640v80H0z"/>
+            </svg>
+          )}
+          <span>{lang.name} <span class="text-xs text-[#677A92]">({lang.short})</span></span>
+        </span>
+        <span class="check-icon hidden text-brand">
+          <Icon name="lucide:check" class="size-4" />
+        </span>
+      </button>
+    ))}
+  </div>
+</div>
+
+<script is:inline>
+  (function() {
+    function initLanguageSelector() {
+      var btn = document.getElementById('lang-selector-btn');
+      var menu = document.getElementById('lang-dropdown-menu');
+      var chevron = document.getElementById('lang-chevron');
+      var flagContainer = document.getElementById('active-flag');
+      var textContainer = document.getElementById('active-lang-text');
+      var shortContainer = document.getElementById('active-lang-short');
+      var optionBtns = document.querySelectorAll('.lang-option-btn');
+      var wrapper = document.getElementById('lang-selector-wrapper');
+
+      if (!btn || !menu) return;
+
+      var currentLang = localStorage.getItem('site_lang') || 'es';
+
+      var flags = {
+        es: '<svg class="size-4.5 rounded-full object-cover shrink-0 border border-black/10" viewBox="0 0 640 480" width="18" height="18" aria-hidden="true"><path fill="#c60b1e" d="M0 0h640v480H0z"/><path fill="#ffc400" d="M0 120h640v240H0z"/></svg>',
+        en: '<svg class="size-4.5 rounded-full object-cover shrink-0 border border-black/10" viewBox="0 0 640 480" width="18" height="18" aria-hidden="true"><path fill="#012169" d="M0 0h640v480H0z"/><path fill="#fff" d="m75 0 245 180L565 0h75v60L435 240l205 180v60h-75L320 300 75 480H0v-60l205-180L0 60V0z"/><path fill="#c8102e" d="m425 285 215 160v35h-35L380 320zM215 195 0 35V0h35l225 160zM640 0h-35L390 160h45l205-145zM0 480h35l215-160h-45L0 445z"/><path fill="#fff" d="M260 0h120v480H260zM0 180h640v120H0z"/><path fill="#c8102e" d="M280 0h80v480h-80zM0 200h640v80H0z"/></svg>'
+      };
+
+      function updateActiveUI(code) {
+        if (flags[code] && flagContainer) {
+          flagContainer.innerHTML = flags[code];
+        }
+        if (textContainer) {
+          textContainer.textContent = code === 'es' ? 'Español' : 'English';
+        }
+        if (shortContainer) {
+          shortContainer.textContent = code.toUpperCase();
+        }
+
+        optionBtns.forEach(function(opt) {
+          var optCode = opt.getAttribute('data-lang-code');
+          var check = opt.querySelector('.check-icon');
+          if (optCode === code) {
+            opt.classList.add('bg-brand/10', 'text-brand', 'font-semibold');
+            if (check) check.classList.remove('hidden');
+          } else {
+            opt.classList.remove('bg-brand/10', 'text-brand', 'font-semibold');
+            if (check) check.classList.add('hidden');
+          }
+        });
+      }
+
+      function setCookies(lang) {
+        var domain = window.location.hostname;
+        if (lang === 'es') {
+          document.cookie = 'googtrans=/en/es; path=/;';
+          if (domain && domain !== 'localhost') {
+            document.cookie = 'googtrans=/en/es; path=/; domain=' + domain + ';';
+            var root = domain.replace(/^www\./, '');
+            if (root !== domain) {
+              document.cookie = 'googtrans=/en/es; path=/; domain=.' + root + ';';
+            }
+          }
+        } else {
+          document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+          if (domain && domain !== 'localhost') {
+            document.cookie = 'googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=' + domain + ';';
+          }
+        }
+      }
+
+      function applyTranslate(lang) {
+        setCookies(lang);
+        localStorage.setItem('site_lang', lang);
+        document.documentElement.lang = lang;
+        updateActiveUI(lang);
+
+        function trigger() {
+          var combo = document.querySelector('.goog-te-combo');
+          if (combo) {
+            if (lang === 'en') {
+              var hasEn = combo.querySelector('option[value="en"]');
+              combo.value = hasEn ? 'en' : '';
+            } else {
+              combo.value = lang;
+            }
+            combo.dispatchEvent(new Event('change'));
+            return true;
+          }
+          return false;
+        }
+
+        if (!trigger()) {
+          var attempts = 0;
+          var interval = setInterval(function() {
+            attempts++;
+            if (trigger() || attempts >= 20) {
+              clearInterval(interval);
+            }
+          }, 100);
+        }
+      }
+
+      function switchLanguage(lang) {
+        if (lang === currentLang) {
+          closeMenu();
+          return;
+        }
+
+        currentLang = lang;
+        closeMenu();
+        applyTranslate(lang);
+      }
+
+      function openMenu() {
+        menu.classList.remove('opacity-0', 'scale-95', 'pointer-events-none');
+        menu.classList.add('opacity-100', 'scale-100', 'pointer-events-auto');
+        btn.setAttribute('aria-expanded', 'true');
+        if (chevron) chevron.classList.add('rotate-180');
+      }
+
+      function closeMenu() {
+        menu.classList.remove('opacity-100', 'scale-100', 'pointer-events-auto');
+        menu.classList.add('opacity-0', 'scale-95', 'pointer-events-none');
+        btn.setAttribute('aria-expanded', 'false');
+        if (chevron) chevron.classList.remove('rotate-180');
+      }
+
+      function toggleMenu() {
+        if (menu.classList.contains('opacity-0')) {
+          openMenu();
+        } else {
+          closeMenu();
+        }
+      }
+
+      btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        toggleMenu();
+      });
+
+      optionBtns.forEach(function(opt) {
+        opt.addEventListener('click', function(e) {
+          e.stopPropagation();
+          var code = opt.getAttribute('data-lang-code');
+          if (code) {
+            switchLanguage(code);
+          }
+        });
+      });
+
+      document.addEventListener('click', function(e) {
+        if (wrapper && !wrapper.contains(e.target)) {
+          closeMenu();
+        }
+      });
+
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          closeMenu();
+        }
+      });
+
+      updateActiveUI(currentLang);
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initLanguageSelector);
+    } else {
+      initLanguageSelector();
+    }
+    document.addEventListener('astro:page-load', initLanguageSelector);
+  })();
+</script>
+

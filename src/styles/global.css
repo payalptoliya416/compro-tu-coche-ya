@@ -44,3 +44,56 @@
 .iti--has-country-selector .iti__country-container:not(:has(+ input[disabled])):not(:has(+ input[readonly])) .iti__selected-country-primary:hover, .iti--has-country-selector .iti__country-container:not(:has(+ input[disabled])):not(:has(+ input[readonly])) .iti__selected-country[aria-expanded=true] .iti__selected-country-primary{
   background-color: transparent !important;
 }
+
+/* ============================================================
+   GOOGLE TRANSLATE STYLING OVERRIDES (Clean Native Integration)
+   ============================================================ */
+body > .skiptranslate,
+body > iframe.skiptranslate,
+.goog-te-banner-frame.skiptranslate,
+.goog-te-banner-frame,
+iframe.goog-te-banner-frame,
+#goog-gt-tt,
+.goog-te-balloon-frame {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  width: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+html,
+body {
+  top: 0px !important;
+  margin-top: 0px !important;
+  padding-top: 0px !important;
+  position: static !important;
+  transform: none !important;
+}
+
+body {
+  transition: none !important;
+}
+
+.goog-tooltip,
+.goog-tooltip:hover {
+  display: none !important;
+}
+
+.goog-text-highlight,
+font {
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+
+#google_translate_element {
+  display: none !important;
+}
+
+.VIpgJd-ZVi9od-aZ2wEe-wOHMyf,
+.VIpgJd-ZVi9od-aZ2wEe-OiiCO {
+  display: none !important;
+}
