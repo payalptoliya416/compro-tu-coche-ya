@@ -5,4 +5,5 @@ import icon from 'astro-icon';
 export default defineConfig({
   integrations: [icon()],
   vite: { plugins: [tailwindcss()] },
+  devToolbar: { enabled: false },
 });
