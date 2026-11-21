@@ -4,8 +4,9 @@ const { class: cls = '', id = 'hero-plate-form' } = Astro.props;
 ---
 <form
   id={id}
-  action="/sell-your-car"
+  action="/"
   method="get"
+  data-plate-form
   class:list={['group flex w-full max-w-[490px] h-12 sm:h-[60px] items-center overflow-hidden rounded-full bg-white transition-all duration-300', cls]}
 >
   <!-- EU Plate Strip -->
@@ -34,6 +35,8 @@ const { class: cls = '', id = 'hero-plate-form' } = Astro.props;
     type="text"
     placeholder="0000 ABC"
     maxlength="10"
+    required
+    pattern={String.raw`.*\S.*`}
     autocomplete="off"
     spellcheck="false"
     aria-label="License plate number"

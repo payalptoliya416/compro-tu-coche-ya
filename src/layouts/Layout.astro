@@ -11,6 +11,29 @@ const { title, description = 'Sell your car fast, easy and at the best price in 
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
+    <slot name="head" />
+    {Astro.url.pathname === '/' && (
+      <style is:inline>
+        html[data-valuation-pending] #hero-state-initial {
+          display: none !important;
+        }
+        html[data-valuation-pending] #hero-state-form {
+          display: grid !important;
+        }
+      </style>
+      <script is:inline>
+        try {
+          const cookie = document.cookie.split(';').map((value) => value.trim())
+            .find((value) => value.startsWith('car_valuation_pending_plate='));
+          const plate = cookie ? decodeURIComponent(cookie.slice(cookie.indexOf('=') + 1)) : '';
+          if (plate.trim() || new URLSearchParams(location.search).get('plate')?.trim()) {
+            document.documentElement.setAttribute('data-valuation-pending', '');
+          }
+        } catch {
+          
+        }
+      </script>
+    )}
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet" />
@@ -72,5 +95,8 @@ const { title, description = 'Sell your car fast, easy and at the best price in 
     <Header />
     <main><slot /></main>
     <Footer />
+    <script>
+      import '../scripts/plate-navigation';
+    </script>
   </body>
 </html>

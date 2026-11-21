@@ -97,20 +97,20 @@ const brands = [[images.make01, 'BMW'], [images.make02, 'Mercedes-Benz'], [image
           </p>
 
           <!-- Car details card matching design -->
-          <div class="relative isolate overflow-hidden mt-6 sm:mt-8 rounded-[10px] py-3 md:py-[25px] px-3 md:px-[30px] text-left max-w-[425px] w-full mx-auto lg:mx-0 bg-cover bg-center" style="background-image: url('/images/bg-blur.png');">
+          <!-- <div class="relative isolate overflow-hidden mt-6 sm:mt-8 rounded-[10px] py-3 md:py-[25px] px-3 md:px-[30px] text-left max-w-[425px] w-full mx-auto lg:mx-0 bg-cover bg-center" style="background-image: url('/images/bg-blur.png');">
             <img src="/images/bg-blur.png" alt="" class="absolute inset-0 -z-10 size-full object-cover" />
             <div class="flex items-start justify-between gap-2">
               <h3 id="preview-car-name" class="text-base sm:text-lg font-medium text-white leading-snug">
                 Peugeot 308 Allure SW HDi Blue S/S
               </h3>
-              <!-- <button
+              <button
                 type="button"
                 id="btn-change-plate"
                 class="text-xs text-brand hover:underline shrink-0 font-medium cursor-pointer"
                 title="Change plate number"
               >
                 Change
-              </button> -->
+              </button>
             </div>
             <p id="preview-car-specs" class="mt-1 text-xs sm:text-sm text-[#B3BCC9]">
               2016 &nbsp;|&nbsp; Grey &nbsp;|&nbsp; Estate &nbsp;|&nbsp; Diesel
@@ -118,7 +118,7 @@ const brands = [[images.make01, 'BMW'], [images.make02, 'Mercedes-Benz'], [image
             <div class="mt-[10px] inline-flex items-center rounded-[4px] bg-[#CCD3DB] px-2.5 py-0.5 text-xs tracking-wider text-[#02214A] uppercase">
               <span id="preview-plate-text">EU66 PSY</span>
             </div>
-          </div>
+          </div> -->
         </div>
 
         <!-- Right Column: Vehicle Details Form Card -->
@@ -126,7 +126,9 @@ const brands = [[images.make01, 'BMW'], [images.make02, 'Mercedes-Benz'], [image
           <form id="valuation-details-form" novalidate class="rounded-[18px] bg-white py-3 md:py-10 px-3 md:px-[30px] text-navy">
             <h2 class="text-xl sm:text-2xl font-semibold text-navy">Vehicle details</h2>
 
-            <input type="hidden" id="form-plate-input" name="plate" value="" />
+            <div id="valuation-error-msg" role="alert" class="hidden mt-4 rounded-xl bg-red-50 p-3 text-sm text-red-700"></div>
+            <input type="hidden" id="form-plate-input" name="car_number" value="" />
+            <p id="valuation-plate-error" role="alert" class="hidden mt-2 text-sm text-red-500"></p>
 
             <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-5">
               <!-- Full name -->
@@ -134,7 +136,7 @@ const brands = [[images.make01, 'BMW'], [images.make02, 'Mercedes-Benz'], [image
                 <label for="val-fullname" class="block text-sm text-[#082B54] mb-2">Full name <span class="text-[#FD570F]">*</span></label>
                 <input
                   id="val-fullname"
-                  name="fullname"
+                  name="full_name"
                   type="text"
                   placeholder="Enter your full name"
                   class="h-10 sm:h-11 w-full rounded-full border border-[#E6E9ED] px-3.5 text-xs sm:text-sm text-navy outline-none focus:border-brand placeholder:text-[#9AA6B7] transition-colors"
@@ -147,7 +149,7 @@ const brands = [[images.make01, 'BMW'], [images.make02, 'Mercedes-Benz'], [image
                 <label for="val-location" class="block text-sm text-[#082B54] mb-2">Where is the car currently located? <span class="text-[#FD570F]">*</span></label>
                 <input
                   id="val-location"
-                  name="location"
+                  name="car_location"
                   type="text"
                   placeholder="We pick it up anywhere in Spain"
                   class="h-10 sm:h-11 w-full rounded-full border border-[#E6E9ED] px-3.5 text-xs sm:text-sm text-navy outline-none focus:border-brand placeholder:text-[#9AA6B7] transition-colors"
@@ -161,7 +163,7 @@ const brands = [[images.make01, 'BMW'], [images.make02, 'Mercedes-Benz'], [image
                 <div class="phone-pill-home">
                   <input
                     id="val-phone"
-                    name="phone"
+                    name="phone_number"
                     type="tel"
                     placeholder="Your phone number"
                   />
@@ -188,7 +190,7 @@ const brands = [[images.make01, 'BMW'], [images.make02, 'Mercedes-Benz'], [image
                 <div class="mileage-pill flex h-10 sm:h-11 w-full items-center rounded-full border border-[#E6E9ED] bg-white px-3.5 transition-colors focus-within:border-brand">
                   <input
                     id="val-mileage"
-                    name="mileage"
+                    name="mileage_km"
                     type="text"
                     placeholder="e.g., 150.000"
                     class="min-w-0 flex-1 bg-transparent text-xs sm:text-sm text-navy outline-none placeholder:text-[#9AA6B7]"
@@ -208,11 +210,12 @@ const brands = [[images.make01, 'BMW'], [images.make02, 'Mercedes-Benz'], [image
                 </label>
                 <input
                   id="val-price"
-                  name="expected_price"
+                  name="expected_selling_price"
                   type="text"
                   placeholder="Your expected selling price"
                   class="h-10 sm:h-11 w-full rounded-full border border-[#E6E9ED] px-3.5 text-xs sm:text-sm text-navy outline-none focus:border-brand placeholder:text-[#9AA6B7]"
                 />
+                <p class="error-msg mt-1 text-xs text-red-500 hidden"></p>
               </div>
 
               <!-- Vehicle Condition & Document Status -->
@@ -220,7 +223,7 @@ const brands = [[images.make01, 'BMW'], [images.make02, 'Mercedes-Benz'], [image
                 <label for="val-condition" class="block text-sm text-[#082B54] mb-2">Vehicle Condition & Document Status <span class="text-[#FD570F]">*</span></label>
                 <textarea
                   id="val-condition"
-                  name="condition"
+                  name="condition_document_status"
                   rows="3"
                   placeholder="Provide an explanation for the damage..."
                   class="h-[140px] w-full rounded-[14px] border border-[#E6E9ED] p-4 text-xs sm:text-sm text-navy outline-none focus:border-brand placeholder:text-[#9AA6B7] resize-none transition-colors"
@@ -232,7 +235,7 @@ const brands = [[images.make01, 'BMW'], [images.make02, 'Mercedes-Benz'], [image
               <div>
                 <label class="block text-sm text-[#082B54] mb-2">Upload Car Photos <span class="text-[#FD570F]">*</span></label>
                 <div id="upload-box-wrapper" class="h-[140px] w-full rounded-[14px] border border-[#CCD3DB]/70 p-[10px] bg-white flex transition-colors">
-                  <input id="val-photos" name="photos" type="file" multiple accept="image/jpeg,image/png,image/webp" class="sr-only" />
+                  <input id="val-photos" name="car_photos[]" type="file" multiple accept="image/jpeg,image/png,image/webp" class="sr-only" />
                   
                   <!-- Default View (when no image selected) -->
                   <label for="val-photos" id="upload-default-view" class="relative flex flex-col items-center justify-center size-full rounded-[10px] border border-dashed border-[#E6E9ED] bg-[#F2F4F6] hover:bg-[#EEF2F6] transition-colors cursor-pointer p-[10px] text-center group">
@@ -241,30 +244,15 @@ const brands = [[images.make01, 'BMW'], [images.make02, 'Mercedes-Benz'], [image
                       <path d="M12.5 10.5V17M12.5 10.5L10 13M12.5 10.5L15 13" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                     <span id="upload-status-text" class="mt-3 text-xs font-medium text-[#02214A] leading-tight">Choose a Photos of Your Car</span>
-                    <span class="text-[10px] text-[#9AA6B7] leading-tight mt-[6px]">JPEG, and PNG formats, up to 50MB</span>
+                    <span class="text-[10px] text-[#9AA6B7] leading-tight mt-[6px]">JPEG, PNG or WebP · Max 10 photos · 5 MB each · 50 MB total</span>
                     <span class="mt-2 inline-flex items-center justify-center rounded-full border border-brand px-[15px] py-1.5 text-[11px] font-medium text-brand group-hover:bg-brand group-hover:text-white transition-all">
                       Browse File
                     </span>
                   </label>
 
-                  <!-- Preview View (when image is uploaded) -->
-                  <label for="val-photos" id="upload-preview-view" class="hidden relative size-full rounded-[10px] overflow-hidden group cursor-pointer">
-                    <img id="uploaded-photo-preview" src="" alt="Car photo preview" class="size-full object-cover object-center" />
-                    <span id="upload-count-badge" class="hidden absolute top-2 right-2 rounded-full bg-black/70 px-2 py-0.5 text-[10px] font-medium text-white shadow"></span>
-                    <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-200 flex flex-col items-center justify-center p-2 text-white text-center">
-                      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mb-1 text-white">
-                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                        <polyline points="17 8 12 3 7 8"/>
-                        <line x1="12" y1="3" x2="12" y2="15"/>
-                      </svg>
-                      <span class="text-xs font-medium text-white leading-tight">Choose another image</span>
-                      <span class="mt-1.5 inline-flex items-center justify-center rounded-full bg-brand px-3 py-1 text-[11px] font-medium text-white shadow">
-                        Change Photo
-                      </span>
-                    </div>
-                  </label>
                 </div>
                 <p class="error-msg mt-1 text-xs text-red-500 hidden"></p>
+                <div id="upload-photo-previews" role="group" aria-label="Selected car photos" class="mt-3 grid grid-cols-5 gap-2" hidden></div>
               </div>
             </div>
 
@@ -272,15 +260,14 @@ const brands = [[images.make01, 'BMW'], [images.make02, 'Mercedes-Benz'], [image
              <div class="mx-auto w-full max-w-[540px]">
                <button
                  type="submit"
-                 class="mt-7 inline-flex h-11 sm:h-12 w-full items-center justify-center gap-3 rounded-full bg-brand text-sm sm:text-lg font-medium text-white transition-all hover:bg-brand-dark active:scale-[0.99] cursor-pointer"
+                 class="mt-7 inline-flex h-11 sm:h-12 w-full items-center justify-center gap-3 rounded-full bg-brand text-sm sm:text-lg font-medium text-white transition-all hover:bg-brand-dark active:scale-[0.99] cursor-pointer disabled:cursor-not-allowed disabled:opacity-70 disabled:active:scale-100"
                >
-                 <span>Request My Valuation</span>
-                <img src="/images/right-errow.svg" alt="" class="" />
+                 <span data-submit-label>Request My Valuation</span>
+                 <img data-submit-arrow src="/images/right-errow.svg" alt="" />
+                 <span data-submit-loader class="valuation-submit-loader" hidden aria-hidden="true">
+                   <span></span><span></span><span></span>
+                 </span>
                </button>
-               <!-- Success notification -->
-               <div id="valuation-success-msg" class="hidden mt-5 rounded-full bg-green-100 p-2 text-center text-xs text-green-700">
-                 ✓ Valuation request sent successfully! Our team will contact you shortly.
-               </div>
              </div>
 
 
@@ -525,10 +512,56 @@ const brands = [[images.make01, 'BMW'], [images.make02, 'Mercedes-Benz'], [image
     font-size: 0.8125rem !important;
   }
 
+  #val-condition {
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #9aa6b7 transparent;
+  }
+  #val-condition::-webkit-scrollbar {
+    width: 6px;
+    background: transparent;
+  }
+  #val-condition::-webkit-scrollbar-track {
+    margin-block: 14px;
+    background: transparent;
+  }
+  #val-condition::-webkit-scrollbar-thumb {
+    background: #9aa6b7;
+    border-radius: 999px;
+  }
+  #val-condition::-webkit-scrollbar-button {
+    display: none;
+  }
+
   /* Error states */
   .phone-pill-home.phone-error .iti__tel-input {
     border-color: #ef4444 !important;
   }
+  .valuation-submit-loader {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .valuation-submit-loader[hidden] {
+    display: none;
+  }
+  .valuation-submit-loader > span {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+    animation: valuation-dot 1s ease-in-out infinite;
+  }
+  .valuation-submit-loader > span:nth-child(2) { animation-delay: 150ms; }
+  .valuation-submit-loader > span:nth-child(3) { animation-delay: 300ms; }
+  @keyframes valuation-dot {
+    0%, 80%, 100% { opacity: 0.4; transform: translateY(0); }
+    40% { opacity: 1; transform: translateY(-4px); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .valuation-submit-loader > span { animation: none; }
+  }
+
   .input-error {
     border-color: #ef4444 !important;
   }
@@ -542,6 +575,8 @@ const brands = [[images.make01, 'BMW'], [images.make02, 'Mercedes-Benz'], [image
   import Swiper from 'swiper';
   import { Navigation } from 'swiper/modules';
   import intlTelInput from 'intl-tel-input/intlTelInputWithUtils';
+  import { consumePendingPlate } from '../scripts/plate-navigation';
+  import { saveVehicleReceipt, clearVehicleReceipt } from '../scripts/valuation-receipt';
 
   new Swiper('.types-swiper', {
     modules: [Navigation],
@@ -563,7 +598,6 @@ const brands = [[images.make01, 'BMW'], [images.make02, 'Mercedes-Benz'], [image
     },
   });
 
-  // Hero section plate input & valuation form state switching
   function setupHeroValuationFlow() {
     const plateForm = document.getElementById('hero-plate-form') as HTMLFormElement | null;
     const initialHero = document.getElementById('hero-state-initial');
@@ -573,12 +607,15 @@ const brands = [[images.make01, 'BMW'], [images.make02, 'Mercedes-Benz'], [image
     const previewPlateText = document.getElementById('preview-plate-text');
     const btnChangePlate = document.getElementById('btn-change-plate');
     const detailsForm = document.getElementById('valuation-details-form') as HTMLFormElement | null;
-    const successMsg = document.getElementById('valuation-success-msg');
+    if (!detailsForm || detailsForm.dataset.initialized) return;
+    detailsForm.dataset.initialized = 'true';
+    const errorMsg = document.getElementById('valuation-error-msg');
+    const plateError = document.getElementById('valuation-plate-error');
+    let submitting = false;
     const photosInput = document.getElementById('val-photos') as HTMLInputElement | null;
-    const defaultView = document.getElementById('upload-default-view');
-    const previewView = document.getElementById('upload-preview-view');
-    const previewImg = document.getElementById('uploaded-photo-preview') as HTMLImageElement | null;
-    const countBadge = document.getElementById('upload-count-badge');
+    const photoPreviews = document.getElementById('upload-photo-previews');
+    let selectedPhotos: File[] = [];
+    let photoPreviewUrls: string[] = [];
 
     let itiValuationInstance: ReturnType<typeof intlTelInput> | null = null;
 
@@ -602,10 +639,12 @@ const brands = [[images.make01, 'BMW'], [images.make02, 'Mercedes-Benz'], [image
       const cleanPlate = (plateVal || '0000 ABC').trim().toUpperCase();
       if (previewPlateText) previewPlateText.textContent = cleanPlate;
       if (hiddenPlateInput) hiddenPlateInput.value = cleanPlate;
+      plateError?.classList.add('hidden');
 
       initialHero.classList.add('hidden');
       formHero.classList.remove('hidden');
       formHero.classList.add('grid');
+      document.documentElement.removeAttribute('data-valuation-pending');
 
       initPhoneInput();
     }
@@ -620,31 +659,38 @@ const brands = [[images.make01, 'BMW'], [images.make02, 'Mercedes-Benz'], [image
       }
     }
 
-    // Check URL param ?plate=
-    const urlParams = new URLSearchParams(window.location.search);
-    const paramPlate = urlParams.get('plate');
-    if (paramPlate) {
-      showFormState(paramPlate);
+    const url = new URL(window.location.href);
+    const legacyPlate = url.searchParams.get('plate');
+    if (url.searchParams.has('plate')) {
+      url.searchParams.delete('plate');
+      window.history.replaceState(window.history.state, '', `${url.pathname}${url.search}${url.hash}`);
+    }
+    const pendingPlate = consumePendingPlate();
+    if (legacyPlate || pendingPlate) {
+      showFormState(legacyPlate || pendingPlate);
     } else {
+      document.documentElement.removeAttribute('data-valuation-pending');
       if (formHero && !formHero.classList.contains('hidden')) {
         initPhoneInput();
       }
     }
 
     // Plate form submit
-    if (plateForm) {
-      plateForm.addEventListener('submit', (e) => {
+    document.querySelectorAll<HTMLFormElement>('form[data-plate-form]').forEach((form) => {
+      form.addEventListener('submit', (e) => {
         e.preventDefault();
-        const val = plateInput?.value.trim() || '';
+        const input = form.querySelector<HTMLInputElement>('input[name="plate"]');
+        const val = input?.value.trim() || '';
         if (!val) {
-          plateInput?.focus();
-          plateForm.classList.add('ring-2', 'ring-brand');
-          setTimeout(() => plateForm.classList.remove('ring-2', 'ring-brand'), 1500);
+          input?.focus();
+          form.classList.add('ring-2', 'ring-brand');
+          setTimeout(() => form.classList.remove('ring-2', 'ring-brand'), 1500);
           return;
         }
         showFormState(val);
+        formHero?.scrollIntoView({ behavior: 'smooth', block: 'center' });
       });
-    }
+    });
 
     btnChangePlate?.addEventListener('click', () => {
       showInitialState();
@@ -654,11 +700,17 @@ const brands = [[images.make01, 'BMW'], [images.make02, 'Mercedes-Benz'], [image
     const formFields = {
       fullname: {
         el: detailsForm?.querySelector<HTMLInputElement>('#val-fullname'),
-        validate: (v: string) => (v.trim().length > 0 ? '' : 'Please enter your full name.'),
+        validate: (v: string) => {
+          if (!v.trim()) return 'Please enter your full name.';
+          return v.trim().length >= 2 ? '' : 'Full name must contain at least 2 characters.';
+        },
       },
       location: {
         el: detailsForm?.querySelector<HTMLInputElement>('#val-location'),
-        validate: (v: string) => (v.trim().length > 0 ? '' : 'Please enter where the car is located.'),
+        validate: (v: string) => {
+          if (!v.trim()) return 'Please enter where the car is located.';
+          return v.trim().length >= 2 ? '' : 'Car location must contain at least 2 characters.';
+        },
       },
       phone: {
         el: detailsForm?.querySelector<HTMLInputElement>('#val-phone'),
@@ -684,6 +736,10 @@ const brands = [[images.make01, 'BMW'], [images.make02, 'Mercedes-Benz'], [image
         el: detailsForm?.querySelector<HTMLInputElement>('#val-mileage'),
         validate: (v: string) => (v.trim().length > 0 ? '' : 'Please enter the vehicle mileage.'),
       },
+      price: {
+        el: detailsForm.querySelector<HTMLInputElement>('#val-price'),
+        validate: (_v: string) => '',
+      },
       condition: {
         el: detailsForm?.querySelector<HTMLTextAreaElement>('#val-condition'),
         validate: (v: string) => (v.trim().length > 0 ? '' : 'Please provide details on vehicle condition.'),
@@ -694,6 +750,21 @@ const brands = [[images.make01, 'BMW'], [images.make02, 'Mercedes-Benz'], [image
           if (!photosInput?.files || photosInput.files.length === 0) {
             return 'Please upload at least one photo of your car.';
           }
+          const files = Array.from(photosInput.files);
+          if (files.length > 10) return 'You can upload a maximum of 10 photos.';
+          const allowedTypes = ['image/jpeg', 'image/png', 'image/webp'];
+          let totalSize = 0;
+          for (const file of files) {
+            if (!/\.(jpe?g|png|webp)$/i.test(file.name)
+                || (file.type && !allowedTypes.includes(file.type))) {
+              return `"${file.name}" is not supported. Please upload JPEG, PNG or WebP photos only.`;
+            }
+            if (file.size > 5 * 1024 * 1024) {
+              return `"${file.name}" exceeds the 5 MB limit per photo.`;
+            }
+            totalSize += file.size;
+          }
+          if (totalSize > 50 * 1024 * 1024) return 'The total size of your photos must not exceed 50 MB.';
           return '';
         },
       },
@@ -786,7 +857,7 @@ const brands = [[images.make01, 'BMW'], [images.make02, 'Mercedes-Benz'], [image
     }
 
     // Attach real-time input listeners to clear errors
-    ['fullname', 'location', 'email', 'condition'].forEach((key) => {
+    ['fullname', 'location', 'email', 'condition', 'price'].forEach((key) => {
       const f = formFields[key as keyof typeof formFields];
       f?.el?.addEventListener('input', () => clearError(key));
     });
@@ -795,44 +866,81 @@ const brands = [[images.make01, 'BMW'], [images.make02, 'Mercedes-Benz'], [image
     phoneEl?.addEventListener('input', () => clearError('phone'));
     phoneEl?.addEventListener('countrychange', () => clearError('phone'));
 
-    // Image upload handler with preview and hover change
-    photosInput?.addEventListener('change', () => {
-      clearError('photos');
-      if (photosInput.files && photosInput.files.length > 0) {
-        const file = photosInput.files[0];
-        if (file && file.type.startsWith('image/')) {
-          const reader = new FileReader();
-          reader.onload = (ev) => {
-            if (previewImg && ev.target?.result) {
-              previewImg.src = ev.target.result as string;
-              defaultView?.classList.add('hidden');
-              previewView?.classList.remove('hidden');
-              previewView?.classList.add('block');
+    function syncPhotoInput(files: File[]) {
+      if (!photosInput) return;
+      const transfer = new DataTransfer();
+      files.forEach((file) => transfer.items.add(file));
+      photosInput.files = transfer.files;
+    }
 
-              if (countBadge) {
-                if (photosInput.files && photosInput.files.length > 1) {
-                  countBadge.textContent = `+${photosInput.files.length - 1} more`;
-                  countBadge.classList.remove('hidden');
-                } else {
-                  countBadge.classList.add('hidden');
-                }
-              }
-            }
-          };
-          reader.readAsDataURL(file);
-        }
-      } else {
-        if (previewImg) previewImg.src = '';
-        previewView?.classList.add('hidden');
-        previewView?.classList.remove('block');
-        defaultView?.classList.remove('hidden');
+    function renderPhotoPreviews() {
+      photoPreviewUrls.forEach((url) => URL.revokeObjectURL(url));
+      photoPreviewUrls = [];
+      if (!photoPreviews) return;
+      photoPreviews.replaceChildren();
+      photoPreviews.hidden = selectedPhotos.length === 0;
+
+      selectedPhotos.forEach((file, index) => {
+        const tile = document.createElement('div');
+        tile.className = 'relative aspect-square min-w-0';
+        const image = document.createElement('img');
+        const url = URL.createObjectURL(file);
+        photoPreviewUrls.push(url);
+        image.src = url;
+        image.alt = file.name;
+        image.className = 'size-full rounded-lg border border-line object-cover';
+        const remove = document.createElement('button');
+        remove.type = 'button';
+        remove.className = 'absolute -right-1 -top-1 flex size-4 items-center justify-center rounded-full bg-red-500 text-xs leading-none text-white shadow hover:bg-red-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-500 cursor-pointer';
+        remove.textContent = '×';
+        remove.setAttribute('aria-label', `Remove ${file.name}`);
+        remove.title = `Remove ${file.name}`;
+        remove.addEventListener('click', () => {
+          if (submitting) return;
+          selectedPhotos.splice(index, 1);
+          syncPhotoInput(selectedPhotos);
+          clearError('photos');
+          renderPhotoPreviews();
+          const nextRemove = photoPreviews.querySelectorAll<HTMLButtonElement>('button');
+          if (nextRemove.length) nextRemove[Math.min(index, nextRemove.length - 1)].focus();
+          else photosInput?.focus();
+        });
+        tile.append(image, remove);
+        photoPreviews.append(tile);
+      });
+    }
+
+    photosInput?.addEventListener('change', () => {
+      const added = Array.from(photosInput.files || []);
+      if (!added.length || submitting) {
+        syncPhotoInput(selectedPhotos);
+        return;
       }
+      clearError('photos');
+      const candidate = [...selectedPhotos, ...added];
+      syncPhotoInput(candidate);
+      const error = formFields.photos.validate();
+      if (error) {
+        syncPhotoInput(selectedPhotos);
+        showError('photos', error);
+        return;
+      }
+      selectedPhotos = candidate;
+      renderPhotoPreviews();
     });
+    window.addEventListener('pagehide', () => {
+      photoPreviewUrls.forEach((url) => URL.revokeObjectURL(url));
+      photoPreviewUrls = [];
+    });
+    window.addEventListener('pageshow', () => renderPhotoPreviews());
 
     // Valuation details form submit
     if (detailsForm) {
-      detailsForm.addEventListener('submit', (e) => {
+      detailsForm.addEventListener('submit', async (e) => {
         e.preventDefault();
+        if (submitting) return;
+        errorMsg?.classList.add('hidden');
+        plateError?.classList.add('hidden');
         let hasError = false;
         let firstInvalid: HTMLElement | null = null;
 
@@ -857,17 +965,128 @@ const brands = [[images.make01, 'BMW'], [images.make02, 'Mercedes-Benz'], [image
           return;
         }
 
-        if (successMsg) {
-          successMsg.classList.remove('hidden');
-          detailsForm.reset();
-          itiValuationInstance?.setSelectedCountry('es');
-          if (previewImg) previewImg.src = '';
-          previewView?.classList.add('hidden');
-          previewView?.classList.remove('block');
-          defaultView?.classList.remove('hidden');
-          setTimeout(() => {
-            successMsg.classList.add('hidden');
-          }, 6000);
+        const plate = hiddenPlateInput?.value.trim() || '';
+        if (!plate) {
+          if (plateError) {
+            plateError.textContent = 'Please enter your license plate number to continue.';
+            plateError.classList.remove('hidden');
+          }
+          return;
+        }
+
+        const submitButton = detailsForm.querySelector<HTMLButtonElement>('button[type="submit"]');
+        const submitLabel = submitButton?.querySelector<HTMLElement>('[data-submit-label]');
+        const submitLoader = submitButton?.querySelector<HTMLElement>('[data-submit-loader]');
+        const submitArrow = submitButton?.querySelector<HTMLElement>('[data-submit-arrow]');
+        const originalLabel = submitLabel?.textContent || 'Request My Valuation';
+        submitting = true;
+        if (submitButton) submitButton.disabled = true;
+        if (submitLabel) submitLabel.textContent = 'Submitting';
+        if (submitLoader) submitLoader.hidden = false;
+        if (submitArrow) submitArrow.hidden = true;
+        submitButton?.setAttribute('aria-busy', 'true');
+        detailsForm.setAttribute('aria-busy', 'true');
+
+        try {
+          clearVehicleReceipt();
+          const baseUrl = import.meta.env.PUBLIC_API_BASE_URL?.trim();
+          if (!baseUrl) throw new Error('The valuation service is not configured. Please try again later.');
+
+          const payload = new FormData(detailsForm);
+          const country = itiValuationInstance?.getSelectedCountry();
+          payload.set('country_code', country?.dialCode ? `+${country.dialCode}` : '+34');
+          
+          const fullNumber = itiValuationInstance?.getNumber() || '';
+          const prefix = country?.dialCode ? `+${country.dialCode}` : '';
+          payload.set('phone_number', fullNumber && prefix && fullNumber.startsWith(prefix)
+            ? fullNumber.slice(prefix.length)
+            : (phoneEl?.value || '').replace(/\D/g, ''));
+          payload.set('mileage_km', (formFields.mileage.el?.value || '').replace(/[.,\s]/g, ''));
+
+          const response = await fetch(`${baseUrl.replace(/\/+$/, '')}/car-valuation.php`, {
+            method: 'POST',
+            body: payload,
+            signal: AbortSignal.timeout(60000),
+          });
+          const result = await response.json().catch(() => null);
+          if (!result || typeof result !== 'object' || Array.isArray(result)) {
+            throw new Error('The valuation service returned an unexpected response. Please try again.');
+          }
+
+          // Support field messages returned directly or inside a data envelope.
+          const errors = result.errors ?? result.data?.errors
+            ?? (typeof result.error === 'object' ? result.error : null);
+          const fieldMap: Record<string, string> = {
+            car_number: 'plate', full_name: 'fullname', car_location: 'location',
+            country_code: 'phone', phone_number: 'phone', email: 'email',
+            mileage_km: 'mileage', expected_selling_price: 'price',
+            condition_document_status: 'condition', car_photos: 'photos',
+          };
+          const messages = (value: unknown): string => {
+            if (typeof value === 'string') return value;
+            if (Array.isArray(value)) return value.map(messages).filter(Boolean).join(' ');
+            if (value && typeof value === 'object') return Object.values(value).map(messages).filter(Boolean).join(' ');
+            return '';
+          };
+          let hasFieldErrors = false;
+          const generalErrors: string[] = [];
+          if (errors && typeof errors === 'object') {
+            const grouped: Record<string, string[]> = {};
+            for (const [apiKey, value] of Object.entries(errors)) {
+              const message = messages(value);
+              if (!message) continue;
+              const key = fieldMap[apiKey.replace(/\[.*?\]|\.\d+/g, '')];
+              if (!key) { generalErrors.push(message); continue; }
+              (grouped[key] ??= []).push(message);
+            }
+            for (const [key, values] of Object.entries(grouped)) {
+              hasFieldErrors = true;
+              if (key === 'plate' && plateError) {
+                plateError.textContent = values.join(' ');
+                plateError.classList.remove('hidden');
+              } else {
+                showError(key, values.join(' '));
+              }
+            }
+          }
+
+          const failedStatus = ['error', 'failed', 'failure', 'false'].includes(String(result.status).toLowerCase());
+          const confirmedSuccess = [true, 1, 'true', '1'].includes(result.success)
+            || ['success', 'ok'].includes(String(result.status).toLowerCase());
+          if (!confirmedSuccess || !response.ok || result.success === false || result.success === 0
+              || result.success === 'false' || failedStatus || result.error || hasFieldErrors || generalErrors.length) {
+            if (hasFieldErrors && !generalErrors.length) {
+              const firstError = detailsForm.querySelector<HTMLElement>('.error-msg:not(.hidden), #valuation-plate-error:not(.hidden)');
+              firstError?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+              return;
+            }
+            throw new Error(generalErrors.join(' ') || messages(result.message) || messages(result.error)
+              || 'Your valuation request could not be sent. Please try again.');
+          }
+
+          if (saveVehicleReceipt(result.data, result.message)) {
+            window.location.assign('/thank-you');
+          } else {
+            window.alert('Your car valuation request was submitted successfully. Our team will contact you.');
+          }
+        } catch (error) {
+          if (errorMsg) {
+            errorMsg.textContent = error instanceof TypeError
+              ? 'Unable to connect to the valuation service. Please check your connection and try again.'
+              : error instanceof Error && (error.name === 'TimeoutError' || error.name === 'AbortError')
+                ? 'The valuation service took too long to respond. Please try again.'
+                : error instanceof Error ? error.message : 'Something went wrong. Please try again.';
+            errorMsg.classList.remove('hidden');
+            errorMsg.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }
+        } finally {
+          submitting = false;
+          if (submitButton) submitButton.disabled = false;
+          if (submitLabel) submitLabel.textContent = originalLabel;
+          if (submitLoader) submitLoader.hidden = true;
+          if (submitArrow) submitArrow.hidden = false;
+          submitButton?.removeAttribute('aria-busy');
+          detailsForm.removeAttribute('aria-busy');
         }
       });
     }

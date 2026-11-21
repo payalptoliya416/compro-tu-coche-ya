@@ -10,6 +10,7 @@ dist/
 # environment
 .env
 .env.*
+!.env.example
 
 # editor
 .vscode/

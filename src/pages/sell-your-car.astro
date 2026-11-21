@@ -36,7 +36,7 @@ const sold = [
           </h1>
           <p class="mt-4 text-sm font-light leading-relaxed text-white sm:text-base">Get a quick valuation for your car and start the selling process in just a few simple steps.</p>
         </div>
-        <form action="#" method="get" class="w-full max-w-full min-w-0 rounded-[18px] bg-white p-5 text-navy shadow-2xl sm:p-10 lg:ml-auto">
+        <form action="/" method="get" data-plate-form class="w-full max-w-full min-w-0 rounded-[18px] bg-white p-5 text-navy shadow-2xl sm:p-10 lg:ml-auto">
           <h2 class="text-lg font-medium text-[#02214A]">Let's start with your car</h2>
           <p class="mt-3 text-base text-[#677A92]">Enter your license plate number and find out how much your car could be worth.</p>
           <label for="plate" class="mb-3 mt-10 block text-base text-[#354D6E]">Enter your license plate number</label>
@@ -59,7 +59,19 @@ const sold = [
                 </svg>
                 <span class="text-[10px] sm:text-[12px] font-semibold leading-none tracking-wider text-white font-poppins">E</span>
               </div>
-            <input id="plate" name="plate" placeholder="0000 AAA" maxlength="10" class="min-w-0 w-0 flex-1 px-3 text-base sm:text-lg font-semibold uppercase tracking-[0.15em] outline-none placeholder:text-slate-300" />
+            <input
+              id="plate"
+              name="plate"
+              type="text"
+              placeholder="0000 ABC"
+              maxlength="10"
+              required
+              pattern={String.raw`.*\S.*`}
+              autocomplete="off"
+              spellcheck="false"
+              aria-label="License plate number"
+              class="min-w-0 w-0 flex-1 px-3 text-base sm:text-lg font-semibold uppercase tracking-[0.15em] outline-none placeholder:text-slate-300"
+            />
           </div>
           <p class="mt-2 text-sm text-[#9AA6B7]">Example: 1234 ABC · Enter your vehicle's Spanish registration number</p>
           <button type="submit" class="mt-8 inline-flex h-11 md:h-14 w-full items-center justify-center gap-2 rounded-full bg-brand text-base font-semibold text-white transition-colors hover:bg-brand-dark cursor-pointer">
@@ -129,9 +141,3 @@ const sold = [
 
   <Faq />
 </Layout>
-
-<script>
-  const plate = new URLSearchParams(location.search).get('plate');
-  const input = document.getElementById('plate') as HTMLInputElement | null;
-  if (plate && input) input.value = plate;
-</script>
