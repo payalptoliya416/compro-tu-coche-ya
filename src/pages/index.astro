@@ -192,7 +192,9 @@ const brands = [[images.make01, 'BMW'], [images.make02, 'Mercedes-Benz'], [image
                     id="val-mileage"
                     name="mileage_km"
                     type="text"
-                    placeholder="e.g., 150.000"
+                    inputmode="numeric"
+                    pattern="[0-9]*"
+                    placeholder="e.g., 150000"
                     class="min-w-0 flex-1 bg-transparent text-xs sm:text-sm text-navy outline-none placeholder:text-[#9AA6B7]"
                   />
                   <span class="text-xs text-[#9AA6B7] shrink-0 ml-4">km</span>
@@ -212,6 +214,8 @@ const brands = [[images.make01, 'BMW'], [images.make02, 'Mercedes-Benz'], [image
                   id="val-price"
                   name="expected_selling_price"
                   type="text"
+                  inputmode="numeric"
+                  pattern="[0-9]*"
                   placeholder="Your expected selling price"
                   class="h-10 sm:h-11 w-full rounded-full border border-[#E6E9ED] px-3.5 text-xs sm:text-sm text-navy outline-none focus:border-brand placeholder:text-[#9AA6B7]"
                 />
@@ -734,11 +738,20 @@ const brands = [[images.make01, 'BMW'], [images.make02, 'Mercedes-Benz'], [image
       },
       mileage: {
         el: detailsForm?.querySelector<HTMLInputElement>('#val-mileage'),
-        validate: (v: string) => (v.trim().length > 0 ? '' : 'Please enter the vehicle mileage.'),
+        validate: (v: string) => {
+          const clean = v.replace(/\D/g, '');
+          if (!clean) return 'Please enter the vehicle mileage.';
+          if (parseInt(clean, 10) <= 0) return 'Please enter a valid mileage.';
+          return '';
+        },
       },
       price: {
-        el: detailsForm.querySelector<HTMLInputElement>('#val-price'),
-        validate: (_v: string) => '',
+        el: detailsForm?.querySelector<HTMLInputElement>('#val-price'),
+        validate: (v: string) => {
+          const clean = v.trim();
+          if (clean && !/^\d+$/.test(clean)) return 'Please enter numbers only for expected price.';
+          return '';
+        },
       },
       condition: {
         el: detailsForm?.querySelector<HTMLTextAreaElement>('#val-condition'),
@@ -857,11 +870,37 @@ const brands = [[images.make01, 'BMW'], [images.make02, 'Mercedes-Benz'], [image
     }
 
     // Attach real-time input listeners to clear errors
-    ['fullname', 'location', 'email', 'condition', 'price'].forEach((key) => {
+    ['fullname', 'location', 'email', 'condition'].forEach((key) => {
       const f = formFields[key as keyof typeof formFields];
       f?.el?.addEventListener('input', () => clearError(key));
     });
-    formFields.mileage?.el?.addEventListener('input', () => clearError('mileage'));
+
+    const allowOnlyDigits = (e: KeyboardEvent) => {
+      if (e.ctrlKey || e.metaKey || e.altKey) return;
+      if (['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab', 'Enter', 'Home', 'End'].includes(e.key)) return;
+      if (!/^\d$/.test(e.key)) {
+        e.preventDefault();
+      }
+    };
+
+    const mileageEl = formFields.mileage?.el;
+    mileageEl?.addEventListener('keydown', allowOnlyDigits);
+    mileageEl?.addEventListener('input', () => {
+      if (mileageEl.value) {
+        mileageEl.value = mileageEl.value.replace(/\D/g, '');
+      }
+      clearError('mileage');
+    });
+
+    const priceEl = formFields.price?.el;
+    priceEl?.addEventListener('keydown', allowOnlyDigits);
+    priceEl?.addEventListener('input', () => {
+      if (priceEl.value) {
+        priceEl.value = priceEl.value.replace(/\D/g, '');
+      }
+      clearError('price');
+    });
+
     const phoneEl = detailsForm?.querySelector<HTMLInputElement>('#val-phone');
     phoneEl?.addEventListener('input', () => clearError('phone'));
     phoneEl?.addEventListener('countrychange', () => clearError('phone'));
@@ -1002,6 +1041,10 @@ const brands = [[images.make01, 'BMW'], [images.make02, 'Mercedes-Benz'], [image
             ? fullNumber.slice(prefix.length)
             : (phoneEl?.value || '').replace(/\D/g, ''));
           payload.set('mileage_km', (formFields.mileage.el?.value || '').replace(/[.,\s]/g, ''));
+          const priceValue = (formFields.price.el?.value || '').replace(/[.,\s]/g, '');
+          if (priceValue) {
+            payload.set('expected_selling_price', priceValue);
+          }
 
           const response = await fetch(`${baseUrl.replace(/\/+$/, '')}/car-valuation.php`, {
             method: 'POST',
